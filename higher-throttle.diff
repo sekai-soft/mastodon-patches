@@ -1,0 +1,13 @@
+diff --git a/config/initializers/rack_attack.rb b/config/initializers/rack_attack.rb
+index 3cd7ea3a6..4c05893fc 100644
+--- a/config/initializers/rack_attack.rb
++++ b/config/initializers/rack_attack.rb
+@@ -50,7 +50,7 @@ class Rack::Attack
+     req.remote_ip == '127.0.0.1' || req.remote_ip == '::1'
+   end
+ 
+-  throttle('throttle_authenticated_api', limit: 300, period: 5.minutes) do |req|
++  throttle('throttle_authenticated_api', limit: 1500, period: 5.minutes) do |req|
+     req.authenticated_user_id if req.api_request?
+   end
+ 
