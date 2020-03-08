@@ -1,0 +1,13 @@
+diff --git a/app/lib/feed_manager.rb b/app/lib/feed_manager.rb
+index 13b7aafdf..e07f444d0 100644
+--- a/app/lib/feed_manager.rb
++++ b/app/lib/feed_manager.rb
+@@ -6,7 +6,7 @@ class FeedManager
+   include Singleton
+   include Redisable
+ 
+-  MAX_ITEMS = 400
++  MAX_ITEMS = 4000
+ 
+   # Must be <= MAX_ITEMS or the tracking sets will grow forever
+   REBLOG_FALLOFF = 40
