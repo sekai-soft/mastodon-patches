@@ -8,4 +8,5 @@ git apply /home/mastodon/mastodon-issues/higher-throttle.diff
 git apply -R /home/mastodon/mastodon-issues/higher-feed-count.diff || echo "this is idempotent"
 
 git status
+git diff
 popd
