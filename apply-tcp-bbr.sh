@@ -20,5 +20,8 @@ else
     echo -e "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 fi
 
+echo "applying"
 sysctl -p
-sysctl net.ipv4.tcp_available_congestion_control
+
+echo "net.ipv4.tcp_congestion_control is"
+sysctl net.ipv4.tcp_congestion_control
