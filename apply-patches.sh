@@ -4,7 +4,7 @@ set -e
 if [[ -z "${MASTODON_PATH}" ]]; then
   echo "MASTODON_PATH is undefined"
   exit 1
-else
+fi
 
 pushd "${MASTODON_PATH}"
 
