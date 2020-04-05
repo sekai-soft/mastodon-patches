@@ -6,13 +6,15 @@ if [[ -z "${MASTODON_PATH}" ]]; then
   exit 1
 fi
 
+CURRENT_PWD=$(pwd)
+
 pushd "${MASTODON_PATH}"
 
-git apply -R /home/mastodon/mastodon-issues/higher-throttle.diff || echo "this is idempotent"
-git apply /home/mastodon/mastodon-issues/higher-throttle.diff
+git apply -R "${CURRENT_PWD}/higher-throttle.diff" || echo "this is idempotent"
+git apply "${CURRENT_PWD}/higher-throttle.diff"
 
-git apply -R /home/mastodon/mastodon-issues/higher-feed-count.diff || echo "this is idempotent"
-git apply /home/mastodon/mastodon-issues/higher-feed-count.diff
+git apply -R "${CURRENT_PWD}/higher-feed-count.diff" || echo "this is idempotent"
+git apply "${CURRENT_PWD}/higher-feed-count.diff"
 
 git status
 git diff
