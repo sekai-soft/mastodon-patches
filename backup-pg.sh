@@ -12,8 +12,10 @@ BACKUP_TAR="${DATE}.tar"
 pg_dump -v -f "${PG_BACKUP_ROOT}/${BACKUP_TAR}" -F tar -h /var/run/postgresql -p 5432 -d mastodon_production -U mastodon
 ls -alh "${PG_BACKUP_ROOT}"
 
+pushd "${PG_BACKUP_ROOT}"
 for f in *; do
   if [ "${f}" != "${BACKUP_TAR}" ]; then
     rm ${f}
   fi
 done
+popd
