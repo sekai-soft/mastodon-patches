@@ -17,16 +17,18 @@ sudo systemctl stop mastodon-sidekiq
     1. Check upgrade notes if there are extra steps
   
     2. Undo custom patches: `git checkout -- .`
+    
+    3. Switch to new version `git pull` and `git checkout vx.x.x`
   
-    3. Install dependencies
+    4. Install dependencies
   
-    4. Run database migrations
+    5. Run database migrations
   
-    5. Precompile the assets
+    6. Precompile the assets
   
-    6. Apply custom patches
+    7. Apply custom patches
   
-    7. Start all processes
+    8. Start all processes
   
     ```bash
     sudo systemctl start mastodon-web
