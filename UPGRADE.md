@@ -14,24 +14,24 @@ sudo systemctl stop mastodon-sidekiq
 
 4. Follow upgrade notes and apply custom patches. Usually
 
-  1. Check upgrade notes if there are extra steps
+    1. Check upgrade notes if there are extra steps
   
-  2. Undo custom patches: `git checkout -- .`
+    2. Undo custom patches: `git checkout -- .`
   
-  3. Install dependencies
+    3. Install dependencies
   
-  4. Run database migrations
+    4. Run database migrations
   
-  5. Precompile the assets
+    5. Precompile the assets
   
-  6. Apply custom patches
+    6. Apply custom patches
   
-  7. Start all processes
+    7. Start all processes
   
-  ```bash
-  sudo systemctl start mastodon-web
-  sudo systemctl start mastodon-streaming
-  sudo systemctl start mastodon-sidekiq
-  ```
+    ```bash
+    sudo systemctl start mastodon-web
+    sudo systemctl start mastodon-streaming
+    sudo systemctl start mastodon-sidekiq
+    ```
   
 5. Verify!
