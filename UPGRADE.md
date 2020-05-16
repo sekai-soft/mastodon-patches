@@ -1,6 +1,6 @@
 # Runbook for upgrading Mastodon version
 
-1. Test locally if custom patches still work
+1. Test locally if custom patches won't break Ruby syntax
 
 2. Stop all processes
 
