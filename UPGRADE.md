@@ -2,12 +2,12 @@
 
 1. Test locally if custom patches won't break Ruby syntax
 
-2. Stop all processes
+2. Stop all processes (under root)
 
 ```bash
-sudo systemctl stop mastodon-web
-sudo systemctl stop mastodon-streaming
-sudo systemctl stop mastodon-sidekiq
+systemctl stop mastodon-web
+systemctl stop mastodon-streaming
+systemctl stop mastodon-sidekiq
 ```
 
 3. Backup postgres
@@ -19,21 +19,21 @@ sudo systemctl stop mastodon-sidekiq
     2. Undo custom patches: `git checkout -- .`
     
     3. Switch to new version `git pull` and `git checkout vx.x.x`
+    
+    4. Apply custom patches
   
-    4. Install dependencies
+    5. Install dependencies
   
-    5. Run database migrations
+    6. Run database migrations
   
-    6. Precompile the assets
+    7. Precompile the assets
   
-    7. Apply custom patches
-  
-    8. Start all processes
+    8. Start all processes (under root)
   
     ```bash
-    sudo systemctl start mastodon-web
-    sudo systemctl start mastodon-streaming
-    sudo systemctl start mastodon-sidekiq
+    systemctl start mastodon-web
+    systemctl start mastodon-streaming
+    systemctl start mastodon-sidekiq
     ```
   
 5. Verify!
