@@ -19,6 +19,8 @@
     5. Install dependencies
   
     6. Run database migrations
+    
+        * Use a different port to avoid pgBouncer, see https://docs.joinmastodon.org/admin/scaling/#pgbouncer (You cannot use pgBouncer to perform...)
   
     7. Precompile the assets
   
