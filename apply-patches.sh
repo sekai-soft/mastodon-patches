@@ -16,6 +16,9 @@ git apply "${CURRENT_PWD}/higher-throttle.diff"
 git apply -R "${CURRENT_PWD}/higher-feed-count.diff" || echo "this is idempotent"
 git apply "${CURRENT_PWD}/higher-feed-count.diff"
 
+git apply -R "${CURRENT_PWD}/pixiv-preview-with-embed-url.diff" || echo "this is idempotent"
+git apply "${CURRENT_PWD}/pixiv-preview-with-embed-url.diff"
+
 git status
 git diff
 
