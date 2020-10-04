@@ -9,6 +9,8 @@ fi
 CURRENT_PWD=$(pwd)
 
 pushd /etc/nginx/sites-available
-patch -N -r- -i "${CURRENT_PWD}/nginx-legacy-assets.patch"
-nginx -t
+patch -N -r- -i "${CURRENT_PWD}/nginx-legacy-assets.patch" || echo "this is idempotent"
 popd
+
+nginx -t
+systemctl reload nginx
