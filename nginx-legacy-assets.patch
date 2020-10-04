@@ -1,0 +1,13 @@
+--- mastodon.ktachibana.party   2020-10-04 01:45:33.773536388 +0000
++++ mastodon.ktachibana.party.bak       2020-10-04 01:44:46.957178640 +0000
+@@ -62,6 +62,10 @@
+     try_files $uri @proxy;
+   }
+ 
++  location /system {
++    rewrite ^/system(.*) https://mastodon-s3.ktachibana.party$1 permanent;
++  }
++
+   location /sw.js {
+     add_header Cache-Control "public, max-age=0";
+     add_header Strict-Transport-Security "max-age=31536000";
