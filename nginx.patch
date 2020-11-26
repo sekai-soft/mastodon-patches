@@ -1,0 +1,18 @@
+40,47d39
+<   if ($http_user_agent ~* "hello.2heng.xin") {
+<     return 403;
+<   }
+< 
+<   if ($http_user_agent ~* "hello-cdn.2heng.xin") {
+<     return 403;
+<   }
+< 
+82c74
+<   location ~ ^/(emoji|packs) {
+---
+>   location ~ ^/(emoji|packs|system/accounts/avatars|system/media_attachments/files) {
+86,89d77
+<   }
+< 
+<   location /system {
+<     rewrite ^/system(.*) https://mastodon-s3.ktachibana.party$1 permanent;
