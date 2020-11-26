@@ -14,7 +14,7 @@ if [ ! -f /etc/nginx/sites-available/mastodon.init ]; then
 fi
 
 cp /etc/nginx/sites-available/mastodon.init /etc/nginx/sites-available/mastodon
-patch -N -r- /etc/nginx/sites-available/mastodon "${CURRENT_PWD}/nginx.patch" || echo "this is idempotent"
+patch -N -r- /etc/nginx/sites-available/mastodon nginx.patch || echo "this is idempotent"
 
 nginx -t
 systemctl reload nginx
