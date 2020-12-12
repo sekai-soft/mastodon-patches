@@ -6,11 +6,11 @@ index c1053f6..1b93027 100644
  }
  
  server {
-+  if ($http_user_agent ~* "hello.2heng.xin") {
++  if ($http_user_agent ~* "*.2heng.xin") {
 +     return 403;
 +  }
 +
-+  if ($http_user_agent ~* "hello-cdn.2heng.xin") {
++  if ($http_user_agent ~* "*.mastodonhub.xin") {
 +     return 403;
 +  }
 +
