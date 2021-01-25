@@ -1,0 +1,35 @@
+diff --git a/app/javascript/mastodon/features/compose/components/compose_form.js b/app/javascript/mastodon/features/compose/components/compose_form.js
+index 8af806ec4..cc4ae8ed2 100644
+--- a/app/javascript/mastodon/features/compose/components/compose_form.js
++++ b/app/javascript/mastodon/features/compose/components/compose_form.js
+@@ -86,7 +86,7 @@ class ComposeForm extends ImmutablePureComponent {
+     const fulltext = this.getFulltextForCharacterCounting();
+     const isOnlyWhitespace = fulltext.length !== 0 && fulltext.trim().length === 0;
+ 
+-    return !(isSubmitting || isUploading || isChangingUpload || length(fulltext) > 500 || (isOnlyWhitespace && !anyMedia));
++    return !(isSubmitting || isUploading || isChangingUpload || length(fulltext) > 5000 || (isOnlyWhitespace && !anyMedia));
+   }
+ 
+   handleSubmit = () => {
+@@ -249,7 +249,7 @@ class ComposeForm extends ImmutablePureComponent {
+             <PrivacyDropdownContainer />
+             <SpoilerButtonContainer />
+           </div>
+-          <div className='character-counter__wrapper'><CharacterCounter max={500} text={this.getFulltextForCharacterCounting()} /></div>
++          <div className='character-counter__wrapper'><CharacterCounter max={5000} text={this.getFulltextForCharacterCounting()} /></div>
+         </div>
+ 
+         <div className='compose-form__publish'>
+diff --git a/app/validators/status_length_validator.rb b/app/validators/status_length_validator.rb
+index 93bae2fa8..6bb0c61ae 100644
+--- a/app/validators/status_length_validator.rb
++++ b/app/validators/status_length_validator.rb
+@@ -1,7 +1,7 @@
+ # frozen_string_literal: true
+ 
+ class StatusLengthValidator < ActiveModel::Validator
+-  MAX_CHARS = 500
++  MAX_CHARS = 5000
+ 
+   def validate(status)
+     return unless status.local? && !status.reblog?
