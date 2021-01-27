@@ -1,0 +1,90 @@
+diff --git a/app/javascript/mastodon/actions/compose.js b/app/javascript/mastodon/actions/compose.js
+index 891403969..052faab6e 100644
+--- a/app/javascript/mastodon/actions/compose.js
++++ b/app/javascript/mastodon/actions/compose.js
+@@ -206,7 +206,7 @@ export function submitComposeFail(error) {
+ 
+ export function uploadCompose(files) {
+   return function (dispatch, getState) {
+-    const uploadLimit = 4;
++    const uploadLimit = 40;
+     const media  = getState().getIn(['compose', 'media_attachments']);
+     const pending  = getState().getIn(['compose', 'pending_media_attachments']);
+     const progress = new Array(files.length).fill(0);
+@@ -225,7 +225,7 @@ export function uploadCompose(files) {
+     dispatch(uploadComposeRequest());
+ 
+     for (const [i, f] of Array.from(files).entries()) {
+-      if (media.size + i > 3) break;
++      if (media.size + i > 39) break;
+ 
+       resizeImage(f).then(file => {
+         const data = new FormData();
+diff --git a/app/javascript/mastodon/components/media_gallery.js b/app/javascript/mastodon/components/media_gallery.js
+index 0a8f42585..2cd651d39 100644
+--- a/app/javascript/mastodon/components/media_gallery.js
++++ b/app/javascript/mastodon/components/media_gallery.js
+@@ -329,13 +329,13 @@ class MediaGallery extends React.PureComponent {
+       style.height = height;
+     }
+ 
+-    const size     = media.take(4).size;
++    const size     = media.take(40).size;
+     const uncached = media.every(attachment => attachment.get('type') === 'unknown');
+ 
+     if (standalone && this.isFullSizeEligible()) {
+       children = <Item standalone autoplay={autoplay} onClick={this.handleClick} attachment={media.get(0)} displayWidth={width} visible={visible} />;
+     } else {
+-      children = media.take(4).map((attachment, i) => <Item key={attachment.get('id')} autoplay={autoplay} onClick={this.handleClick} attachment={attachment} index={i} size={size} displayWidth={width} visible={visible || uncached} />);
++      children = media.take(40).map((attachment, i) => <Item key={attachment.get('id')} autoplay={autoplay} onClick={this.handleClick} attachment={attachment} index={i} size={size} displayWidth={width} visible={visible || uncached} />);
+     }
+ 
+     if (uncached) {
+diff --git a/app/javascript/mastodon/features/compose/containers/upload_button_container.js b/app/javascript/mastodon/features/compose/containers/upload_button_container.js
+index 221b98e31..744a8a36d 100644
+--- a/app/javascript/mastodon/features/compose/containers/upload_button_container.js
++++ b/app/javascript/mastodon/features/compose/containers/upload_button_container.js
+@@ -3,7 +3,7 @@ import UploadButton from '../components/upload_button';
+ import { uploadCompose } from '../../../actions/compose';
+ 
+ const mapStateToProps = state => ({
+-  disabled: state.getIn(['compose', 'is_uploading']) || (state.getIn(['compose', 'media_attachments']).size + state.getIn(['compose', 'pending_media_attachments']) > 3 || state.getIn(['compose', 'media_attachments']).some(m => ['video', 'audio'].includes(m.get('type')))),
++  disabled: state.getIn(['compose', 'is_uploading']) || (state.getIn(['compose', 'media_attachments']).size + state.getIn(['compose', 'pending_media_attachments']) > 39 || state.getIn(['compose', 'media_attachments']).some(m => ['video', 'audio'].includes(m.get('type')))),
+   unavailable: state.getIn(['compose', 'poll']) !== null,
+   resetFileKey: state.getIn(['compose', 'resetFileKey']),
+ });
+diff --git a/app/lib/activitypub/activity/create.rb b/app/lib/activitypub/activity/create.rb
+index 612744676..6ef44dda1 100644
+--- a/app/lib/activitypub/activity/create.rb
++++ b/app/lib/activitypub/activity/create.rb
+@@ -115,7 +115,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
+         visibility: visibility_from_audience,
+         thread: replied_to_status,
+         conversation: conversation_from_uri(@object['conversation']),
+-        media_attachment_ids: process_attachments.take(4).map(&:id),
++        media_attachment_ids: process_attachments.take(40).map(&:id),
+         poll: process_poll,
+       }
+     end
+@@ -238,7 +238,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
+     media_attachments = []
+ 
+     as_array(@object['attachment']).each do |attachment|
+-      next if attachment['url'].blank? || media_attachments.size >= 4
++      next if attachment['url'].blank? || media_attachments.size >= 40
+ 
+       begin
+         href             = Addressable::URI.parse(attachment['url']).normalize.to_s
+diff --git a/app/services/post_status_service.rb b/app/services/post_status_service.rb
+index 0a383d6a3..aecdead48 100644
+--- a/app/services/post_status_service.rb
++++ b/app/services/post_status_service.rb
+@@ -99,7 +99,7 @@ class PostStatusService < BaseService
+ 
+     raise Mastodon::ValidationError, I18n.t('media_attachments.validations.too_many') if @options[:media_ids].size > 4 || @options[:poll].present?
+ 
+-    @media = @account.media_attachments.where(status_id: nil).where(id: @options[:media_ids].take(4).map(&:to_i))
++    @media = @account.media_attachments.where(status_id: nil).where(id: @options[:media_ids].take(40).map(&:to_i))
+ 
+     raise Mastodon::ValidationError, I18n.t('media_attachments.validations.images_and_video') if @media.size > 1 && @media.find(&:audio_or_video?)
+     raise Mastodon::ValidationError, I18n.t('media_attachments.validations.not_ready') if @media.any?(&:not_processed?)

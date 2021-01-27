@@ -25,6 +25,8 @@ git apply "${CURRENT_PWD}/higher-preview-size-limit.diff"
 git apply -R "${CURRENT_PWD}/higher-status-char-limit.diff" || echo "this is idempotent"
 git apply "${CURRENT_PWD}/higher-status-char-limit.diff"
 
+git apply -R "${CURRENT_PWD}/higher-media-count-limit.diff" || echo "this is idempotent"
+git apply "${CURRENT_PWD}/higher-media-count-limit.diff"
 
 git status
 git diff
