@@ -21,7 +21,7 @@ index 891403969..0d6646b58 100644
        resizeImage(f).then(file => {
          const data = new FormData();
 diff --git a/app/javascript/mastodon/components/media_gallery.js b/app/javascript/mastodon/components/media_gallery.js
-index 0a8f42585..508b3a11b 100644
+index 0a8f42585..a1b099eb4 100644
 --- a/app/javascript/mastodon/components/media_gallery.js
 +++ b/app/javascript/mastodon/components/media_gallery.js
 @@ -92,7 +92,7 @@ class Item extends React.PureComponent {
@@ -29,7 +29,7 @@ index 0a8f42585..508b3a11b 100644
      }
  
 -    if (size === 4 || (size === 3 && index > 0)) {
-+    if (size >= 16 || (size === 15 && index > 0)) {
++    if (size >= 4 || (size === 3 && index > 0)) {
        height = 50;
      }
  
