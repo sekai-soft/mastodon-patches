@@ -21,9 +21,34 @@ index 891403969..052faab6e 100644
        resizeImage(f).then(file => {
          const data = new FormData();
 diff --git a/app/javascript/mastodon/components/media_gallery.js b/app/javascript/mastodon/components/media_gallery.js
-index 0a8f42585..2cd651d39 100644
+index 0a8f42585..c0b1543f3 100644
 --- a/app/javascript/mastodon/components/media_gallery.js
 +++ b/app/javascript/mastodon/components/media_gallery.js
+@@ -92,7 +92,7 @@ class Item extends React.PureComponent {
+       width = 100;
+     }
+ 
+-    if (size === 4 || (size === 3 && index > 0)) {
++    if (size >= 4 || (size === 3 && index > 0)) {
+       height = 50;
+     }
+ 
+@@ -114,12 +114,12 @@ class Item extends React.PureComponent {
+       } else if (index > 1) {
+         top = '2px';
+       }
+-    } else if (size === 4) {
+-      if (index === 0 || index === 2) {
++    } else if (size >= 4) {
++      if (index % 2 === 0) {
+         right = '2px';
+       }
+ 
+-      if (index === 1 || index === 3) {
++      if (index % 2 === 1) {
+         left = '2px';
+       }
+ 
 @@ -329,13 +329,13 @@ class MediaGallery extends React.PureComponent {
        style.height = height;
      }
