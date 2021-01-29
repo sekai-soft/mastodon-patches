@@ -10,23 +10,11 @@ CURRENT_PWD=$(pwd)
 
 pushd "${MASTODON_PATH}"
 
-git apply -R "${CURRENT_PWD}/higher-throttle.diff" || echo "this is idempotent"
-git apply "${CURRENT_PWD}/higher-throttle.diff"
+git checkout -- .
 
-git apply -R "${CURRENT_PWD}/higher-feed-count.diff" || echo "this is idempotent"
-git apply "${CURRENT_PWD}/higher-feed-count.diff"
-
-git apply -R "${CURRENT_PWD}/pixiv-preview-with-embed-url.diff" || echo "this is idempotent"
-git apply "${CURRENT_PWD}/pixiv-preview-with-embed-url.diff"
-
-git apply -R "${CURRENT_PWD}/higher-preview-size-limit.diff" || echo "this is idempotent"
-git apply "${CURRENT_PWD}/higher-preview-size-limit.diff"
-
-git apply -R "${CURRENT_PWD}/higher-status-char-limit.diff" || echo "this is idempotent"
-git apply "${CURRENT_PWD}/higher-status-char-limit.diff"
-
-git apply -R "${CURRENT_PWD}/higher-media-count-limit.diff" || echo "this is idempotent"
-git apply "${CURRENT_PWD}/higher-media-count-limit.diff"
+for filename in "${CURRENT_PWD}"/code-patches/*.diff; do
+  git apply "${filename}"
+done
 
 git status
 git diff
