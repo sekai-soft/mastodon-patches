@@ -13,7 +13,9 @@ pushd "${MASTODON_PATH}"
 echo "Recompiling assets..."
 RAILS_ENV=production bundle exec rails assets:precompile
 
-echo "Restarting Mastodon processes"
+echo "Restarting Mastodon processes..."
 sudo systemctl restart mastodon-web mastodon-streaming mastodon-sidekiq
 
 popd
+
+echo "Successfully applied code patches and restarted!"

@@ -13,3 +13,5 @@ nginx -t
 
 echo "Reloading nginx..."
 systemctl reload nginx
+
+echo "Successfully applied nginx patches and restarted!"
