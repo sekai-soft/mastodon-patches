@@ -8,5 +8,8 @@ fi
 
 patch -N -r- /etc/nginx/sites-available/mastodon nginx.patch || echo "this is idempotent"
 
+echo "Checking nginx syntax..."
 nginx -t
+
+echo "Reloading nginx..."
 systemctl reload nginx
