@@ -32,7 +32,7 @@ RAILS_ENV=development nf start
 
 ## Develop a new feature
 ```
-# in Mastodon path
+# In Mastodon path
 git checkout -- .  # reset code state
 # Changde code and test
 git diff > ~/Downloads/xyz.diff  # generate the feature diff and put it into code-patches
