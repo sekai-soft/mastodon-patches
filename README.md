@@ -1,6 +1,6 @@
 Please file issues about [my Mastodon instance, mastodon.ktachibana.party](https://mastodon.ktachibana.party) here as GitHub issues
 
-## Develop Mastodon on macOS
+## Run development Mastodon on macOS
 
 1. Install Node.js 12 (recommends `asdf` with `lts-Erbium` or `nvm`), ruby 2.7 (recommends `asdf`), yarn and Postgres
 
@@ -29,6 +29,14 @@ RAILS_ENV=development nf start
 ```
 
 7. Go to [`localhost:5000`](localhost:5000), use username `admin@localhost:3000` and password `mastodonadmin`
+
+## Develop a new feature
+```
+# in Mastodon path
+git checkout -- .  # reset code state
+# Changde code and test
+git diff > ~/Downloads/xyz.diff  # generate the feature diff and put it into code-patches
+```
 
 ## Production upgrade runbook
 
