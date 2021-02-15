@@ -28,7 +28,7 @@ RAILS_ENV=development bundle exec rails db:setup
 RAILS_ENV=development nf start
 ```
 
-7. Go to [`localhost:5000`](localhost:5000), use username `admin@localhost:3000` and password `mastodonadmin`
+7. Go to [`localhost:5000`](http://localhost:5000), use username `admin@localhost:3000` and password `mastodonadmin`
 
 ## Develop a new feature
 ```
@@ -42,7 +42,11 @@ git diff > ~/Downloads/xyz.diff  # generate the feature diff and put it into cod
 
 1. In development environment, apply code patches and inspect the diff
 
-2. Stop all processes: `sudo systemctl stop mastodon-web mastodon-streaming mastodon-sidekiq`
+2. Stop all processes
+
+```
+sudo systemctl stop mastodon-web mastodon-streaming mastodon-sidekiq
+```
 
 3. Backup postgres
 
@@ -50,9 +54,18 @@ git diff > ~/Downloads/xyz.diff  # generate the feature diff and put it into cod
 
     1. Check upgrade notes if there are extra steps
 
-    2. Undo code patches: `git checkout -- .`
+    2. Undo code patches
 
-    3. Switch to new version: `git pull` and `git checkout vx.x.x`
+    ```
+    git checkout -- .
+    ```
+
+    3. Switch to new version
+
+    ```
+    git pull
+    git checkout vx.x.x
+    ```
 
     4. Apply code patches (**DO NOT use the -restart script**)
 
@@ -64,6 +77,10 @@ git diff > ~/Downloads/xyz.diff  # generate the feature diff and put it into cod
 
     7. Precompile the assets
 
-    8. Start all processes: `sudo systemctl start mastodon-web mastodon-streaming mastodon-sidekiq`
+    8. Start all processes
+
+    ```
+    sudo systemctl start mastodon-web mastodon-streaming mastodon-sidekiq
+    ```
 
 5. Verify
