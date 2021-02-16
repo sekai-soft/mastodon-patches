@@ -1,0 +1,2055 @@
+diff --git a/app/javascript/styles/clean_slate.scss b/app/javascript/styles/clean_slate.scss
+new file mode 100644
+index 000000000..710b4ba02
+--- /dev/null
++++ b/app/javascript/styles/clean_slate.scss
+@@ -0,0 +1,16 @@
++@import 'application';
++
++@import 'mfc/mastodonFlat';
++@import 'clean_slate/palette';
++
++@import 'mods/display_breakname';
++@import 'mods/display_fullname';
++@import 'mods/display_browserfont';
++@import 'mods/display_circleavatar';
++@import 'mods/display_collapsedinteractions';
++@import 'mods/display_fadedinteractions';
++@import 'mods/display_transparentmedia';
++@import 'mods/layout_1600px';
++@import 'mods/layout_elefriend';
++@import 'mods/layout_widercolumns';
++@import 'mods/layout_mobile_bottombar';
+diff --git a/app/javascript/styles/clean_slate/palette.scss b/app/javascript/styles/clean_slate/palette.scss
+new file mode 100644
+index 000000000..d62078ef8
+--- /dev/null
++++ b/app/javascript/styles/clean_slate/palette.scss
+@@ -0,0 +1,59 @@
++/*------------------------------------------------------------------------------
++* DEFINE COLOR PALETTE
++*
++* Choose the CSS Variables that will be applied to recolor elements.
++* The current format is to use hex codes, e.g. #00FF00.
++*
++* A future refactor to use rgb() instead may allow transparency mods
++* via using these variables with rgba(). Hex codes currently do not
++* work with rgba(), so no transparency mods are included except for
++* those defined in absolute terms (i.e., non-variable colors).
++*
++* Foreground Colors:
++*            --bg: | Background for foreground elements.
++*          --text: | A color that stands out against bg.
++*      --textBold: | A color that stands out strongly against bg.
++*     --textMuted: | A color that stands out slightly against bg.
++*
++* Background Colors:
++*        --bgPage: | Background for non-foreground elements.
++*      --textPage: | A color that stands out against bgPage.
++*  --textPageBold: | A color that stands out strongly against bgPage.
++* --textPageMuted: | A color that stands out slightly against bgPage.
++*
++* Highlights Colors:
++*        --bgHead: | Background for column headers.
++*      --textHead: | A color that stands out (strongly) against bgHead.
++*        --accent: | An accent color for links and buttons.
++*    --accentText: | A color that stands out (strongly) against accent.
++*
++* Palette advisories for choosing colors:
++*   - Consider using an off-white or off-black for text tones,
++*     but not necessary as long as there is sufficient contrast.
++*   - Bold colors are highly recommended to be strong colors,
++*     like pure white or pure black.
++*   - Muted colors can be off-grey or any mid-tone with slight contrast.
++*   - It might be best to base the background palette on a slightly
++*     darker or lighter version of the foreground palette, but
++*     this is no longer strictly necessary; you may use mixed palettes.
++*     It is now possible to use a dark bgPage and light bg, or vice-versa.
++------------------------------------------------------------------------------*/
++
++/* clean slate */
++
++:root {
++  --bg: #fff;
++  --text: #123;
++  --textBold: #000;
++  --textMuted: #666;
++
++  --bgPage: #ddd;
++  --textPage: var(--text);
++  --textPageBold: var(--textBold);
++  --textPageMuted: var(--textMuted);
++
++  --bgHead: #333;
++  --textHead: #fff;
++  --accent: #09f;
++  --accentText: var(--textHead);
++}
+diff --git a/app/javascript/styles/droid.scss b/app/javascript/styles/droid.scss
+new file mode 100644
+index 000000000..df946e596
+--- /dev/null
++++ b/app/javascript/styles/droid.scss
+@@ -0,0 +1,16 @@
++@import 'application';
++
++@import 'mfc/mastodonFlat';
++@import 'droid/palette';
++
++@import 'mods/display_breakname';
++@import 'mods/display_fullname';
++@import 'mods/display_browserfont';
++@import 'mods/display_circleavatar';
++@import 'mods/display_collapsedinteractions';
++@import 'mods/display_fadedinteractions';
++@import 'mods/display_transparentmedia';
++@import 'mods/layout_1600px';
++@import 'mods/layout_elefriend';
++@import 'mods/layout_widercolumns';
++@import 'mods/layout_mobile_bottombar';
+diff --git a/app/javascript/styles/droid/palette.scss b/app/javascript/styles/droid/palette.scss
+new file mode 100644
+index 000000000..6786644ae
+--- /dev/null
++++ b/app/javascript/styles/droid/palette.scss
+@@ -0,0 +1,60 @@
++/*------------------------------------------------------------------------------
++* DEFINE COLOR PALETTE
++*
++* Choose the CSS Variables that will be applied to recolor elements.
++* The current format is to use hex codes, e.g. #00FF00.
++*
++* A future refactor to use rgb() instead may allow transparency mods
++* via using these variables with rgba(). Hex codes currently do not
++* work with rgba(), so no transparency mods are included except for
++* those defined in absolute terms (i.e., non-variable colors).
++*
++* Foreground Colors:
++*            --bg: | Background for foreground elements.
++*          --text: | A color that stands out against bg.
++*      --textBold: | A color that stands out strongly against bg.
++*     --textMuted: | A color that stands out slightly against bg.
++*
++* Background Colors:
++*        --bgPage: | Background for non-foreground elements.
++*      --textPage: | A color that stands out against bgPage.
++*  --textPageBold: | A color that stands out strongly against bgPage.
++* --textPageMuted: | A color that stands out slightly against bgPage.
++*
++* Highlights Colors:
++*        --bgHead: | Background for column headers.
++*      --textHead: | A color that stands out (strongly) against bgHead.
++*        --accent: | An accent color for links and buttons.
++*    --accentText: | A color that stands out (strongly) against accent.
++*
++* Palette advisories for choosing colors:
++*   - Consider using an off-white or off-black for text tones,
++*     but not necessary as long as there is sufficient contrast.
++*   - Bold colors are highly recommended to be strong colors,
++*     like pure white or pure black.
++*   - Muted colors can be off-grey or any mid-tone with slight contrast.
++*   - It might be best to base the background palette on a slightly
++*     darker or lighter version of the foreground palette, but
++*     this is no longer strictly necessary; you may use mixed palettes.
++*     It is now possible to use a dark bgPage and light bg, or vice-versa.
++------------------------------------------------------------------------------*/
++
++/* droid */
++
++:root {
++  --bg: #222;
++  --text: #ddd;
++  --textBold: #fff;
++  --textMuted: #777;
++
++  --bgPage: #111;
++  --textPage: var(--text);
++  --textPageBold: var(--textBold);
++  --textPageMuted: var(--textMuted);
++
++  --bgHead: #333;
++  --textHead: var(--textBold);
++  --accent: #a4c639;
++  --accentText: var(--textHead);
++}
++
+diff --git a/app/javascript/styles/flamingo.scss b/app/javascript/styles/flamingo.scss
+new file mode 100644
+index 000000000..dea4c5598
+--- /dev/null
++++ b/app/javascript/styles/flamingo.scss
+@@ -0,0 +1,16 @@
++@import 'application';
++
++@import 'mfc/mastodonFlat';
++@import 'flamingo/palette';
++
++@import 'mods/display_breakname';
++@import 'mods/display_fullname';
++@import 'mods/display_browserfont';
++@import 'mods/display_circleavatar';
++@import 'mods/display_collapsedinteractions';
++@import 'mods/display_fadedinteractions';
++@import 'mods/display_transparentmedia';
++@import 'mods/layout_1600px';
++@import 'mods/layout_elefriend';
++@import 'mods/layout_widercolumns';
++@import 'mods/layout_mobile_bottombar';
+diff --git a/app/javascript/styles/flamingo/palette.scss b/app/javascript/styles/flamingo/palette.scss
+new file mode 100644
+index 000000000..4bb205baa
+--- /dev/null
++++ b/app/javascript/styles/flamingo/palette.scss
+@@ -0,0 +1,59 @@
++/*------------------------------------------------------------------------------
++* DEFINE COLOR PALETTE
++*
++* Choose the CSS Variables that will be applied to recolor elements.
++* The current format is to use hex codes, e.g. #00FF00.
++*
++* A future refactor to use rgb() instead may allow transparency mods
++* via using these variables with rgba(). Hex codes currently do not
++* work with rgba(), so no transparency mods are included except for
++* those defined in absolute terms (i.e., non-variable colors).
++*
++* Foreground Colors:
++*            --bg: | Background for foreground elements.
++*          --text: | A color that stands out against bg.
++*      --textBold: | A color that stands out strongly against bg.
++*     --textMuted: | A color that stands out slightly against bg.
++*
++* Background Colors:
++*        --bgPage: | Background for non-foreground elements.
++*      --textPage: | A color that stands out against bgPage.
++*  --textPageBold: | A color that stands out strongly against bgPage.
++* --textPageMuted: | A color that stands out slightly against bgPage.
++*
++* Highlights Colors:
++*        --bgHead: | Background for column headers.
++*      --textHead: | A color that stands out (strongly) against bgHead.
++*        --accent: | An accent color for links and buttons.
++*    --accentText: | A color that stands out (strongly) against accent.
++*
++* Palette advisories for choosing colors:
++*   - Consider using an off-white or off-black for text tones,
++*     but not necessary as long as there is sufficient contrast.
++*   - Bold colors are highly recommended to be strong colors,
++*     like pure white or pure black.
++*   - Muted colors can be off-grey or any mid-tone with slight contrast.
++*   - It might be best to base the background palette on a slightly
++*     darker or lighter version of the foreground palette, but
++*     this is no longer strictly necessary; you may use mixed palettes.
++*     It is now possible to use a dark bgPage and light bg, or vice-versa.
++------------------------------------------------------------------------------*/
++
++/* flamingo */
++
++:root {
++  --bg: #222;
++  --text: #ddd;
++  --textBold: #fff;
++  --textMuted: #777;
++
++  --bgPage: #111;
++  --textPage: var(--text);
++  --textPageBold: var(--textBold);
++  --textPageMuted: var(--textMuted);
++
++  --bgHead: #333;
++  --textHead: var(--textBold);
++  --accent: #f09;
++  --accentText: var(--textHead);
++}
+diff --git a/app/javascript/styles/linernotes_dark.scss b/app/javascript/styles/linernotes_dark.scss
+new file mode 100644
+index 000000000..7140bb302
+--- /dev/null
++++ b/app/javascript/styles/linernotes_dark.scss
+@@ -0,0 +1,17 @@
++@import 'application';
++
++@import 'mfc/mastodonFlat';
++@import 'linernotes_dark/palette';
++@import 'linernotes_dark/overrides';
++
++@import 'mods/display_breakname';
++@import 'mods/display_fullname';
++@import 'mods/display_browserfont';
++@import 'mods/display_circleavatar';
++@import 'mods/display_collapsedinteractions';
++@import 'mods/display_fadedinteractions';
++@import 'mods/display_transparentmedia';
++@import 'mods/layout_1600px';
++@import 'mods/layout_elefriend';
++@import 'mods/layout_widercolumns';
++@import 'mods/layout_mobile_bottombar';
+diff --git a/app/javascript/styles/linernotes_dark/overrides.scss b/app/javascript/styles/linernotes_dark/overrides.scss
+new file mode 100644
+index 000000000..bcbdcf6cd
+--- /dev/null
++++ b/app/javascript/styles/linernotes_dark/overrides.scss
+@@ -0,0 +1,15 @@
++/*---------
++MISC TWEAKS
++---------*/
++
++/* replace elephant friend with vinyl */
++.drawer__inner__mastodon {background: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='iso-8859-1'%3F%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 488.2 488.2' style='enable-background:new 0 0 488.2 488.2;' xml:space='preserve'%3E%3Ccircle style='fill:%232A3332;' cx='244.1' cy='244.2' r='244'/%3E%3Cpath style='fill:%23121C1B;' d='M71.3,71.4c95.2-95.2,249.6-95.2,344.8,0s95.2,249.6,0,344.8'/%3E%3Ccircle style='fill:%23F74D19;' cx='244.1' cy='244.2' r='104.8'/%3E%3Cpath style='fill:%23FF7A17;' d='M139.3,244.2c0-57.6,47.2-104.8,104.8-104.8s104.8,47.2,104.8,104.8'/%3E%3Cpath style='fill:%23E0360E;' d='M263.3,229l-36.8,36.8l69.6,69.6c8-4.8,15.2-10.4,22.4-16.8c5.6-5.6,11.2-12.8,15.2-19.2L263.3,229z' /%3E%3Ccircle style='fill:%23D3DEE2;' cx='244.1' cy='244.2' r='29.6'/%3E%3Cpath style='fill:%23EBF0F2;' d='M244.1,273.8c-16,0-29.6-13.6-29.6-29.6s12.8-29.6,29.6-29.6'/%3E%3Cg%3E%3Cpath style='fill:%23726C6A;' d='M244.1,448.2c-112.8,0-204-91.2-204-204c0-4,3.2-8,8-8c4,0,8,3.2,8,8c-0.8,104,84,188.8,188,188.8 c4,0,8,3.2,8,8C252.1,445,248.1,448.2,244.1,448.2z'/%3E%3Cpath style='fill:%23726C6A;' d='M440.9,252.2c-4,0-8-3.2-8-8c0-104-84.8-188.8-188.8-188.8c-4,0-8-3.2-8-8c0-4,3.2-8,8-8 c112.8,0,204,92,204,204C448.1,248.2,444.9,252.2,440.9,252.2z'/%3E%3Cpath style='fill:%23726C6A;' d='M244.1,401c-86.4,0-156.8-70.4-156.8-156.8c0-4,3.2-8,8-8c4,0,8,3.2,8,8 c0,77.6,63.2,141.6,141.6,141.6c4,0,8,3.2,8,8C252.1,397.8,248.1,401,244.1,401z'/%3E%3Cpath style='fill:%23726C6A;' d='M392.9,252.2c-4,0-8-3.2-8-8c0-77.6-63.2-141.6-141.6-141.6c-4,0-8-3.2-8-8c0-4,3.2-8,8-8 c86.4,0,156.8,70.4,156.8,156.8C400.9,248.2,397.7,252.2,392.9,252.2z'/%3E%3C/g%3E%3C/svg%3E%0A") no-repeat bottom center / contain !important;}
++.drawer__inner__mastodon > img {display: none;}
++
++/* repeating musical notes in background */
++.columns-area {background: url("data:image/svg+xml,%3Csvg version='1.0' xmlns='http://www.w3.org/2000/svg' width='75.000000pt' height='100.000000pt' viewBox='0 0 456.000000 599.000000' preserveAspectRatio='xMidYMid meet'%3E%3Cg transform='translate%280.000000,599.000000%29 scale%280.100000,-0.100000%29' fill='%2300000022' stroke='none'%3E%3Cpath d='M2261 5576 c-51 -226 -189 -845 -306 -1376 -254 -1146 -404 -1813 -410 -1819 -3 -2 -40 18 -82 45 -133 83 -256 142 -380 183 -149 50 -254 65 -397 58 -197 -9 -328 -66 -461 -201 -128 -129 -193 -275 -217 -484 -28 -253 33 -443 192 -603 108 -108 221 -176 365 -222 341 -107 706 -24 1038 237 154 120 139 89 213 442 35 170 78 370 94 444 285 1311 472 2165 475 2168 3 4 1446 -1016 1495 -1056 20 -17 20 -18 -134 -712 -198 -890 -315 -1402 -320 -1408 -3 -2 -45 20 -93 51 -397 248 -767 304 -1063 161 -113 -55 -232 -178 -294 -305 -52 -106 -71 -174 -87 -304 -11 -91 -6 -227 12 -300 48 -196 209 -374 433 -481 351 -166 755 -105 1122 169 37 29 92 74 122 102 l53 50 464 2009 463 2010 -24 18 c-214 169 -1623 1180 -1929 1385 -104 69 -213 137 -236 145 -13 5 -30 -60 -108 -406z m1037 -967 c406 -293 741 -536 746 -540 8 -8 -34 -235 -54 -292 -5 -15 -131 71 -760 519 -415 295 -757 538 -759 540 -2 2 11 74 29 159 26 121 37 155 48 150 7 -3 345 -244 750 -536z'/%3E%3C/g%3E%3C/svg%3E") space 0 0;}
++
++/* vignette on headers and dropdowns */
++.column-header {box-shadow: inset 0 0 8px 8px rgba(0,0,0,0.3);}
++.column-header__button {background: transparent !important;}
++.column-header__collapsible-inner {box-shadow: inset 0 0 10em 10em rgba(0,0,0,0.3);}
+diff --git a/app/javascript/styles/linernotes_dark/palette.scss b/app/javascript/styles/linernotes_dark/palette.scss
+new file mode 100644
+index 000000000..17c6ed9f6
+--- /dev/null
++++ b/app/javascript/styles/linernotes_dark/palette.scss
+@@ -0,0 +1,59 @@
++/*------------------------------------------------------------------------------
++* DEFINE COLOR PALETTE
++*
++* Choose the CSS Variables that will be applied to recolor elements.
++* The current format is to use hex codes, e.g. #00FF00.
++*
++* A future refactor to use rgb() instead may allow transparency mods
++* via using these variables with rgba(). Hex codes currently do not
++* work with rgba(), so no transparency mods are included except for
++* those defined in absolute terms (i.e., non-variable colors).
++* 
++* Foreground Colors:
++*            --bg: | Background for foreground elements.
++*          --text: | A color that stands out against bg.
++*      --textBold: | A color that stands out strongly against bg.
++*     --textMuted: | A color that stands out slightly against bg.
++*
++* Background Colors:
++*        --bgPage: | Background for non-foreground elements.
++*      --textPage: | A color that stands out against bgPage.
++*  --textPageBold: | A color that stands out strongly against bgPage.
++* --textPageMuted: | A color that stands out slightly against bgPage.
++*
++* Highlights Colors:
++*        --bgHead: | Background for column headers.
++*      --textHead: | A color that stands out (strongly) against bgHead.
++*        --accent: | An accent color for links and buttons.
++*    --accentText: | A color that stands out (strongly) against accent.
++*
++* Palette advisories for choosing colors:
++*   - Consider using an off-white or off-black for text tones,
++*     but not necessary as long as there is sufficient contrast.
++*   - Bold colors are highly recommended to be strong colors,
++*     like pure white or pure black.
++*   - Muted colors can be off-grey or any mid-tone with slight contrast.
++*   - It might be best to base the background palette on a slightly
++*     darker or lighter version of the foreground palette, but
++*     this is no longer strictly necessary; you may use mixed palettes.
++*     It is now possible to use a dark bgPage and light bg, or vice-versa.
++------------------------------------------------------------------------------*/
++
++/* linernotes dark */
++
++:root {
++--bg: rgb(26,21,21);
++--text: rgb(225,225,225);
++--textBold: rgb(255,255,255);
++--textMuted: rgb(153,157,156);
++
++--bgPage: rgb(42,38,37);
++--textPage: var(--text);
++--textPageBold: var(--textBold);
++--textPageMuted: var(--textMuted);
++
++--bgHead: rgb(255,122,23);
++--textHead: var(--textBold);
++--accent: rgb(3, 180, 0);
++--accentText: var(--textBold);
++}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mfc/0-palette.css b/app/javascript/styles/mfc/0-palette.css
+new file mode 100644
+index 000000000..9e4e7e59f
+--- /dev/null
++++ b/app/javascript/styles/mfc/0-palette.css
+@@ -0,0 +1,127 @@
++/*------------------------------------------------------------------------------
++* DEFINE COLOR PALETTE
++*
++* Choose the CSS Variables that will be applied to recolor elements.
++* The current format is to use hex codes, e.g. #00FF00.
++*
++* A future refactor to use rgb() instead may allow transparency mods
++* via using these variables with rgba(). Hex codes currently do not
++* work with rgba(), so no transparency mods are included except for
++* those defined in absolute terms (i.e., non-variable colors).
++* 
++* Foreground Colors:
++*            --bg: | Background for foreground elements.
++*          --text: | A color that stands out against bg.
++*      --textBold: | A color that stands out strongly against bg.
++*     --textMuted: | A color that stands out slightly against bg.
++*
++* Background Colors:
++*        --bgPage: | Background for non-foreground elements.
++*      --textPage: | A color that stands out against bgPage.
++*  --textPageBold: | A color that stands out strongly against bgPage.
++* --textPageMuted: | A color that stands out slightly against bgPage.
++*
++* Highlights Colors:
++*        --bgHead: | Background for column headers.
++*      --textHead: | A color that stands out (strongly) against bgHead.
++*        --accent: | An accent color for links and buttons.
++*    --accentText: | A color that stands out (strongly) against accent.
++*
++* Palette advisories for choosing colors:
++*   - Consider using an off-white or off-black for text tones,
++*     but not necessary as long as there is sufficient contrast.
++*   - Bold colors are highly recommended to be strong colors,
++*     like pure white or pure black.
++*   - Muted colors can be off-grey or any mid-tone with slight contrast.
++*   - It might be best to base the background palette on a slightly
++*     darker or lighter version of the foreground palette, but
++*     this is no longer strictly necessary; you may use mixed palettes.
++*     It is now possible to use a dark bgPage and light bg, or vice-versa.
++------------------------------------------------------------------------------*/
++
++/* copy and paste the desired palette at the end of this section,
++* or you can delete the ones you don't want, or comment them out.
++*/
++
++
++/* Clean Slate:
++* white columns on a light-grey page, with dark grey headers and blue accent.
++*/
++:root {
++--bg: #fff;
++--text: #123;
++--textBold: #000;
++--textMuted: #666;
++
++--bgPage: #ddd;
++--textPage: var(--text);
++--textPageBold: var(--textBold);
++--textPageMuted: var(--textMuted);
++
++--bgHead: #333;
++--textHead: #fff;
++--accent: #09f;
++--accentText: var(--textHead);
++}
++
++/* Droid/Flamingo:
++* dark neutral-grey page, with either Android Green or Flamingo accent.
++*/
++:root {
++--bg: #222;
++--text: #ddd;
++--textBold: #fff;
++--textMuted: #777;
++
++--bgPage: #111;
++--textPage: var(--text);
++--textPageBold: var(--textBold);
++--textPageMuted: var(--textMuted);
++
++--bgHead: #333;
++--textHead: var(--textBold);
++--accent: #a4c639;  /* flamingo: #f09 */
++--accentText: var(--textHead);
++}
++
++/* Midnight Blue:
++* a dark blue palette based loosely on Twitter's night mode.
++*/
++:root {
++--bg: #123;
++--text: #d0d8e0;
++--textBold: #fff;
++--textMuted: #808890;
++
++--bgPage: #051119;
++--textPage: var(--text);
++--textPageBold: var(--textBold);
++--textPageMuted: var(--textMuted);
++
++--bgHead: #357;
++--textHead: var(--textBold);
++--accent: #09f;
++--accentText: var(--textBold);
++}
++
++/*  
++* Testing palette:
++* light grey columns, slate grey background, turquoise headers, orange accents.
++* (a bit garish, but sufficiently "different" to catch any unthemed elements.)
++*/
++:root {
++--bg: #d9e1e8;
++--text: #234;
++--textBold: #000000;
++--textMuted: #579;
++
++--bgPage: #345;
++--textPage: #ddd;
++--textPageBold: #fff;
++--textPageMuted: #aaa;
++
++--bgHead: darkturquoise;
++--textHead: #345;
++--accent: #ff3e00;
++--accentText: var(--textPageBold);
++}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mfc/1-foreground.css b/app/javascript/styles/mfc/1-foreground.css
+new file mode 100644
+index 000000000..dacf78aa0
+--- /dev/null
++++ b/app/javascript/styles/mfc/1-foreground.css
+@@ -0,0 +1,271 @@
++/*------------------------------------------------------------------------------
++* FOREGROUND COLOR PALETTE =====================================================
++------------------------------------------------------------------------------*/
++
++/*----------------------
++base background and text
++----------------------*/
++
++/* status columns */
++.column>.scrollable,
++.status,
++    .status__content,
++.detailed-status,
++    .detailed-status__action-bar,
++    .focusable:focus .detailed-status,
++    .focusable:focus .detailed-status__action-bar,
++.setting-text,
++    .setting-text:active,
++    .setting-text:focus,
++.status-direct .status__content .status__content__spoiler-link,
++.column-link,
++    .getting-started a.column-link,
++    .getting-started__trends .trends__item__current,
++.account__header__content,
++.account__header__bio .account__header__content,
++.account--panel,
++.account__header__bar,
++.account__header__account-note textarea,
++.follow_requests-unlocked_explanation,
++.account-authorize,
++.trends__header,
++/* new conversations */
++.conversation--unread,
++.conversation__content__names,
++/* search */
++.search__input,
++    .search__input:focus,
++.search-results .account,
++.trends__item,
++    .trends__item__name a,
++    .trends__item__current,
++/* compose form */
++.reply-indicator__content, /* in reply to */
++.compose-form .spoiler-input__input, /* cw */
++.compose-form .autosuggest-textarea__textarea, /* post */
++.compose-form .compose-form__modifiers, /* image uploads */
++.compose-form .compose-form__buttons-wrapper, /* buttons */
++/* settings page */
++.simple_form textarea,
++    .simple_form textarea:active,
++    .simple_form textarea:focus,
++.simple_form input[type=email],
++    .simple_form input[type=email]:active,
++    .simple_form input[type=email]:focus,
++.simple_form input[type=number],
++    .simple_form input[type=number]:active,
++    .simple_form input[type=number]:focus,
++.simple_form input[type=password],
++    .simple_form input[type=password]:active,
++    .simple_form input[type=password]:focus,
++.simple_form input[type=text],
++    .simple_form input[type=text]:active,
++    .simple_form input[type=text]:focus,
++.table td,
++    .table th,
++    .table.inline-table>tbody>tr:nth-child(odd)>td,
++    .table.inline-table>tbody>tr:nth-child(odd)>th,
++    .table>tbody>tr:nth-child(odd)>td,
++    .table>tbody>tr:nth-child(odd)>th,
++    .batch-table__row,
++    .batch-table__row:nth-child(2n),
++    .batch-table__row:hover,
++.column-inline-form label,
++.dashboard__counters > div > div, .dashboard__counters > div > a,
++.log-entry,
++    .log-entry__header,
++/* modals */
++.actions-modal,
++    .actions-modal .status,
++    .actions-modal ul li:not(:empty) a,
++    .status.light .display-name strong, .status.light .status__content,
++.boost-modal,
++.confirmation-modal,
++.mute-modal,
++    .block-modal .setting-toggle__label, .mute-modal .setting-toggle__label,
++.report-modal,
++    .report-modal__statuses .status__content p,
++    .report-modal__comment .setting-toggle__label,
++.list-editor,
++    .list-editor .drawer__inner,
++    .list-editor .drawer__inner.backdrop,
++.account__moved-note,
++.introduction__pager,
++.introduction__text p,
++.reactions-bar__item,
++/* profile cards */
++.card__bar,
++    .card>a:active .card__bar,
++    .card>a:focus .card__bar,
++    .card>a:hover .card__bar,
++.directory__card__bar,
++    .directory__card__extra,
++    .accounts-table__count,
++    .directory__card__img,
++/* public pages */
++#new_user .lead,
++.landing .hero-widget__footer,
++    .landing .simple_form .user_agreement .label_input > label,
++    .landing .hero-widget h4,
++    .hero-widget__counter,
++    .landing .hero-widget__counter span,
++    .directory__tag > a, .directory__tag > div,
++.activity-stream .entry,
++.landing-page #mastodon-timeline,
++    .landing-page #mastodon-timeline p,
++    .landing-page__forms,
++    .landing-page__information,
++    .landing-page li,
++    .landing-page p,
++    .directory__tag h4 small,
++    .directory__tag h4 .fa,
++    .landing-page .features-list .features-list__row .text,
++    .landing-page .features-list .features-list__row .visual .fa,
++    .landing-page__short-description h1,
++    .landing-page .separator-or span,
++.box-widget,
++    .contact-widget,
++    .landing-page__information.contact-widget,
++.rich-formatting li,
++    .rich-formatting p,
++.public-layout .public-account-bio .account__header__content,
++    .public-layout .public-account-bio .roles,
++    .public-layout .public-account-bio__extra,
++    .public-layout .public-account-bio,
++.public-layout .public-account-header__bar::before,
++.account__header__fields dt,
++.account__header__fields dd,
++.hero-widget__text,
++.load-more,
++.button.button-secondary,
++.simple_form__overlay-area__overlay
++{
++background: var(--bg);
++color: var(--text)
++}
++
++/*--------------------
++override for bold text
++--------------------*/
++
++/* primary elements */
++.account__display-name strong,
++    .status__display-name strong,
++    .detailed-status__display-name strong,
++    .card__bar .display-name strong,
++    .directory__card__bar .display-name strong,
++    .account__header__tabs__name h1,
++    .account__header__extra__links a strong,
++.account__action-bar__tab strong, /* profile counters */
++.conversation__content__names a,
++.conversation--unread .conversation__content__relative-time,
++/* settings page*/
++.dashboard__counters__num, .dashboard__counters__text,
++.log-entry a,
++    .log-entry .username,
++    .log-entry .target,
++/* public pages */
++#new_user .lead strong,
++.landing-page h3,
++    .landing-page h4,
++    .landing-page em,
++    .landing-page h5,
++    .landing-page h6,
++    .directory__tag h4,
++.rich-formatting h3,
++    .rich-formatting h4,
++.public-layout .public-account-header__tabs__tabs .counter .counter-number,
++.account__header__fields dt
++{
++color: var(--textBold)
++}
++
++/*---------------------
++override for muted text
++---------------------*/
++
++/* secondary elements */
++.display-name__account,
++    .account .account__display-name,
++    .card__bar .display-name span,
++    .directory__card__bar .display-name span,
++    .accounts-table__count small,
++    .account__header__tabs__name h1 small,
++    .account__header__extra__links a,
++    .account__header__account-note label,
++    .account__header__account-note textarea::placeholder,
++    .account__header__extra__links,
++.detailed-status__meta,
++.status__relative-time,
++.status__action-bar__counter__label,
++.status__prepend,
++    .status__prepend .status__display-name strong,
++.account__moved-note__message,
++.attachment-list.compact .fa,
++.icon-button,
++    .icon-button.disabled,
++    .icon-button.active:hover,
++.account__action-bar__tab>span,
++.compose-form .icon-button.inverted,
++    .compose-form .text-icon-button,
++    .compose-form .compose-form__buttons-wrapper .character-counter__wrapper .character-counter,
++.upload-progress,
++.search__icon .fa,
++    .search__icon .fa-times-circle,
++    .trends__item__name,
++.search__input::placeholder,
++.notification__message,
++.muted .status__content,
++    .muted .status__content a,
++    .muted .status__content p,
++    .muted .status__display-name strong,
++.attachment-list__list a,
++a.table-action-link,
++    .table a.table-action-link,
++    button.table-action-link,
++.status__wrapper--filtered,
++.conversation__content__relative-time,
++/* settings page */
++.dashboard__counters__label,
++.log-entry__timestamp,
++/* public pages */
++.landing-page__short-description h1 small,
++    .landing-page__short-description h1 small span,
++.simple_form p.hint.subtle-hint,
++.public-layout .public-account-bio .roles,
++    .public-layout .public-account-bio__extra,
++    .public-layout .public-account-header__tabs__tabs .counter,
++.load-more,
++.account__disclaimer
++{
++color: var(--textMuted)
++}
++
++/* fix announcement reactions */
++.reactions-bar__item__count {color: inherit}
++
++/* fix for conversations font weight */
++.conversation--unread .conversation__content__info {font-weight: 400}
++
++/* fix for border colors */
++.account--panel,
++.account__header__bar,
++.account__header__bio .account__header__fields,
++.status,
++.detailed-status__action-bar,
++.public-layout .public-account-header__tabs__tabs .counter,
++.account__header__fields,
++.account__header__fields dl,
++.account__header__bio .account__header__fields,
++.account,
++.directory__card__extra .account__header__content,
++.account__section-headline, .notification__filter-bar,
++.actions-modal .dropdown-menu__separator, .actions-modal .status
++{border-color: var(--textMuted)}
++
++.account__header__account-note,
++.announcements-list
++{border-color: transparent}
++
++.account__section-headline a.active::after, .account__section-headline button.active::after, .notification__filter-bar a.active::after, .notification__filter-bar button.active::after
++{border-color: transparent transparent var(--bg)}
+diff --git a/app/javascript/styles/mfc/2-background.css b/app/javascript/styles/mfc/2-background.css
+new file mode 100644
+index 000000000..5142da227
+--- /dev/null
++++ b/app/javascript/styles/mfc/2-background.css
+@@ -0,0 +1,181 @@
++/*------------------------------------------------------------------------------
++* BACKGROUND COLOR PALETTE =====================================================
++------------------------------------------------------------------------------*/
++
++/*----------------------
++base background and text
++----------------------*/
++
++/* background and drawer */
++body.app-body,
++.ui,
++.drawer__tab,
++.drawer__inner,
++.drawer__inner.darker,
++.drawer__inner__mastodon,
++.tabs-bar,
++.tabs-bar__wrapper,
++.getting-started,
++.search-results__section h5,
++.account__section-headline,
++    .account__section-headline button,
++.notification__filter-bar,
++    .notification__filter-bar button,
++.timeline-hint,
++.introduction,
++.account__header__account-note textarea:focus,
++.flex-spacer, .getting-started, .getting-started__wrapper,
++/* DMs */
++.status.status-direct,
++    .status.status-direct:not(.read),
++    .focusable:focus .status.status-direct,
++    .status-direct .status__content,
++    .notification-favourite .status.status-direct,
++/* column preferences */
++.column-settings__section,
++    .column-header__collapsible,
++    .column-header__collapsible-inner,
++    .column-header__button.active,
++    .setting-meta__label,
++    .setting-toggle__label,
++.column-subheading,
++.content-wrapper,
++.media-spoiler,
++    .video-player__spoiler,
++    .video-player__spoiler.active:active,
++    .video-player__spoiler.active:focus,
++.react-toggle-track,
++.filter-form,
++/* in reply to */
++.reply-indicator,
++.reply-indicator__display-name,
++.reply-indicator__content,
++.reply-indicator__cancel .icon-button.inverted,
++.reply-indicator__content .status__content__spoiler-link,
++/* cw show more */
++.status__content .status__content__spoiler-link,
++.compose__action-bar .icon-button,
++/* settings page */
++.admin-wrapper .sidebar-wrapper,
++    .admin-wrapper .sidebar-wrapper__inner,
++    .admin-wrapper .sidebar ul a,
++    .admin-wrapper .sidebar ul a.selected,
++    .admin-wrapper .sidebar ul ul a,
++    .admin-wrapper .content h2,
++    .admin-wrapper .content h6,
++/* modals */
++.boost-modal__action-bar,
++    .confirmation-modal__action-bar,
++    .mute-modal__action-bar,
++.confirmation-modal__action-bar .confirmation-modal__cancel-button,
++    .confirmation-modal__action-bar .mute-modal__cancel-button,
++    .mute-modal__action-bar .confirmation-modal__cancel-button,
++    .mute-modal__action-bar .mute-modal__cancel-button,
++.error-column,
++    .regeneration-indicator,
++    .empty-column-indicator,
++.report-modal__comment .setting-text,
++.introduction__text p code,
++.list-editor .search__input,
++.announcements__item,
++/* opengraph previews */
++.status-card__image,
++.status-card__content,
++.status-card__description,
++.button:disabled,
++/* public pages */
++body.theme-default,
++.button.button-alternative,
++    .button.button-alternative-2,
++.landing-page__call-to-action,
++.public-layout .header,
++.public-layout .header .nav-link,
++.public-layout .header .nav-button,
++.nothing-here,
++.brand__tagline,
++.table-of-contents
++{
++background: var(--bgPage);
++color: var(--textPage)
++}
++
++/*--------------------
++override for bold text
++--------------------*/
++
++/* strong elements */
++.navigation-bar strong,
++.status-card__title,
++.status-direct .display-name strong,
++.reply-indicator__display-name strong,
++.admin-wrapper .content>p strong,
++.simple_form strong,
++.regeneration-indicator__label strong,
++.account__section-headline a.active,
++    .account__section-headline button.active,
++    .notification__filter-bar a.active,
++    .notification__filter-bar button.active,
++/* public pages */
++.information-board__section,
++    .information-board__section span:last-child,
++.endorsements-widget .display-name__html,
++    .endorsements-widget h4,
++.pagination .page,
++    .pagination .gap,
++    .pagination .newer,
++    .pagination .older,
++    .pagination a
++{
++color: var(--textPageBold)
++}
++
++/*---------------------
++override for muted text
++---------------------*/
++
++/* de-emphasized elements */
++.navigation-bar,
++.navigation-panel hr,
++.getting-started,
++    .getting-started p,
++    .getting-started__footer p,
++.column-subheading,
++.account__section-headline a,
++.status-direct .icon-button,
++    .status-direct .display-name,
++    .status-direct .status__relative-time,
++    .status-direct .status__action-bar__counter__label,
++.status-direct.muted .status__content p,
++    .status-direct.muted .status__content a,
++    .status-direct.muted .display-name strong,
++.notification-favourite .status.status-direct .icon-button.disabled,
++.simple_form p.hint,
++    .simple_form span.hint,
++    .admin-wrapper .content .muted-hint,
++    .admin-wrapper .content>p,
++.status-card__host,
++.button:disabled,
++.loading-indicator,
++.list-editor .search__input::placeholder,
++    .list-editor .search__icon .fa,
++    .list-editor .search__icon .fa-times-circle,
++/* settings page */
++body .neutral-hint, .admin-wrapper .content .neutral-hint,
++/* public pages */
++.endorsements-widget .display-name__account,
++.public-layout .footer h4,
++    .public-layout .footer ul a,
++    .public-layout .footer ul li,
++    .public-layout .footer .grid .column-2 h4 a,
++    .public-layout .header .nav-button,
++/* log in, sign up, forgot passwd */
++.form-footer a,
++.lighter .simple_form p.hint.subtle-hint
++{
++color: var(--textPageMuted)
++}
++
++/* border color fix */
++.status.status-direct:not(.read),
++.table-of-contents li a
++{border-color: var(--textPageMuted)}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mfc/3-highlights.css b/app/javascript/styles/mfc/3-highlights.css
+new file mode 100644
+index 000000000..e17768dfe
+--- /dev/null
++++ b/app/javascript/styles/mfc/3-highlights.css
+@@ -0,0 +1,224 @@
++/*------------------------------------------------------------------------------
++* HIGHLIGHTS COLOR PALETTE =====================================================
++------------------------------------------------------------------------------*/
++
++/* scrollbar fix */
++html {scrollbar-color: var(--bg) var(--bgPage)}
++
++/*------------------
++headers and warnings
++------------------*/
++
++/* columns view */
++    .column-header,
++        .column-header__button,
++        .column-header__back-button,
++        .column-header__button:hover,
++        .column-header__back-button:hover,
++        .column-back-button,
++        .column-header>.column-header__back-button,
++        .column-header.active .column-header__icon,
++    .search-results__header,
++    .keyboard-shortcuts kbd,
++    .compose-form__warning,
++        .compose-form .compose-form__warning,
++    .react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track,
++    .column-link__badge,
++    .column-link--transparent.active,
++/* settings pages */
++    .list-editor h4,
++    .admin-wrapper .content h4,
++        .admin-wrapper .sidebar ul ul a.selected,
++    .flash-message,
++        .flash-message.notice,
++    .column-inline-form,
++        .column-inline-form .icon-button,
++        .simple_form .warning,
++        .table-form .warning,
++    .pagination .current,
++    .account-role,
++    .batch-table__toolbar
++{
++    background: var(--bgHead);
++    color: var(--textHead)
++}
++
++/*--------------
++accented buttons
++--------------*/
++
++/* primary buttons */
++.directory__tag > a:hover, .directory__tag > a:active, .directory__tag > a:focus,
++    .button,
++        .button:active,
++        .button:focus,
++        .button:hover,
++    .icon-button.overlayed:hover,
++    .floating-action-button,
++    .simple_form button,
++        .simple_form button:active,
++        .simple_form button:focus,
++        .simple_form button:hover,
++        .simple_form .button,
++            .simple_form .button:active,
++            .simple_form .button:focus,
++            .simple_form .button:hover,
++        .simple_form .block-button,
++            .simple_form .block-button:active,
++            .simple_form .block-button:focus,
++            .simple_form .block-button:hover,
++    .button.button-alternative:hover,
++        .button.button-alternative-2:hover,
++    .column-link:hover,
++        .getting-started a.column-link:hover,
++    .column-header__button:hover,
++        .column-header__button.active:hover,
++        .column-header__back-button:hover,
++        .column-back-button:hover,
++    .drawer__header a:hover,
++    .react-toggle--checked .react-toggle-track,
++    .react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track,
++    .privacy-dropdown.active .privacy-dropdown__value.active,
++        .privacy-dropdown__option:hover,
++        .privacy-dropdown__option.active,
++        .privacy-dropdown__option.active:hover,
++    .admin-wrapper .sidebar ul a:hover,
++        .admin-wrapper .sidebar ul ul a.selected:hover,
++    .reply-indicator__content .status__content__spoiler-link:hover,
++        .status__content .status__content__spoiler-link:hover,
++    .load-more:hover,
++    .conversation__unread,
++/* modals */
++    .confirmation-modal__action-bar .confirmation-modal__cancel-button:active,
++        .confirmation-modal__action-bar .confirmation-modal__cancel-button:focus,
++        .confirmation-modal__action-bar .confirmation-modal__cancel-button:hover,
++    .confirmation-modal__action-bar .mute-modal__cancel-button:active,
++        .confirmation-modal__action-bar .mute-modal__cancel-button:focus,
++        .confirmation-modal__action-bar .mute-modal__cancel-button:hover,
++    .mute-modal__action-bar .confirmation-modal__cancel-button:active,
++        .mute-modal__action-bar .confirmation-modal__cancel-button:focus,
++        .mute-modal__action-bar .confirmation-modal__cancel-button:hover,
++    .mute-modal__action-bar .mute-modal__cancel-button:active,
++        .mute-modal__action-bar .mute-modal__cancel-button:focus,
++        .mute-modal__action-bar .mute-modal__cancel-button:hover,
++    .upload-progress__tracker,
++    .radio-button__input.checked,
++/* public pages */
++    .public-layout .header .nav-button:hover,
++        .public-layout .header .brand:active,
++        .public-layout .header .brand:focus,
++        .public-layout .header .brand:hover,
++    .button.button-secondary:hover,
++/* settings pages */
++    .pagination .page.current:hover,
++    .introduction__dot.active,
++    .dashboard__counters > div > a:hover,
++        .dashboard__counters > div > a:focus,
++        .dashboard__counters > div > a:active,
++        .dashboard__counters > div > a:hover .dashboard__counters__label,
++        .dashboard__counters > div > a:focus .dashboard__counters__label,
++        .dashboard__counters > div > a:active .dashboard__counters__label,
++/* video player ui */
++    .video-player__seek__buffer,
++    .video-player__seek__progress,
++    .video-player__volume__current,
++    .video-player__volume__handle,
++/* announcements */
++    .icon-with-badge__badge,
++    .announcements__item__unread,
++    .reactions-bar__item:hover
++{
++    background: var(--accent);
++    color: var(--accentText);
++}
++
++/*------------
++accented links
++------------*/
++
++/* status links */
++    .status__content a,
++        .status__content a.unhandled-link,
++    .getting-started a,
++        .getting-started p a,
++        .getting-started__footer a,
++        .getting-started__footer p a,
++    .reply-indicator__content a,
++        .reply-indicator__content a.unhandled-link,
++        .reply-indicator__cancel .icon-button.inverted:hover,
++    .status__content__read-more-button,
++    .icon-button.active,
++        .icon-button:focus,
++        .icon-button:hover,
++    .search__icon .fa:hover,
++    .account__header__bio .account__header__fields a,
++    .notification-follow .account .icon-button:hover,
++    .notification__message .fa,
++    .notification__display-name:hover,
++    .admin-wrapper .content .muted-hint a,
++    .table a,
++        a.table-action-link:hover,
++        button.table-action-link:hover,
++    .media-spoiler:active,
++        .media-spoiler:focus,
++        .media-spoiler:hover,
++        .video-player__spoiler.active:hover,
++    .column-header__setting-btn:hover,
++        .column-inline-form .icon-button:hover,
++    .empty-column-indicator a, .error-column a,
++    .timeline-hint a,
++/* post options */
++    .compose-form .text-icon-button:hover,
++        .text-icon-button.active,
++        .drawer__inner .icon-button:hover,
++        .icon-button.inverted.active.disabled,
++    .navigation-bar__profile-edit:hover,
++        .navigation-bar__profile-account:hover,
++        .account__action-bar-dropdown .icon-button:hover,
++        .account__section-headline a:hover,
++    .compose-form .compose-form__warning a,
++/* modals */
++    .list-editor .account .icon-button:hover,
++        .list-editor .account .icon-button:active,
++        .list-editor .account .icon-button:focus,
++/* public pages */
++    .simple_form .input.boolean label a,
++    .landing-page__short-description p a,
++        .landing-page #mastodon-timeline p a,
++    .simple_form p.hint.subtle-hint a,
++    .contact-widget__mail a,
++    .public-layout .footer ul a:hover,
++        .public-layout .footer .grid .column-2 h4 a:hover,
++        .public-layout .public-account-bio .account__header__fields a,
++        .form-footer a:hover,
++/* settings pages */
++    .pagination a:hover,
++        .pagination .newer:hover,
++        .pagination .older:hover,
++    .filters .filter-subset a.selected,
++    .simple_form .hint a,
++/* mobile elements */
++    .tabs-bar__link.active
++{
++    color: var(--accent)
++}
++
++/* border fix */
++.react-toggle--checked .react-toggle-thumb,
++.radio-button__input.checked,
++.icon-with-badge__badge,
++.filters .filter-subset a.selected,
++.introduction__dot,
++.public-layout .public-account-header__tabs__tabs .counter.active::after
++{border-color: var(--accent)}
++
++/* trends fix */
++.trends__item__sparkline path:first-child {fill: transparent !important}
++.trends__item__sparkline path:last-child {stroke: var(--accent) !important}
++
++/* focus fix */
++.focusable:focus
++{
++  background: transparent;
++  border: 2px solid var(--accent);
++}
+diff --git a/app/javascript/styles/mfc/5-material.css b/app/javascript/styles/mfc/5-material.css
+new file mode 100644
+index 000000000..533f8c53d
+--- /dev/null
++++ b/app/javascript/styles/mfc/5-material.css
+@@ -0,0 +1,72 @@
++/*-----------------------
++material design overrides
++-----------------------*/
++
++/* turn statuses into cards */
++.drawer__inner darker {filter: drop-shadow(0 0 2px black)}
++.status,
++.conversation,
++.account-authorize__wrapper,
++.follow_requests-unlocked_explanation
++{
++    box-shadow: 0px 0px 2px black;
++    background: var(--bg);
++    margin: 8px;
++    border-radius: 2px;
++    border: 0
++}
++.status__wrapper--filtered {border: none}
++.detailed-status__wrapper {margin: 8px;} /*might look weird in older versions pre-2.6?*/
++
++/* recolors */
++.column>.scrollable,
++.landing-page #mastodon-timeline,
++.activity-stream .entry
++    {background: none !important}
++.account-timeline__header,
++.account,
++.conversation
++    {background: var(--bg)}
++.notification .account,
++.load-more
++    {background: var(--bgPage)}
++.status__prepend,
++.notification__message,
++.status__prepend .status__display-name strong,
++.keyboard-shortcuts
++    {color: var(--textPage) !important}
++.notification-follow .display-name__html
++    {color: var(--textPageBold)}
++.notification-follow .display-name__account,
++.notification-follow .account .icon-button,
++.status__wrapper--filtered,
++.load-more
++    {color: var(--textPageMuted)}
++
++/* borders */
++.account__section-headline, .notification__filter-bar,
++.account--panel, .account__header__bar, .account__header__bio .account__header__fields, .status, .detailed-status__action-bar, .account__header__fields dl, .account__header__bio .account__header__fields, .account, .directory__card__extra .account__header__content, .account__section-headline, .notification__filter-bar,
++.conversation,
++.account__header__fields,
++.account__header__account-note,
++.public-layout .public-account-header__tabs__tabs .counter
++
++{border-color: transparent}
++
++/* triangle tab indicator */
++.account__section-headline a.active:after,
++.account__section-headline a.active:before,
++.community-timeline__section-headline a.active:after,
++.community-timeline__section-headline a.active:before,
++.public-timeline__section-headline a.active:after,
++.public-timeline__section-headline a.active:before,
++.notification__filter-bar button.active::before,
++.notification__filter-bar button.active::after
++{
++    border-color: transparent transparent var(--bgHead)
++}
++
++/* fix rounding on end toots in stream */
++.activity-stream .entry:first-child .status,
++.activity-stream .entry:last-child .status
++{border-radius: 2px}
+diff --git a/app/javascript/styles/mfc/6-actions.css b/app/javascript/styles/mfc/6-actions.css
+new file mode 100644
+index 000000000..71973993e
+--- /dev/null
++++ b/app/javascript/styles/mfc/6-actions.css
+@@ -0,0 +1,120 @@
++/*------------------------------------------------------------------------------
++* RECOLOR STATUS ACTIONS
++*
++* This tweak gets its own section because it's pretty messy and long.
++* 
++* Replies, follows, faves, dropdown menu, and share can easily be themed,
++* but I can't figure out how to make them look good against the palette.
++* Manual color selection may be required, if these colors don't fit well.
++*
++* Recoloring boosts is another nightmare altogether, because of improper
++* SVG embedding in the background-image rather than directly in HTML.
++* This leads to two options:
++*
++* 1) attempt to use filter() to manually add sepia tones and hue-shift
++*    - complicated and imprecise adjustments of filter()
++*    - cannot use CSS variables in url()s (as in background-image)
++*    + however, it does preserve the SVG boosting animation
++*
++* 2) replace the background-image with a mask-image
++*    + less complicated; override background-image with color
++*    + can apply CSS variable colors from palette easily
++*    - requires extremely long rule to add mask-image
++*    - breaks boosting animation
++*
++* I have chosen option 2.
++*
++* EDIT: Option 1 is now better because of the new boost icons
++* introduced in 3.2.0 -- there is no longer just one icon.
++------------------------------------------------------------------------------*/
++
++/* add shadow on hover and active states */
++.status__action-bar .icon-button:hover,
++    .status__action-bar .icon-button:active,
++    .status__action-bar .icon-button.active,
++.detailed-status__action-bar .icon-button:hover,
++    .detailed-status__action-bar .icon-button:active,
++    .detailed-status__action-bar .icon-button.active
++{filter: drop-shadow(0px 1px 0px rgba(0,0,0,0.6))}
++
++/* remove bg color on hover and active states*/
++.icon-button:active, .icon-button:focus, .icon-button:hover
++{background-color: transparent}
++
++/* replies and follows */
++.status__action-bar-button.icon-button:nth-child(1):hover,
++.status__action-bar-button.icon-button:nth-child(1):active,
++.status__action-bar-button.icon-button:nth-child(1).active,
++.status__action-bar-button.icon-button:nth-child(1):focus,
++.detailed-status__action-bar .detailed-status__button:nth-child(1) .icon-button:hover,
++.detailed-status__action-bar .detailed-status__button:nth-child(1) .icon-button:active,
++.detailed-status__action-bar .detailed-status__button:nth-child(1) .icon-button.active,
++.detailed-status__action-bar .detailed-status__button:nth-child(1) .icon-button:focus,
++.notification__message .fa.fa-user-plus,
++.account .icon-button:active,
++.account .icon-button.active,
++.account .icon-button:focus,
++.account .icon-button:hover
++{color: #0bf;}
++
++/* favourites */
++.status__action-bar-button.icon-button:nth-child(3):hover,
++.status__action-bar-button.icon-button:nth-child(3):active,
++.status__action-bar-button.icon-button:nth-child(3).active,
++.status__action-bar-button.icon-button:nth-child(3):focus,
++.detailed-status__action-bar .detailed-status__button:nth-child(3) .icon-button:hover,
++.detailed-status__action-bar .detailed-status__button:nth-child(3) .icon-button:active,
++.detailed-status__action-bar .detailed-status__button:nth-child(3) .icon-button.active,
++
++.notification__favourite-icon-wrapper .star-icon
++{color: #f90;}
++
++/* menu */
++.status__action-bar-dropdown .icon-button:hover,
++.status__action-bar-dropdown .icon-button:active,
++.status__action-bar-dropdown .icon-button.active,
++.status__action-bar-dropdown .icon-button.focus,
++.detailed-status__action-bar-dropdown .icon-button:hover,
++.detailed-status__action-bar-dropdown .icon-button:active,
++.detailed-status__action-bar-dropdown .icon-button.active,
++.detailed-status__action-bar-dropdown .icon-button:focus
++{color: #90f;}
++
++/* share */
++.icon-button:hover .fa-share-alt
++{color: #f09;}
++
++/* boosts */
++.notification__message .fa.fa-retweet,
++.icon-button:hover .fa-retweet
++{color: #0d9;}
++
++/* recolor boosts (preserve animation, unthemeable default state */
++
++button.icon-button:hover i.fa-retweet,
++.no-reduce-motion button.icon-button.active i.fa-retweet
++{
++    filter: sepia(100%)
++        hue-rotate(110deg)
++        saturate(700%)
++        brightness(100%)
++        drop-shadow(0px 1px 0px rgba(0,0,0,0.6))
++}
++
++
++/* fully recolor boosts (while breaking animation)  */ 
++/*
++button.icon-button:hover i.fa-retweet,
++button.icon-button.active i.fa-retweet
++{background: #0d9 !important;}
++
++.no-reduce-motion button.icon-button i.fa-retweet,
++    button.icon-button i.fa-retweet,
++        button.icon-button:hover i.fa-retweet,
++        button.icon-button.active i.fa-retweet
++{
++background: var(--textMuted);
++mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='209'><path d='M4.97 3.16c-.1.03-.17.1-.22.18L.8 8.24c-.2.3.03.78.4.8H3.6v2.68c0 4.26-.55 3.62 3.66 3.62h7.66l-2.3-2.84c-.03-.02-.03-.04-.05-.06H7.27c-.44 0-.72-.3-.72-.72v-2.7h2.5c.37.03.63-.48.4-.77L5.5 3.35c-.12-.17-.34-.25-.53-.2zm12.16.43c-.55-.02-1.32.02-2.4.02H7.1l2.32 2.85.03.06h5.25c.42 0 .72.28.72.72v2.7h-2.5c-.36.02-.56.54-.3.8l3.92 4.9c.18.25.6.25.78 0l3.94-4.9c.26-.28 0-.83-.37-.8H18.4v-2.7c0-3.15.4-3.62-1.25-3.66z' fill='%23606984' stroke-width='0'/><path d='M7.78 19.66c-.24.02-.44.25-.44.5v2.46h-.06c-1.08 0-1.86-.03-2.4-.03-1.64 0-1.25.43-1.25 3.65v4.47c0 4.26-.56 3.62 3.65 3.62H8.5l-1.3-1.06c-.1-.08-.18-.2-.2-.3-.02-.17.06-.35.2-.45l1.33-1.1H7.28c-.44 0-.72-.3-.72-.7v-4.48c0-.44.28-.72.72-.72h.06v2.5c0 .38.54.63.82.38l4.9-3.93c.25-.18.25-.6 0-.78l-4.9-3.92c-.1-.1-.24-.14-.38-.12zm9.34 2.93c-.54-.02-1.3.02-2.4.02h-1.25l1.3 1.07c.1.07.18.2.2.33.02.16-.06.3-.2.4l-1.33 1.1h1.28c.42 0 .72.28.72.72v4.47c0 .42-.3.72-.72.72h-.1v-2.47c0-.3-.3-.53-.6-.47-.07 0-.14.05-.2.1l-4.9 3.93c-.26.18-.26.6 0 .78l4.9 3.92c.27.25.82 0 .8-.38v-2.5h.1c4.27 0 3.65.67 3.65-3.62v-4.47c0-3.15.4-3.62-1.25-3.66zM10.34 38.66c-.24.02-.44.25-.43.5v2.47H7.3c-1.08 0-1.86-.04-2.4-.04-1.64 0-1.25.43-1.25 3.65v4.47c0 3.66-.23 3.7 2.34 3.66l-1.34-1.1c-.1-.08-.18-.2-.2-.3 0-.17.07-.35.2-.45l1.96-1.6c-.03-.06-.04-.13-.04-.2v-4.48c0-.44.28-.72.72-.72H9.9v2.5c0 .36.5.6.8.38l4.93-3.93c.24-.18.24-.6 0-.78l-4.94-3.92c-.1-.08-.23-.13-.36-.12zm5.63 2.93l1.34 1.1c.1.07.18.2.2.33.02.16-.03.3-.16.4l-1.96 1.6c.02.07.06.13.06.22v4.47c0 .42-.3.72-.72.72h-2.66v-2.47c0-.3-.3-.53-.6-.47-.06.02-.12.05-.18.1l-4.94 3.93c-.24.18-.24.6 0 .78l4.94 3.92c.28.22.78-.02.78-.38v-2.5h2.66c4.27 0 3.65.67 3.65-3.62v-4.47c0-3.66.34-3.7-2.4-3.66zM13.06 57.66c-.23.03-.4.26-.4.5v2.47H7.28c-1.08 0-1.86-.04-2.4-.04-1.64 0-1.25.43-1.25 3.65v4.87l2.93-2.37v-2.5c0-.44.28-.72.72-.72h5.38v2.5c0 .36.5.6.78.38l4.94-3.93c.24-.18.24-.6 0-.78l-4.94-3.92c-.1-.1-.24-.14-.38-.12zm5.3 6.15l-2.92 2.4v2.52c0 .42-.3.72-.72.72h-5.4v-2.47c0-.3-.32-.53-.6-.47-.07.02-.13.05-.2.1L3.6 70.52c-.25.18-.25.6 0 .78l4.93 3.92c.28.22.78-.02.78-.38v-2.5h5.42c4.27 0 3.65.67 3.65-3.62v-4.47-.44zM19.25 78.8c-.1.03-.2.1-.28.17l-.9.9c-.44-.3-1.36-.25-3.35-.25H7.28c-1.08 0-1.86-.03-2.4-.03-1.64 0-1.25.43-1.25 3.65v.7l2.93.3v-1c0-.44.28-.72.72-.72h7.44c.2 0 .37.08.5.2l-1.8 1.8c-.25.26-.08.76.27.8l6.27.7c.28.03.56-.25.53-.53l-.7-6.25c0-.27-.3-.48-.55-.44zm-17.2 6.1c-.2.07-.36.3-.33.54l.7 6.25c.02.36.58.55.83.27l.8-.8c.02 0 .04-.02.04 0 .46.24 1.37.17 3.18.17h7.44c4.27 0 3.65.67 3.65-3.62v-.75l-2.93-.3v1.05c0 .42-.3.72-.72.72H7.28c-.15 0-.3-.03-.4-.1L8.8 86.4c.3-.24.1-.8-.27-.84l-6.28-.65h-.2zM4.88 98.6c-1.33 0-1.34.48-1.3 2.3l1.14-1.37c.08-.1.22-.17.34-.2.16 0 .34.08.44.2l1.66 2.03c.04 0 .07-.03.12-.03h7.44c.34 0 .57.2.65.5h-2.43c-.34.05-.53.52-.3.78l3.92 4.95c.18.24.6.24.78 0l3.94-4.94c.22-.27-.02-.76-.37-.77H18.4c.02-3.9.6-3.4-3.66-3.4H7.28c-1.08 0-1.86-.04-2.4-.04zm.15 2.46c-.1.03-.2.1-.28.2l-3.94 4.9c-.2.28.03.77.4.78H3.6c-.02 3.94-.45 3.4 3.66 3.4h7.44c3.65 0 3.74.3 3.7-2.25l-1.1 1.34c-.1.1-.2.17-.32.2-.16 0-.34-.08-.44-.2l-1.65-2.03c-.06.02-.1.04-.18.04H7.28c-.35 0-.57-.2-.66-.5h2.44c.37 0 .63-.5.4-.78l-3.96-4.9c-.1-.15-.3-.23-.47-.2zM4.88 117.6c-1.16 0-1.3.3-1.3 1.56l1.14-1.38c.08-.1.22-.14.34-.16.16 0 .34.04.44.16l2.22 2.75h7c.42 0 .72.28.72.72v.53h-2.6c-.3.1-.43.54-.2.78l3.92 4.9c.18.25.6.25.78 0l3.94-4.9c.22-.28-.02-.77-.37-.78H18.4v-.53c0-4.2.72-3.63-3.66-3.63H7.28c-1.08 0-1.86-.03-2.4-.03zm.1 1.74c-.1.03-.17.1-.23.16L.8 124.44c-.2.28.03.77.4.78H3.6v.5c0 4.26-.55 3.62 3.66 3.62h7.44c1.03 0 1.74.02 2.28 0-.16.02-.34-.03-.44-.15l-2.22-2.76H7.28c-.44 0-.72-.3-.72-.72v-.5h2.5c.37.02.63-.5.4-.78L5.5 119.5c-.12-.15-.34-.22-.53-.16zm12.02 10c1.2-.02 1.4-.25 1.4-1.53l-1.1 1.36c-.07.1-.17.17-.3.18zM5.94 136.6l2.37 2.93h6.42c.42 0 .72.28.72.72v1.25h-2.6c-.3.1-.43.54-.2.78l3.92 4.9c.18.25.6.25.78 0l3.94-4.9c.22-.28-.02-.77-.37-.78H18.4v-1.25c0-4.2.72-3.63-3.66-3.63H7.28c-.6 0-.92-.02-1.34-.03zm-1.72.06c-.4.08-.54.3-.6.75l.6-.74zm.84.93c-.12 0-.24.08-.3.18l-3.95 4.9c-.24.3 0 .83.4.82H3.6v1.22c0 4.26-.55 3.62 3.66 3.62h7.44c.63 0 .97.02 1.4.03l-2.37-2.93H7.28c-.44 0-.72-.3-.72-.72v-1.22h2.5c.4.04.67-.53.4-.8l-3.96-4.92c-.1-.13-.27-.2-.44-.2zm13.28 10.03l-.56.7c.36-.07.5-.3.56-.7zM17.13 155.6c-.55-.02-1.32.03-2.4.03h-8.2l2.38 2.9h5.82c.42 0 .72.28.72.72v1.97H12.9c-.32.06-.48.52-.28.78l3.94 4.94c.2.23.6.22.78-.03l3.94-4.9c.22-.28-.02-.77-.37-.78H18.4v-1.97c0-3.15.4-3.62-1.25-3.66zm-12.1.28c-.1.02-.2.1-.28.18l-3.94 4.9c-.2.3.03.78.4.8H3.6v1.96c0 4.26-.55 3.62 3.66 3.62h8.24l-2.36-2.9H7.28c-.44 0-.72-.3-.72-.72v-1.97h2.5c.37.02.63-.5.4-.78l-3.96-4.9c-.1-.15-.3-.22-.47-.2zM5.13 174.5c-.15 0-.3.07-.38.2L.8 179.6c-.24.27 0 .82.4.8H3.6v2.32c0 4.26-.55 3.62 3.66 3.62h7.94l-2.35-2.9h-5.6c-.43 0-.7-.3-.7-.72v-2.3h2.5c.38.03.66-.54.4-.83l-3.97-4.9c-.1-.13-.23-.2-.38-.2zm12 .1c-.55-.02-1.32.03-2.4.03H6.83l2.35 2.9h5.52c.42 0 .72.28.72.72v2.34h-2.6c-.3.1-.43.53-.2.78l3.92 4.9c.18.24.6.24.78 0l3.94-4.9c.22-.3-.02-.78-.37-.8H18.4v-2.33c0-3.15.4-3.62-1.25-3.66zM4.97 193.16c-.1.03-.17.1-.22.18l-3.94 4.9c-.2.3.03.78.4.8H3.6v2.68c0 4.26-.55 3.62 3.66 3.62h7.66l-2.3-2.84c-.03-.02-.03-.04-.05-.06H7.27c-.44 0-.72-.3-.72-.72v-2.7h2.5c.37.03.63-.48.4-.77l-3.96-4.9c-.12-.17-.34-.25-.53-.2zm12.16.43c-.55-.02-1.32.03-2.4.03H7.1l2.32 2.84.03.06h5.25c.42 0 .72.28.72.72v2.7h-2.5c-.36.02-.56.54-.3.8l3.92 4.9c.18.25.6.25.78 0l3.94-4.9c.26-.28 0-.83-.37-.8H18.4v-2.7c0-3.15.4-3.62-1.25-3.66z' fill='%23ffffff' stroke-width='0'/></svg>");
++-webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='209'><path d='M4.97 3.16c-.1.03-.17.1-.22.18L.8 8.24c-.2.3.03.78.4.8H3.6v2.68c0 4.26-.55 3.62 3.66 3.62h7.66l-2.3-2.84c-.03-.02-.03-.04-.05-.06H7.27c-.44 0-.72-.3-.72-.72v-2.7h2.5c.37.03.63-.48.4-.77L5.5 3.35c-.12-.17-.34-.25-.53-.2zm12.16.43c-.55-.02-1.32.02-2.4.02H7.1l2.32 2.85.03.06h5.25c.42 0 .72.28.72.72v2.7h-2.5c-.36.02-.56.54-.3.8l3.92 4.9c.18.25.6.25.78 0l3.94-4.9c.26-.28 0-.83-.37-.8H18.4v-2.7c0-3.15.4-3.62-1.25-3.66z' fill='%23606984' stroke-width='0'/><path d='M7.78 19.66c-.24.02-.44.25-.44.5v2.46h-.06c-1.08 0-1.86-.03-2.4-.03-1.64 0-1.25.43-1.25 3.65v4.47c0 4.26-.56 3.62 3.65 3.62H8.5l-1.3-1.06c-.1-.08-.18-.2-.2-.3-.02-.17.06-.35.2-.45l1.33-1.1H7.28c-.44 0-.72-.3-.72-.7v-4.48c0-.44.28-.72.72-.72h.06v2.5c0 .38.54.63.82.38l4.9-3.93c.25-.18.25-.6 0-.78l-4.9-3.92c-.1-.1-.24-.14-.38-.12zm9.34 2.93c-.54-.02-1.3.02-2.4.02h-1.25l1.3 1.07c.1.07.18.2.2.33.02.16-.06.3-.2.4l-1.33 1.1h1.28c.42 0 .72.28.72.72v4.47c0 .42-.3.72-.72.72h-.1v-2.47c0-.3-.3-.53-.6-.47-.07 0-.14.05-.2.1l-4.9 3.93c-.26.18-.26.6 0 .78l4.9 3.92c.27.25.82 0 .8-.38v-2.5h.1c4.27 0 3.65.67 3.65-3.62v-4.47c0-3.15.4-3.62-1.25-3.66zM10.34 38.66c-.24.02-.44.25-.43.5v2.47H7.3c-1.08 0-1.86-.04-2.4-.04-1.64 0-1.25.43-1.25 3.65v4.47c0 3.66-.23 3.7 2.34 3.66l-1.34-1.1c-.1-.08-.18-.2-.2-.3 0-.17.07-.35.2-.45l1.96-1.6c-.03-.06-.04-.13-.04-.2v-4.48c0-.44.28-.72.72-.72H9.9v2.5c0 .36.5.6.8.38l4.93-3.93c.24-.18.24-.6 0-.78l-4.94-3.92c-.1-.08-.23-.13-.36-.12zm5.63 2.93l1.34 1.1c.1.07.18.2.2.33.02.16-.03.3-.16.4l-1.96 1.6c.02.07.06.13.06.22v4.47c0 .42-.3.72-.72.72h-2.66v-2.47c0-.3-.3-.53-.6-.47-.06.02-.12.05-.18.1l-4.94 3.93c-.24.18-.24.6 0 .78l4.94 3.92c.28.22.78-.02.78-.38v-2.5h2.66c4.27 0 3.65.67 3.65-3.62v-4.47c0-3.66.34-3.7-2.4-3.66zM13.06 57.66c-.23.03-.4.26-.4.5v2.47H7.28c-1.08 0-1.86-.04-2.4-.04-1.64 0-1.25.43-1.25 3.65v4.87l2.93-2.37v-2.5c0-.44.28-.72.72-.72h5.38v2.5c0 .36.5.6.78.38l4.94-3.93c.24-.18.24-.6 0-.78l-4.94-3.92c-.1-.1-.24-.14-.38-.12zm5.3 6.15l-2.92 2.4v2.52c0 .42-.3.72-.72.72h-5.4v-2.47c0-.3-.32-.53-.6-.47-.07.02-.13.05-.2.1L3.6 70.52c-.25.18-.25.6 0 .78l4.93 3.92c.28.22.78-.02.78-.38v-2.5h5.42c4.27 0 3.65.67 3.65-3.62v-4.47-.44zM19.25 78.8c-.1.03-.2.1-.28.17l-.9.9c-.44-.3-1.36-.25-3.35-.25H7.28c-1.08 0-1.86-.03-2.4-.03-1.64 0-1.25.43-1.25 3.65v.7l2.93.3v-1c0-.44.28-.72.72-.72h7.44c.2 0 .37.08.5.2l-1.8 1.8c-.25.26-.08.76.27.8l6.27.7c.28.03.56-.25.53-.53l-.7-6.25c0-.27-.3-.48-.55-.44zm-17.2 6.1c-.2.07-.36.3-.33.54l.7 6.25c.02.36.58.55.83.27l.8-.8c.02 0 .04-.02.04 0 .46.24 1.37.17 3.18.17h7.44c4.27 0 3.65.67 3.65-3.62v-.75l-2.93-.3v1.05c0 .42-.3.72-.72.72H7.28c-.15 0-.3-.03-.4-.1L8.8 86.4c.3-.24.1-.8-.27-.84l-6.28-.65h-.2zM4.88 98.6c-1.33 0-1.34.48-1.3 2.3l1.14-1.37c.08-.1.22-.17.34-.2.16 0 .34.08.44.2l1.66 2.03c.04 0 .07-.03.12-.03h7.44c.34 0 .57.2.65.5h-2.43c-.34.05-.53.52-.3.78l3.92 4.95c.18.24.6.24.78 0l3.94-4.94c.22-.27-.02-.76-.37-.77H18.4c.02-3.9.6-3.4-3.66-3.4H7.28c-1.08 0-1.86-.04-2.4-.04zm.15 2.46c-.1.03-.2.1-.28.2l-3.94 4.9c-.2.28.03.77.4.78H3.6c-.02 3.94-.45 3.4 3.66 3.4h7.44c3.65 0 3.74.3 3.7-2.25l-1.1 1.34c-.1.1-.2.17-.32.2-.16 0-.34-.08-.44-.2l-1.65-2.03c-.06.02-.1.04-.18.04H7.28c-.35 0-.57-.2-.66-.5h2.44c.37 0 .63-.5.4-.78l-3.96-4.9c-.1-.15-.3-.23-.47-.2zM4.88 117.6c-1.16 0-1.3.3-1.3 1.56l1.14-1.38c.08-.1.22-.14.34-.16.16 0 .34.04.44.16l2.22 2.75h7c.42 0 .72.28.72.72v.53h-2.6c-.3.1-.43.54-.2.78l3.92 4.9c.18.25.6.25.78 0l3.94-4.9c.22-.28-.02-.77-.37-.78H18.4v-.53c0-4.2.72-3.63-3.66-3.63H7.28c-1.08 0-1.86-.03-2.4-.03zm.1 1.74c-.1.03-.17.1-.23.16L.8 124.44c-.2.28.03.77.4.78H3.6v.5c0 4.26-.55 3.62 3.66 3.62h7.44c1.03 0 1.74.02 2.28 0-.16.02-.34-.03-.44-.15l-2.22-2.76H7.28c-.44 0-.72-.3-.72-.72v-.5h2.5c.37.02.63-.5.4-.78L5.5 119.5c-.12-.15-.34-.22-.53-.16zm12.02 10c1.2-.02 1.4-.25 1.4-1.53l-1.1 1.36c-.07.1-.17.17-.3.18zM5.94 136.6l2.37 2.93h6.42c.42 0 .72.28.72.72v1.25h-2.6c-.3.1-.43.54-.2.78l3.92 4.9c.18.25.6.25.78 0l3.94-4.9c.22-.28-.02-.77-.37-.78H18.4v-1.25c0-4.2.72-3.63-3.66-3.63H7.28c-.6 0-.92-.02-1.34-.03zm-1.72.06c-.4.08-.54.3-.6.75l.6-.74zm.84.93c-.12 0-.24.08-.3.18l-3.95 4.9c-.24.3 0 .83.4.82H3.6v1.22c0 4.26-.55 3.62 3.66 3.62h7.44c.63 0 .97.02 1.4.03l-2.37-2.93H7.28c-.44 0-.72-.3-.72-.72v-1.22h2.5c.4.04.67-.53.4-.8l-3.96-4.92c-.1-.13-.27-.2-.44-.2zm13.28 10.03l-.56.7c.36-.07.5-.3.56-.7zM17.13 155.6c-.55-.02-1.32.03-2.4.03h-8.2l2.38 2.9h5.82c.42 0 .72.28.72.72v1.97H12.9c-.32.06-.48.52-.28.78l3.94 4.94c.2.23.6.22.78-.03l3.94-4.9c.22-.28-.02-.77-.37-.78H18.4v-1.97c0-3.15.4-3.62-1.25-3.66zm-12.1.28c-.1.02-.2.1-.28.18l-3.94 4.9c-.2.3.03.78.4.8H3.6v1.96c0 4.26-.55 3.62 3.66 3.62h8.24l-2.36-2.9H7.28c-.44 0-.72-.3-.72-.72v-1.97h2.5c.37.02.63-.5.4-.78l-3.96-4.9c-.1-.15-.3-.22-.47-.2zM5.13 174.5c-.15 0-.3.07-.38.2L.8 179.6c-.24.27 0 .82.4.8H3.6v2.32c0 4.26-.55 3.62 3.66 3.62h7.94l-2.35-2.9h-5.6c-.43 0-.7-.3-.7-.72v-2.3h2.5c.38.03.66-.54.4-.83l-3.97-4.9c-.1-.13-.23-.2-.38-.2zm12 .1c-.55-.02-1.32.03-2.4.03H6.83l2.35 2.9h5.52c.42 0 .72.28.72.72v2.34h-2.6c-.3.1-.43.53-.2.78l3.92 4.9c.18.24.6.24.78 0l3.94-4.9c.22-.3-.02-.78-.37-.8H18.4v-2.33c0-3.15.4-3.62-1.25-3.66zM4.97 193.16c-.1.03-.17.1-.22.18l-3.94 4.9c-.2.3.03.78.4.8H3.6v2.68c0 4.26-.55 3.62 3.66 3.62h7.66l-2.3-2.84c-.03-.02-.03-.04-.05-.06H7.27c-.44 0-.72-.3-.72-.72v-2.7h2.5c.37.03.63-.48.4-.77l-3.96-4.9c-.12-.17-.34-.25-.53-.2zm12.16.43c-.55-.02-1.32.03-2.4.03H7.1l2.32 2.84.03.06h5.25c.42 0 .72.28.72.72v2.7h-2.5c-.36.02-.56.54-.3.8l3.92 4.9c.18.25.6.25.78 0l3.94-4.9c.26-.28 0-.83-.37-.8H18.4v-2.7c0-3.15.4-3.62-1.25-3.66z' fill='%23ffffff' stroke-width='0'/></svg>");
++}
++*/
+diff --git a/app/javascript/styles/mfc/mastodonFlat.scss b/app/javascript/styles/mfc/mastodonFlat.scss
+new file mode 100644
+index 000000000..47d07e9df
+--- /dev/null
++++ b/app/javascript/styles/mfc/mastodonFlat.scss
+@@ -0,0 +1,6 @@
++@import '0-palette';
++@import '1-foreground';
++@import '2-background';
++@import '3-highlights';
++@import '5-material';
++@import '6-actions';
+diff --git a/app/javascript/styles/mfc/variables.scss b/app/javascript/styles/mfc/variables.scss
+new file mode 100644
+index 000000000..42fbcb488
+--- /dev/null
++++ b/app/javascript/styles/mfc/variables.scss
+@@ -0,0 +1,11 @@
++/* define scss variables in palette.scss of subtheme */
++:root {
++--bgPage: $bgPage;
++--bg: $bg;
++--bgHead: $bgHead;
++--text: $text;
++--textBold: $textBold;
++--textMuted: $textMuted;
++--textHead: $textHead;
++--accent: $accent;
++}
+\ No newline at end of file
+diff --git a/app/javascript/styles/midnight-blue/palette.scss b/app/javascript/styles/midnight-blue/palette.scss
+new file mode 100644
+index 000000000..ff5d74ed6
+--- /dev/null
++++ b/app/javascript/styles/midnight-blue/palette.scss
+@@ -0,0 +1,61 @@
++/*------------------------------------------------------------------------------
++* DEFINE COLOR PALETTE
++*
++* Choose the CSS Variables that will be applied to recolor elements.
++* The current format is to use hex codes, e.g. #00FF00.
++*
++* A future refactor to use rgb() instead may allow transparency mods
++* via using these variables with rgba(). Hex codes currently do not
++* work with rgba(), so no transparency mods are included except for
++* those defined in absolute terms (i.e., non-variable colors).
++*
++* Foreground Colors:
++*            --bg: | Background for foreground elements.
++*          --text: | A color that stands out against bg.
++*      --textBold: | A color that stands out strongly against bg.
++*     --textMuted: | A color that stands out slightly against bg.
++*
++* Background Colors:
++*        --bgPage: | Background for non-foreground elements.
++*      --textPage: | A color that stands out against bgPage.
++*  --textPageBold: | A color that stands out strongly against bgPage.
++* --textPageMuted: | A color that stands out slightly against bgPage.
++*
++* Highlights Colors:
++*        --bgHead: | Background for column headers.
++*      --textHead: | A color that stands out (strongly) against bgHead.
++*        --accent: | An accent color for links and buttons.
++*    --accentText: | A color that stands out (strongly) against accent.
++*
++* Palette advisories for choosing colors:
++*   - Consider using an off-white or off-black for text tones,
++*     but not necessary as long as there is sufficient contrast.
++*   - Bold colors are highly recommended to be strong colors,
++*     like pure white or pure black.
++*   - Muted colors can be off-grey or any mid-tone with slight contrast.
++*   - It might be best to base the background palette on a slightly
++*     darker or lighter version of the foreground palette, but
++*     this is no longer strictly necessary; you may use mixed palettes.
++*     It is now possible to use a dark bgPage and light bg, or vice-versa.
++------------------------------------------------------------------------------*/
++
++/* mignight blue */
++
++:root {
++  --bg: #123;
++  --text: #d0d8e0;
++  --textBold: #fff;
++  --textMuted: #808890;
++
++  --bgPage: #051119;
++  --textPage: var(--text);
++  --textPageBold: var(--textBold);
++  --textPageMuted: var(--textMuted);
++
++  --bgHead: #357;
++  --textHead: var(--textBold);
++  --accent: #09f;
++  --accentText: var(--textBold);
++}
++
++
+diff --git a/app/javascript/styles/midnight_blue.scss b/app/javascript/styles/midnight_blue.scss
+new file mode 100644
+index 000000000..4d0f2feed
+--- /dev/null
++++ b/app/javascript/styles/midnight_blue.scss
+@@ -0,0 +1,16 @@
++@import 'application';
++
++@import 'mfc/mastodonFlat';
++@import 'midnight-blue/palette';
++
++@import 'mods/display_breakname';
++@import 'mods/display_fullname';
++@import 'mods/display_browserfont';
++@import 'mods/display_circleavatar';
++@import 'mods/display_collapsedinteractions';
++@import 'mods/display_fadedinteractions';
++@import 'mods/display_transparentmedia';
++@import 'mods/layout_1600px';
++@import 'mods/layout_elefriend';
++@import 'mods/layout_widercolumns';
++@import 'mods/layout_mobile_bottombar';
+diff --git a/app/javascript/styles/mods/deprecated/display_bettersearch.css b/app/javascript/styles/mods/deprecated/display_bettersearch.css
+new file mode 100644
+index 000000000..c9bf8850f
+--- /dev/null
++++ b/app/javascript/styles/mods/deprecated/display_bettersearch.css
+@@ -0,0 +1,10 @@
++/*
++Make search results look better:
++- adds contrast to search icon
++- overlay-style shadowed background
++
++author: trwnh
++license: Public Domain
++*/
++.search__icon .fa.active {opacity: 1}
++.drawer__inner.darker {background: rgba(0,0,0,0.5)}
+diff --git a/app/javascript/styles/mods/display_breakname.css b/app/javascript/styles/mods/display_breakname.css
+new file mode 100644
+index 000000000..fc3936e23
+--- /dev/null
++++ b/app/javascript/styles/mods/display_breakname.css
+@@ -0,0 +1,9 @@
++/*
++Add a line break between display name and account handle:
++- this allows user/display names to expand more by default.
++- it also makes names look better in general.
++
++author: trwnh
++license: Public Domain
++*/
++.display-name__html {display: block;}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/display_browserfont.css b/app/javascript/styles/mods/display_browserfont.css
+new file mode 100644
+index 000000000..6389f20b4
+--- /dev/null
++++ b/app/javascript/styles/mods/display_browserfont.css
+@@ -0,0 +1,20 @@
++/*
++Use browser default font:
++- override mastodon-font-sans-serif with sans-serif
++- note: this is not the same as "use system default font"
++  in mastodon's preferences! that option uses a font that
++  would be *expected to load on that system*, and ignores
++  your browser's settings entirely. for example, if you
++  are running ms windows, you will see segoe ui, even if
++  your browser's default font is something else!
++
++author: trwnh
++license: Public Domain
++*/
++body,
++.landing-page #mastodon-timeline,
++.landing-page li,
++.landing-page p
++{
++    font-family: sans-serif
++}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/display_circleavatar.css b/app/javascript/styles/mods/display_circleavatar.css
+new file mode 100644
+index 000000000..459108d07
+--- /dev/null
++++ b/app/javascript/styles/mods/display_circleavatar.css
+@@ -0,0 +1,15 @@
++/*
++* Rounded avatars:
++* - adjust the border radius around all avatar elements.
++* - default override is 50% (i.e. turn squares into circles),
++*   but you can set it to whatever you want.
++*
++* author: trwnh
++* license: Public Domain
++*/
++.card .avatar img,
++.activity-stream .status.light .status__avatar img,
++.account__avatar,
++    .account__avatar-overlay-base,
++    .account__avatar-overlay-overlay
++{border-radius: 50%}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/display_collapsedinteractions.css b/app/javascript/styles/mods/display_collapsedinteractions.css
+new file mode 100644
+index 000000000..7cb1f7c6a
+--- /dev/null
++++ b/app/javascript/styles/mods/display_collapsedinteractions.css
+@@ -0,0 +1,37 @@
++/*
++Collapse fave/boost/poll notifications
++- limits display to just a few lines (~3), so you can at least identify it
++- hides the display name on fave/boost, because you already know you posted it
++- tighter margins, remove space between CW and content
++- hides the buttons, but you can expand a status to interact with it
++
++author: trwnh
++license: Public Domain
++*/
++
++.notification-favourite .status,
++.notification-reblog .status,
++.notification-poll .status{
++    max-height: 4em;
++    overflow: hidden;
++}
++
++.notification-favourite .display-name,
++.notification-reblog .display-name {
++    display: none;
++}
++
++.notification-favourite .status__content,
++.notification-reblog .status__content {
++    margin-top: -4px;
++}
++
++.notification-favourite .status__content p,
++.notification-reblog .status__content p {
++    margin-bottom: 0px;
++}
++
++.notification-favourite .status__action-bar,
++.notification-reblog .status__action-bar {
++    display: none;
++}
+diff --git a/app/javascript/styles/mods/display_emojizoom.css b/app/javascript/styles/mods/display_emojizoom.css
+new file mode 100644
+index 000000000..32ba536bb
+--- /dev/null
++++ b/app/javascript/styles/mods/display_emojizoom.css
+@@ -0,0 +1,23 @@
++  /*
++  Emoji hover zoom:
++  - makes emoji grow in size when moused over
++  
++  author: noiob
++  license: CC0 - Public Domain
++  source: https://userstyles.org/styles/150165
++  */
++  
++  .emojione:hover
++  {
++    width: 50px !important;
++ /* set the width and height of the expanded emojo here */
++    height: 50px !important;
++    transition: all 0.3s ease-in-out !important;
++    /* the 0.3s is the animation time for growing the emojo, it can be set to 0 */;
++  }
++
++  .emojione
++  {
++    transition: all 0.2s ease-in-out;
++    /* the 0.2s is the animation time for shrinking the emojo, it can be set to 0 */;
++  }
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/display_fadedinteractions.css b/app/javascript/styles/mods/display_fadedinteractions.css
+new file mode 100644
+index 000000000..8945d2699
+--- /dev/null
++++ b/app/javascript/styles/mods/display_fadedinteractions.css
+@@ -0,0 +1,9 @@
++/*
++Fade out faved/boosted toots in notifications:
++- for "x favourited your toot" / "x boosted your toot",
++  make the faved/boosted toot half-transparent.
++
++author: trwnh
++license: Public Domain
++*/
++.status.muted {opacity: 0.5}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/display_fullmedia.css b/app/javascript/styles/mods/display_fullmedia.css
+new file mode 100644
+index 000000000..04cdbf574
+--- /dev/null
++++ b/app/javascript/styles/mods/display_fullmedia.css
+@@ -0,0 +1,31 @@
++/*
++Full-height media previews:
++- normal media previews are forced to be 16:9 for consistency
++- use this if you prefer to see the aspect ratio unchanged
++
++author: Kevin
++license: CC0 - Public Domain
++source: https://userstyles.org/styles/167207 [in part]
++*/
++
++.media-gallery {
++    max-height: 100% !important;
++    height: 100% !important;
++}
++
++.media-gallery__item-gifv-thumbnail, .media-gallery__item-gifv-thumbnail img {
++    transform: translateY(0%) !important;
++    max-height: 100% !important;
++}
++
++.media-gallery__item-thumbnail, .media-gallery__item-thumbnail img, .media-gallery__gifv {
++    max-height: 100% !important;
++}
++
++.media-gallery__item {
++    width: 100% !important;
++    height: 100% !important;
++    max-height: 100% !important;
++    inset: 0 !important;
++    margin-bottom: 4px;
++}
+diff --git a/app/javascript/styles/mods/display_fullname.css b/app/javascript/styles/mods/display_fullname.css
+new file mode 100644
+index 000000000..1f2e541af
+--- /dev/null
++++ b/app/javascript/styles/mods/display_fullname.css
+@@ -0,0 +1,11 @@
++/*
++Always show full name and handle:
++- this removes the `...` and allows text to overflow past the column.
++- this can look worse, but it can also prevent having to mouse over
++  to see the full name or handle.
++- by default, it will also break long names onto a new line.
++
++author: trwnh
++license: Public Domain
++*/
++.display-name {overflow: visible; white-space: normal; word-wrap: break-word}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/display_hidefollowcounts.css b/app/javascript/styles/mods/display_hidefollowcounts.css
+new file mode 100644
+index 000000000..e9ac9ed56
+--- /dev/null
++++ b/app/javascript/styles/mods/display_hidefollowcounts.css
+@@ -0,0 +1,10 @@
++/*
++Hide the following and follower counters on profiles.
++- full counts are still available by hovering over the text, though
++author: trwnh
++license: Public Domain
++*/
++.account__header__extra__links a:not(:first-child) strong
++{display: none}
++.details-counters .counter:not(:first-child) .counter-number
++{visibility: hidden}
+diff --git a/app/javascript/styles/mods/display_hidereplycounts.css b/app/javascript/styles/mods/display_hidereplycounts.css
+new file mode 100644
+index 000000000..513251cde
+--- /dev/null
++++ b/app/javascript/styles/mods/display_hidereplycounts.css
+@@ -0,0 +1,7 @@
++/*
++Hide the 0/1/1+ counters of replies.
++
++author: trwnh
++license: Public Domain
++*/
++.status__action-bar__counter__label {display: none}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/display_starstohearts.css b/app/javascript/styles/mods/display_starstohearts.css
+new file mode 100644
+index 000000000..53efb5576
+--- /dev/null
++++ b/app/javascript/styles/mods/display_starstohearts.css
+@@ -0,0 +1,16 @@
++/*
++Turn stars into hearts:
++- similar to twitter's change
++
++author: numimyon
++license: CC0 - Public Domain
++source: https://userstyles.org/styles/151233
++*/
++
++.notification__favourite-icon-wrapper .star-icon,
++.star-icon.active,
++.star-icon:hover,
++.star-icon:active
++{color: crimson !important;}
++
++.fa-star:before {content: "";}
+diff --git a/app/javascript/styles/mods/display_transparentmedia.css b/app/javascript/styles/mods/display_transparentmedia.css
+new file mode 100644
+index 000000000..afa18a18a
+--- /dev/null
++++ b/app/javascript/styles/mods/display_transparentmedia.css
+@@ -0,0 +1,10 @@
++/*
++Remove the checker-board background from the media modal:
++- this makes transparent images actually transparent
++
++author: trwnh
++license: Public Domain
++*/
++.media-modal canvas,
++.media-modal img
++{background: none}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/layout_1600px.css b/app/javascript/styles/mods/layout_1600px.css
+new file mode 100644
+index 000000000..f81af0046
+--- /dev/null
++++ b/app/javascript/styles/mods/layout_1600px.css
+@@ -0,0 +1,12 @@
++/*
++Allow for wider layout on bigger screens
++- vanilla max-width is 1200px
++- there is no penalty to slightly expanding flexbox on bigger screens
++- only applies on landing pages (webapp will expand as you add columns)
++
++author: trwnh
++license: Public Domain
++*/
++@media (min-width: 1600px) {
++    .landing-page .container {max-width: 1600px}
++}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/layout_elefriend.css b/app/javascript/styles/mods/layout_elefriend.css
+new file mode 100644
+index 000000000..3d79a2cf2
+--- /dev/null
++++ b/app/javascript/styles/mods/layout_elefriend.css
+@@ -0,0 +1,20 @@
++/*
++Release elephant friend from their confines:
++- elephant friend will now hang out in the corner of your browser,
++  instead of being trapped in the drawer.
++
++author: trwnh
++license: Public Domain
++*/
++.drawer__inner, .drawer__inner__mastodon {
++    background: none; z-index: 0
++}
++.drawer__inner__mastodon > img {
++    position: fixed;
++    bottom: 0;
++    left: 0;
++    height: 180px;
++    z-index: -1
++}
++.compose-form {z-index: 1}
++.drawer__inner {height: 100%} /* firefox bug highlights drawer text on click? */
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/layout_gettingstartedheight.css b/app/javascript/styles/mods/layout_gettingstartedheight.css
+new file mode 100644
+index 000000000..536a70751
+--- /dev/null
++++ b/app/javascript/styles/mods/layout_gettingstartedheight.css
+@@ -0,0 +1,13 @@
++/*
++Make "getting started" column height consistent with all other columns:
++- puts the footer back at the bottom of the page, instead of floating.
++
++author: trwnh
++license: Public Domain
++*/
++.getting-started {
++    height: 100%;
++    display: flex;
++    flex-flow: column;
++    justify-content: space-between
++}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/layout_hidedisabled.css b/app/javascript/styles/mods/layout_hidedisabled.css
+new file mode 100644
+index 000000000..3196db9b1
+--- /dev/null
++++ b/app/javascript/styles/mods/layout_hidedisabled.css
+@@ -0,0 +1,17 @@
++/*
++Hide buttons that can't be clicked
++- columns on /about and tag pages have buttons that don't work.
++- so, this snippet hides those nonworking buttons to save space
++- and to avoid confusion.
++- unboostable buttons are made transparent on hover instead.
++
++this is fixed in https://github.com/tootsuite/mastodon/pull/10054
++
++author: trwnh
++license: Public Domain
++*/
++.status__action-bar .icon-button.disabled:hover,
++.notification-favourite .status.status-direct .icon-button.disabled:hover
++{color: transparent !important}
++
++#mastodon-timeline .status__action-bar {display: none}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/layout_hidefiltered.css b/app/javascript/styles/mods/layout_hidefiltered.css
+new file mode 100644
+index 000000000..f701e5f53
+--- /dev/null
++++ b/app/javascript/styles/mods/layout_hidefiltered.css
+@@ -0,0 +1,9 @@
++/*
++Remove the "Filtered" tombstone from timelines.
++- WARNING: this breaks keyboard scrolling with j/k!
++
++author: trwnh
++license: Public Domain
++*/
++
++.status__wrapper--filtered {display: none}
+diff --git a/app/javascript/styles/mods/layout_mobile_bottombar.css b/app/javascript/styles/mods/layout_mobile_bottombar.css
+new file mode 100644
+index 000000000..e5ddaf4e7
+--- /dev/null
++++ b/app/javascript/styles/mods/layout_mobile_bottombar.css
+@@ -0,0 +1,29 @@
++/*
++Bottom tabs on mobile:
++- Places the tab bar at the bottom instead of the top.
++- Fixes layout errors that are a result of this change.
++
++author: trwnh
++license: Public Domain
++*/
++@media (max-width: 630px) {
++
++.tabs-bar {
++position: fixed;
++bottom: 0;
++z-index: 1;
++width: 100%;
++margin: 0 !important;
++}
++
++.getting-started {overflow: auto} /* can be removed after PR #10075 is merged */
++
++.columns-area {padding: 0}
++.getting-started__trends, .getting-started__wrapper, .search {margin: 0}
++.columns-area__panels__main, .tabs-bar__wrapper {padding: 0}
++  
++.floating-action-button, .column .scrollable > div:last-child {margin-bottom: 50px}
++.react-swipeable-view-container {height: calc(100% - 50px)}
++.react-swipeable-view-container .columns-area {height: 100% !important}
++    
++}
+diff --git a/app/javascript/styles/mods/layout_singlecolumn.css b/app/javascript/styles/mods/layout_singlecolumn.css
+new file mode 100644
+index 000000000..88bf19ee4
+--- /dev/null
++++ b/app/javascript/styles/mods/layout_singlecolumn.css
+@@ -0,0 +1,25 @@
++/*
++Single column layout:
++- re-uses tab bar from mobile layout
++- hides search from drawer (redundant with search tab)
++
++author: trwnh
++license: Public Domain
++*/
++
++@media (min-width: 1024px) {
++  /* place constraints on app layout */
++  .ui {max-width: 960px; max-height: 100vh;}
++  .drawer {width: 300px}
++  .column:last-child, .drawer:last-child
++  {display: flex; flex: 1 1 100%;}
++  /* show tabs bar (from mobile layout) as header */
++  .tabs-bar {display: flex;}
++  /* hide redundant ui elements */
++  .column,
++  .drawer__header,
++  .drawer:first-child .search,
++  .drawer:first-child .search-results
++  {display: none;}
++  .drawer:first-child .drawer__inner.darker {z-index: -1}
++}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/layout_widercolumns.css b/app/javascript/styles/mods/layout_widercolumns.css
+new file mode 100644
+index 000000000..b5d91dc1e
+--- /dev/null
++++ b/app/javascript/styles/mods/layout_widercolumns.css
+@@ -0,0 +1,10 @@
++/*
++* Wider columns:
++* - Make the multi-column layout use wider columns by default.
++* 
++* author: trwnh
++* license: Public Domain
++*/
++@media (min-width: 640px) {
++    .column, #mastodon-timeline {min-width: 60ch;}
++}
+\ No newline at end of file
+diff --git a/app/javascript/styles/mods/test_colorizedlogo.css b/app/javascript/styles/mods/test_colorizedlogo.css
+new file mode 100644
+index 000000000..634ae5f0c
+--- /dev/null
++++ b/app/javascript/styles/mods/test_colorizedlogo.css
+@@ -0,0 +1,12 @@
++/*
++Colorize logo on landing page:
++- DO NOT IMPORT. It works as standalone CSS, but it makes Sass choke.
++
++author: trwnh
++license: Public Domain
++*/
++
++.landing-page__logo img {
++    filter: sepia(100%) hue-rotate(160deg) saturate(400%) brightness(40%);
++    mix-blend-mode: normal
++}
+\ No newline at end of file
+diff --git a/config/locales/en.yml b/config/locales/en.yml
+index 8245397d7..bfb0c89f4 100644
+--- a/config/locales/en.yml
++++ b/config/locales/en.yml
+@@ -1334,6 +1334,11 @@ en:
+     contrast: Mastodon (High contrast)
+     default: Mastodon (Dark)
+     mastodon-light: Mastodon (Light)
++    linernotes-dark: Linernotes Dark
++    clean-slate: Clean Slate
++    droid: Droid
++    flamingo: Flamingo
++    midnight-blue: Midnight Blue
+   time:
+     formats:
+       default: "%b %d, %Y, %H:%M"
+diff --git a/config/themes.yml b/config/themes.yml
+index 9c21c9459..afe7c0b87 100644
+--- a/config/themes.yml
++++ b/config/themes.yml
+@@ -1,3 +1,8 @@
+ default: styles/application.scss
+ contrast: styles/contrast.scss
+ mastodon-light: styles/mastodon-light.scss
++linernotes-dark: styles/linernotes_dark.scss
++clean-slate: styles/clean_slate.scss
++droid: styles/droid.scss
++flamingo: styles/flamingo.scss
++midnight-blue: styles/midnight_blue.scss

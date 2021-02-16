@@ -35,7 +35,11 @@ RAILS_ENV=development nf start
 # In Mastodon path
 git checkout -- .  # reset code state
 # Changde code and test
-git diff > ~/Downloads/xyz.diff  # generate the feature diff and put it into code-patches
+# generate the feature diff and put it into code-patches
+git diff > ~/Downloads/xyz.diff
+# for changes that involve creating new files
+git add the-files
+git diff --staged > ~/Downloads/xyz.diff
 ```
 
 ## Production upgrade runbook

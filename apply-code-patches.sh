@@ -9,14 +9,10 @@ fi
 CURRENT_PWD=$(pwd)
 
 pushd "${MASTODON_PATH}"
-
 git checkout -- .
-
+git clean -fd -e .tool-versions
 for filename in "${CURRENT_PWD}"/code-patches/*.diff; do
   git apply "${filename}"
 done
-
 git status
-git diff
-
 popd
