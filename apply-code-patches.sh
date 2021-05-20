@@ -12,6 +12,7 @@ pushd "${MASTODON_PATH}"
 git checkout -- .
 git clean -fd -e .tool-versions
 for filename in "${CURRENT_PWD}"/code-patches/*.diff; do
+  echo Applying "${filename}" ...
   git apply "${filename}"
 done
 git status

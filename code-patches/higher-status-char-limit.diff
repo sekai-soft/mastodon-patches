@@ -21,7 +21,7 @@ index 8af806ec4..cc4ae8ed2 100644
  
          <div className='compose-form__publish'>
 diff --git a/app/validators/status_length_validator.rb b/app/validators/status_length_validator.rb
-index 93bae2fa8..6bb0c61ae 100644
+index d036f1925..6ad509551 100644
 --- a/app/validators/status_length_validator.rb
 +++ b/app/validators/status_length_validator.rb
 @@ -1,7 +1,7 @@
@@ -30,6 +30,6 @@ index 93bae2fa8..6bb0c61ae 100644
  class StatusLengthValidator < ActiveModel::Validator
 -  MAX_CHARS = 500
 +  MAX_CHARS = 5000
+   URL_PLACEHOLDER = "\1#{'x' * 23}"
  
    def validate(status)
-     return unless status.local? && !status.reblog?
