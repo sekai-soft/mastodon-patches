@@ -1,5 +1,5 @@
 diff --git a/app/javascript/mastodon/features/compose/components/compose_form.js b/app/javascript/mastodon/features/compose/components/compose_form.js
-index 8af806ec4..cc4ae8ed2 100644
+index ba2d20cc7..e32468a62 100644
 --- a/app/javascript/mastodon/features/compose/components/compose_form.js
 +++ b/app/javascript/mastodon/features/compose/components/compose_form.js
 @@ -86,7 +86,7 @@ class ComposeForm extends ImmutablePureComponent {
@@ -11,7 +11,7 @@ index 8af806ec4..cc4ae8ed2 100644
    }
  
    handleSubmit = () => {
-@@ -249,7 +249,7 @@ class ComposeForm extends ImmutablePureComponent {
+@@ -257,7 +257,7 @@ class ComposeForm extends ImmutablePureComponent {
              <PrivacyDropdownContainer />
              <SpoilerButtonContainer />
            </div>
@@ -21,7 +21,7 @@ index 8af806ec4..cc4ae8ed2 100644
  
          <div className='compose-form__publish'>
 diff --git a/app/validators/status_length_validator.rb b/app/validators/status_length_validator.rb
-index d036f1925..6ad509551 100644
+index 4c258ec16..fc664e105 100644
 --- a/app/validators/status_length_validator.rb
 +++ b/app/validators/status_length_validator.rb
 @@ -1,7 +1,7 @@
@@ -30,6 +30,6 @@ index d036f1925..6ad509551 100644
  class StatusLengthValidator < ActiveModel::Validator
 -  MAX_CHARS = 500
 +  MAX_CHARS = 5000
-   URL_PLACEHOLDER = "\1#{'x' * 23}"
+   URL_PLACEHOLDER_CHARS = 23
+   URL_PLACEHOLDER = "\1#{'x' * URL_PLACEHOLDER_CHARS}"
  
-   def validate(status)
