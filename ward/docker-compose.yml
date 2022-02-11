@@ -1,0 +1,7 @@
+services:
+  web:
+    image: ghcr.io/k-t-corp/ward:master
+    ports:
+      - "4001:4000"
+    restart: always
+    privileged: true
