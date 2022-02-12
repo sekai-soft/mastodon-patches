@@ -1,0 +1,14 @@
+[Unit]
+Description=ward
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/home/mastodon/ward
+ExecStart=/usr/bin/java -jar /home/mastodon/ward/ward-1.8.8.jar --server.servlet.context-path=/stats
+Restart=Always
+
+[Install]
+WantedBy=multi-user.target
