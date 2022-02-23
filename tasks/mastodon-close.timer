@@ -1,0 +1,9 @@
+[Unit]
+Description=Mastodon close timer
+
+[Timer]
+OnCalendar=*-*-20 00:00:01
+Persistent=true
+
+[Install]
+WantedBy=timers.target
