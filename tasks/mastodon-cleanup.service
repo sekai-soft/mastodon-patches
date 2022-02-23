@@ -1,0 +1,8 @@
+[Unit]
+Description=Mastodon cleanup
+
+[Service]
+Type=oneshot
+EnvironmentFile=/home/mastodon/mastodon-cleanup.env
+Environment=PATH=/home/mastodon/.rbenv/shims:/home/mastodon/.rbenv/bin:$PATH
+ExecStart=/bin/bash -c 'eval "$(rbenv init -)"; /home/mastodon/mastodon-issues/cleanup.sh && curl -fsS -m 10 --retry 5 -o /dev/null $HC_URL'

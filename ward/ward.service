@@ -6,8 +6,8 @@ After=network.target
 Type=simple
 User=root
 Group=root
-WorkingDirectory=/home/mastodon/ward
-ExecStart=/usr/bin/java -jar /home/mastodon/ward/ward-1.8.8.jar --server.servlet.context-path=/stats
+WorkingDirectory=/home/mastodon/mastodon-issues/ward
+ExecStart=/usr/bin/java -jar /home/mastodon/mastodon-issues/ward/ward-1.8.8.jar --server.servlet.context-path=/stats
 Restart=Always
 
 [Install]
