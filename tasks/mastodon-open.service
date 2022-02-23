@@ -6,5 +6,5 @@ Type=oneshot
 User=mastodon
 Group=mastodon
 EnvironmentFile=/home/mastodon/mastodon-open.env
-Environment=PATH=/home/mastodon/.rbenv/shims:/home/mastodon/.rbenv/bin:$PATH
+Environment=PATH=/home/mastodon/.rbenv/shims:/home/mastodon/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ExecStart=/bin/bash -c 'eval "$(rbenv init -)"; RAILS_ENV=production /home/mastodon/live/bin/tootctl settings registrations open && curl -fsS -m 10 --retry 5 -o /dev/null $HC_URL'

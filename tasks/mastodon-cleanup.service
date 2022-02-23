@@ -6,5 +6,5 @@ Type=oneshot
 User=mastodon
 Group=mastodon
 EnvironmentFile=/home/mastodon/mastodon-cleanup.env
-Environment=PATH=/home/mastodon/.rbenv/shims:/home/mastodon/.rbenv/bin:$PATH
+Environment=PATH=/home/mastodon/.rbenv/shims:/home/mastodon/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ExecStart=/bin/bash -c 'eval "$(rbenv init -)"; /home/mastodon/mastodon-issues/cleanup.sh && curl -fsS -m 10 --retry 5 -o /dev/null $HC_URL'
