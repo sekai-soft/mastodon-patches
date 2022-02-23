@@ -3,6 +3,8 @@ Description=Mastodon open
 
 [Service]
 Type=oneshot
+User=mastodon
+Group=mastodon
 EnvironmentFile=/home/mastodon/mastodon-open.env
 Environment=PATH=/home/mastodon/.rbenv/shims:/home/mastodon/.rbenv/bin:$PATH
 ExecStart=/bin/bash -c 'eval "$(rbenv init -)"; RAILS_ENV=production /home/mastodon/live/bin/tootctl settings registrations open && curl -fsS -m 10 --retry 5 -o /dev/null $HC_URL'
