@@ -1,3 +1,87 @@
+diff --git a/app/javascript/mastodon/actions/compose.js b/app/javascript/mastodon/actions/compose.js
+index b0a217550..5e90a8c63 100644
+--- a/app/javascript/mastodon/actions/compose.js
++++ b/app/javascript/mastodon/actions/compose.js
+@@ -228,7 +228,7 @@ export function submitComposeFail(error) {
+ 
+ export function uploadCompose(files) {
+   return function (dispatch, getState) {
+-    const uploadLimit = 4;
++    const uploadLimit = 16;
+     const media  = getState().getIn(['compose', 'media_attachments']);
+     const pending  = getState().getIn(['compose', 'pending_media_attachments']);
+     const progress = new Array(files.length).fill(0);
+@@ -247,7 +247,7 @@ export function uploadCompose(files) {
+     dispatch(uploadComposeRequest());
+ 
+     for (const [i, f] of Array.from(files).entries()) {
+-      if (media.size + i > 3) break;
++      if (media.size + i > 15) break;
+ 
+       resizeImage(f).then(file => {
+         const data = new FormData();
+diff --git a/app/javascript/mastodon/components/media_gallery.js b/app/javascript/mastodon/components/media_gallery.js
+index 2e7ce2e60..ac79f9205 100644
+--- a/app/javascript/mastodon/components/media_gallery.js
++++ b/app/javascript/mastodon/components/media_gallery.js
+@@ -92,7 +92,7 @@ class Item extends React.PureComponent {
+       width = 100;
+     }
+ 
+-    if (size === 4 || (size === 3 && index > 0)) {
++    if (size >= 4 || (size === 3 && index > 0)) {
+       height = 50;
+     }
+ 
+@@ -102,8 +102,8 @@ class Item extends React.PureComponent {
+       } else {
+         left = '2px';
+       }
+-    } else if (size === 3) {
+-      if (index === 0) {
++    } else if (size >= 4) {
++      if (index % 2 === 0) {
+         right = '2px';
+       } else if (index > 0) {
+         left = '2px';
+@@ -119,7 +119,7 @@ class Item extends React.PureComponent {
+         right = '2px';
+       }
+ 
+-      if (index === 1 || index === 3) {
++      if (index % 2 === 1) {
+         left = '2px';
+       }
+ 
+@@ -329,13 +329,13 @@ class MediaGallery extends React.PureComponent {
+       style.height = height;
+     }
+ 
+-    const size     = media.take(4).size;
++    const size     = media.take(16).size;
+     const uncached = media.every(attachment => attachment.get('type') === 'unknown');
+ 
+     if (standalone && this.isFullSizeEligible()) {
+       children = <Item standalone autoplay={autoplay} onClick={this.handleClick} attachment={media.get(0)} displayWidth={width} visible={visible} />;
+     } else {
+-      children = media.take(4).map((attachment, i) => <Item key={attachment.get('id')} autoplay={autoplay} onClick={this.handleClick} attachment={attachment} index={i} size={size} displayWidth={width} visible={visible || uncached} />);
++      children = media.take(16).map((attachment, i) => <Item key={attachment.get('id')} autoplay={autoplay} onClick={this.handleClick} attachment={attachment} index={i} size={size} displayWidth={width} visible={visible || uncached} />);
+     }
+ 
+     if (uncached) {
+diff --git a/app/javascript/mastodon/features/compose/containers/upload_button_container.js b/app/javascript/mastodon/features/compose/containers/upload_button_container.js
+index 221b98e31..6437e1410 100644
+--- a/app/javascript/mastodon/features/compose/containers/upload_button_container.js
++++ b/app/javascript/mastodon/features/compose/containers/upload_button_container.js
+@@ -3,7 +3,7 @@ import UploadButton from '../components/upload_button';
+ import { uploadCompose } from '../../../actions/compose';
+ 
+ const mapStateToProps = state => ({
+-  disabled: state.getIn(['compose', 'is_uploading']) || (state.getIn(['compose', 'media_attachments']).size + state.getIn(['compose', 'pending_media_attachments']) > 3 || state.getIn(['compose', 'media_attachments']).some(m => ['video', 'audio'].includes(m.get('type')))),
++  disabled: state.getIn(['compose', 'is_uploading']) || (state.getIn(['compose', 'media_attachments']).size + state.getIn(['compose', 'pending_media_attachments']) > 15 || state.getIn(['compose', 'media_attachments']).some(m => ['video', 'audio'].includes(m.get('type')))),
+   unavailable: state.getIn(['compose', 'poll']) !== null,
+   resetFileKey: state.getIn(['compose', 'resetFileKey']),
+ });
 diff --git a/app/lib/activitypub/activity/create.rb b/app/lib/activitypub/activity/create.rb
 index f4f98e29c..0c9ace9a8 100644
 --- a/app/lib/activitypub/activity/create.rb
