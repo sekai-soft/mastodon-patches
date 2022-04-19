@@ -1,0 +1,26 @@
+diff --git a/app/javascript/mastodon/components/status_action_bar.js b/app/javascript/mastodon/components/status_action_bar.js
+index 1d8fe23da..04d232be1 100644
+--- a/app/javascript/mastodon/components/status_action_bar.js
++++ b/app/javascript/mastodon/components/status_action_bar.js
+@@ -261,7 +261,7 @@ class StatusActionBar extends ImmutablePureComponent {
+     }
+ 
+     if (writtenByMe) {
+-      // menu.push({ text: intl.formatMessage(messages.edit), action: this.handleEditClick });
++      menu.push({ text: intl.formatMessage(messages.edit), action: this.handleEditClick });
+       menu.push({ text: intl.formatMessage(messages.delete), action: this.handleDeleteClick });
+       menu.push({ text: intl.formatMessage(messages.redraft), action: this.handleRedraftClick });
+     } else {
+diff --git a/app/javascript/mastodon/features/status/components/action_bar.js b/app/javascript/mastodon/features/status/components/action_bar.js
+index 3f3ec0e71..ed02a493c 100644
+--- a/app/javascript/mastodon/features/status/components/action_bar.js
++++ b/app/javascript/mastodon/features/status/components/action_bar.js
+@@ -215,7 +215,7 @@ class ActionBar extends React.PureComponent {
+ 
+       menu.push({ text: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation), action: this.handleConversationMuteClick });
+       menu.push(null);
+-      // menu.push({ text: intl.formatMessage(messages.edit), action: this.handleEditClick });
++      menu.push({ text: intl.formatMessage(messages.edit), action: this.handleEditClick });
+       menu.push({ text: intl.formatMessage(messages.delete), action: this.handleDeleteClick });
+       menu.push({ text: intl.formatMessage(messages.redraft), action: this.handleRedraftClick });
+     } else {
