@@ -1,8 +1,8 @@
 diff --git a/app/javascript/mastodon/actions/compose.js b/app/javascript/mastodon/actions/compose.js
-index 891403969..0d6646b58 100644
+index b0a217550..5e90a8c63 100644
 --- a/app/javascript/mastodon/actions/compose.js
 +++ b/app/javascript/mastodon/actions/compose.js
-@@ -206,7 +206,7 @@ export function submitComposeFail(error) {
+@@ -228,7 +228,7 @@ export function submitComposeFail(error) {
  
  export function uploadCompose(files) {
    return function (dispatch, getState) {
@@ -11,7 +11,7 @@ index 891403969..0d6646b58 100644
      const media  = getState().getIn(['compose', 'media_attachments']);
      const pending  = getState().getIn(['compose', 'pending_media_attachments']);
      const progress = new Array(files.length).fill(0);
-@@ -225,7 +225,7 @@ export function uploadCompose(files) {
+@@ -247,7 +247,7 @@ export function uploadCompose(files) {
      dispatch(uploadComposeRequest());
  
      for (const [i, f] of Array.from(files).entries()) {
@@ -21,7 +21,7 @@ index 891403969..0d6646b58 100644
        resizeImage(f).then(file => {
          const data = new FormData();
 diff --git a/app/javascript/mastodon/components/media_gallery.js b/app/javascript/mastodon/components/media_gallery.js
-index 0a8f42585..a1b099eb4 100644
+index 2e7ce2e60..ac79f9205 100644
 --- a/app/javascript/mastodon/components/media_gallery.js
 +++ b/app/javascript/mastodon/components/media_gallery.js
 @@ -92,7 +92,7 @@ class Item extends React.PureComponent {
@@ -33,14 +33,18 @@ index 0a8f42585..a1b099eb4 100644
        height = 50;
      }
  
-@@ -114,12 +114,12 @@ class Item extends React.PureComponent {
-       } else if (index > 1) {
-         top = '2px';
+@@ -102,8 +102,8 @@ class Item extends React.PureComponent {
+       } else {
+         left = '2px';
        }
--    } else if (size === 4) {
--      if (index === 0 || index === 2) {
+-    } else if (size === 3) {
+-      if (index === 0) {
 +    } else if (size >= 4) {
 +      if (index % 2 === 0) {
+         right = '2px';
+       } else if (index > 0) {
+         left = '2px';
+@@ -119,7 +119,7 @@ class Item extends React.PureComponent {
          right = '2px';
        }
  
@@ -79,11 +83,11 @@ index 221b98e31..6437e1410 100644
    resetFileKey: state.getIn(['compose', 'resetFileKey']),
  });
 diff --git a/app/lib/activitypub/activity/create.rb b/app/lib/activitypub/activity/create.rb
-index 612744676..243b21d37 100644
+index f4f98e29c..0c9ace9a8 100644
 --- a/app/lib/activitypub/activity/create.rb
 +++ b/app/lib/activitypub/activity/create.rb
-@@ -115,7 +115,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
-         visibility: visibility_from_audience,
+@@ -124,7 +124,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
+         visibility: @status_parser.visibility,
          thread: replied_to_status,
          conversation: conversation_from_uri(@object['conversation']),
 -        media_attachment_ids: process_attachments.take(4).map(&:id),
@@ -91,22 +95,22 @@ index 612744676..243b21d37 100644
          poll: process_poll,
        }
      end
-@@ -238,7 +238,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
-     media_attachments = []
- 
+@@ -257,7 +257,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
      as_array(@object['attachment']).each do |attachment|
--      next if attachment['url'].blank? || media_attachments.size >= 4
-+      next if attachment['url'].blank? || media_attachments.size >= 16
+       media_attachment_parser = ActivityPub::Parser::MediaAttachmentParser.new(attachment)
+ 
+-      next if media_attachment_parser.remote_url.blank? || media_attachments.size >= 4
++      next if media_attachment_parser.remote_url.blank? || media_attachments.size >= 16
  
        begin
-         href             = Addressable::URI.parse(attachment['url']).normalize.to_s
+         media_attachment = MediaAttachment.create(
 diff --git a/app/services/post_status_service.rb b/app/services/post_status_service.rb
-index 0a383d6a3..0de629ace 100644
+index c132930a9..2ea49e63b 100644
 --- a/app/services/post_status_service.rb
 +++ b/app/services/post_status_service.rb
-@@ -97,9 +97,9 @@ class PostStatusService < BaseService
-   def validate_media!
-     return if @options[:media_ids].blank? || !@options[:media_ids].is_a?(Enumerable)
+@@ -105,9 +105,9 @@ class PostStatusService < BaseService
+       return
+     end
  
 -    raise Mastodon::ValidationError, I18n.t('media_attachments.validations.too_many') if @options[:media_ids].size > 4 || @options[:poll].present?
 +    raise Mastodon::ValidationError, I18n.t('media_attachments.validations.too_many') if @options[:media_ids].size > 16 || @options[:poll].present?

@@ -1,8 +1,8 @@
 diff --git a/app/javascript/mastodon/features/compose/components/compose_form.js b/app/javascript/mastodon/features/compose/components/compose_form.js
-index ba2d20cc7..e32468a62 100644
+index d7635da40..14027a927 100644
 --- a/app/javascript/mastodon/features/compose/components/compose_form.js
 +++ b/app/javascript/mastodon/features/compose/components/compose_form.js
-@@ -86,7 +86,7 @@ class ComposeForm extends ImmutablePureComponent {
+@@ -89,7 +89,7 @@ class ComposeForm extends ImmutablePureComponent {
      const fulltext = this.getFulltextForCharacterCounting();
      const isOnlyWhitespace = fulltext.length !== 0 && fulltext.trim().length === 0;
  
@@ -11,8 +11,8 @@ index ba2d20cc7..e32468a62 100644
    }
  
    handleSubmit = () => {
-@@ -257,7 +257,7 @@ class ComposeForm extends ImmutablePureComponent {
-             <PrivacyDropdownContainer />
+@@ -267,7 +267,7 @@ class ComposeForm extends ImmutablePureComponent {
+             <PrivacyDropdownContainer disabled={this.props.isEditing} />
              <SpoilerButtonContainer />
            </div>
 -          <div className='character-counter__wrapper'><CharacterCounter max={500} text={this.getFulltextForCharacterCounting()} /></div>
@@ -21,7 +21,7 @@ index ba2d20cc7..e32468a62 100644
  
          <div className='compose-form__publish'>
 diff --git a/app/validators/status_length_validator.rb b/app/validators/status_length_validator.rb
-index 4c258ec16..fc664e105 100644
+index e107912b7..a3cbe5123 100644
 --- a/app/validators/status_length_validator.rb
 +++ b/app/validators/status_length_validator.rb
 @@ -1,7 +1,7 @@
@@ -31,5 +31,5 @@ index 4c258ec16..fc664e105 100644
 -  MAX_CHARS = 500
 +  MAX_CHARS = 5000
    URL_PLACEHOLDER_CHARS = 23
-   URL_PLACEHOLDER = "\1#{'x' * URL_PLACEHOLDER_CHARS}"
+   URL_PLACEHOLDER = 'x' * 23
  

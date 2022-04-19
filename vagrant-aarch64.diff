@@ -1,0 +1,58 @@
+diff --git a/Vagrantfile b/Vagrantfile
+index 3e73d9e47..10e2dfcfa 100644
+--- a/Vagrantfile
++++ b/Vagrantfile
+@@ -7,10 +7,6 @@ $provision = <<SCRIPT
+ 
+ cd /vagrant # This is where the host folder/repo is mounted
+ 
+-# Add the yarn repo + yarn repo keys
+-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+-sudo apt-add-repository 'deb https://dl.yarnpkg.com/debian/ stable main'
+-
+ # Add repo for NodeJS
+ curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+ 
+@@ -33,13 +29,15 @@ sudo apt-get install \
+   redis-tools \
+   postgresql \
+   postgresql-contrib \
+-  yarn \
+   libicu-dev \
+   libidn11-dev \
+   libreadline-dev \
+   libpam0g-dev \
+   -y
+ 
++# Install yarn
++sudo npm install -g yarn
++
+ # Install rvm
+ read RUBY_VERSION < .ruby-version
+ 
+@@ -83,7 +81,7 @@ VAGRANTFILE_API_VERSION = "2"
+ 
+ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+ 
+-  config.vm.box = "ubuntu/bionic64"
++  config.vm.box = "mpasternak/focal64-arm"
+ 
+   config.vm.provider :virtualbox do |vb|
+     vb.name = "mastodon"
+@@ -117,11 +115,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+     config.hostsupdater.remove_on_suspend = false
+   end
+ 
+-  if config.vm.networks.any? { |type, options| type == :private_network }
+-    config.vm.synced_folder ".", "/vagrant", type: "nfs", mount_options: ['rw', 'vers=3', 'tcp', 'actimeo=1']
+-  else
+-    config.vm.synced_folder ".", "/vagrant"
+-  end
++  # if config.vm.networks.any? { |type, options| type == :private_network }
++  #   config.vm.synced_folder ".", "/vagrant", type: "nfs", mount_options: ['rw', 'vers=3', 'tcp', 'actimeo=1']
++  # else
++  config.vm.synced_folder ".", "/vagrant"
++  # end
+ 
+   # Otherwise, you can access the site at http://localhost:3000 and http://localhost:4000 , http://localhost:8080
+   config.vm.network :forwarded_port, guest: 3000, host: 3000

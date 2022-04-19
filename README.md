@@ -1,34 +1,19 @@
 Please file issues about [my Mastodon instance, mastodon.ktachibana.party](https://mastodon.ktachibana.party) here as GitHub issues
 
-## Run development Mastodon on macOS
+## Run a development instance locally
 
-1. Install Node.js 12 (recommends `asdf` with `lts-Erbium` or `nvm`), ruby 2.7 (recommends `asdf`), yarn and Postgres
+Follow the **Vagrant** steps under [Mastodon's README](https://github.com/mastodon/mastodon#deployment)
 
-2. Install native dependencies
-```
-brew install protobuf libidn imagemagick
-```
+<details>
+  <summary>Notice if you use an ARM development machine</summary>
 
-3. Install code dependencies
-```
-gem install bundler --no-document
-bundle install -j$(getconf _NPROCESSORS_ONLN)
-yarn install --pure-lockfile
-```
+  Remember to apply the `vagrant-aarch64.diff` file to your local Mastodon repo before doing any Vagrant steps
 
-4. Migrate database (once)
-```
-RAILS_ENV=development bundle exec rails db:setup
-```
+  `PWD=$(pwd) && cd path/to/your/local/mastodon/repo && git apply $PWD/vagrant-aarch64.diff`
 
-5. Install [`node-foreman`](https://github.com/strongloop/node-foreman)
+</details>
 
-6. Start Mastodon
-```
-RAILS_ENV=development nf start
-```
-
-7. Go to [`localhost:5000`](http://localhost:5000), use username `admin@localhost:3000` and password `mastodonadmin`
+After opening [`http://mastodon.local`](http://mastodon.local), use username `admin@mastodon.local` and password `mastodonadmin`
 
 ## Develop a new feature
 ```
@@ -76,8 +61,6 @@ sudo systemctl stop mastodon-web mastodon-streaming mastodon-sidekiq
     5. Install dependencies
 
     6. Run database migrations
-
-        * Use a different connection string to avoid pgBouncer, see https://docs.joinmastodon.org/admin/scaling/#pgbouncer (You cannot use pgBouncer to perform...)
 
     7. Precompile the assets
 
