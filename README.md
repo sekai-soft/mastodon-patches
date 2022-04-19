@@ -62,8 +62,6 @@ sudo systemctl stop mastodon-web mastodon-streaming mastodon-sidekiq
 
     6. Run database migrations
 
-        * Use a different connection string to avoid pgBouncer, see https://docs.joinmastodon.org/admin/scaling/#pgbouncer (You cannot use pgBouncer to perform...)
-
     7. Precompile the assets
 
     8. Start all processes
