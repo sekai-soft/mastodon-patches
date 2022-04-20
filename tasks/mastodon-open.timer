@@ -1,9 +1,0 @@
-[Unit]
-Description=Mastodon open timer
-
-[Timer]
-OnCalendar=*-*-13 00:00:01
-Persistent=true
-
-[Install]
-WantedBy=timers.target
