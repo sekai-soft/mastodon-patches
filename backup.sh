@@ -23,3 +23,5 @@ rclone copy /home/mastodon/live/.env.production "$rclone_config_name:$s3_bucket_
     
 # Remove db dump
 rm -rf "$backups_dir"
+
+echo Finished backup
