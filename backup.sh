@@ -12,10 +12,10 @@ backup_folder_name="$(date +"%Y_%m_%d_%I_%M_%p")"
 
 # Clean up old db dump
 mkdir -p "$backups_dir"
-rm "$backups_dir/dbbackup-*"
+rm -f "$backups_dir/dbbackup-*"
 
 # Generate a db dump
-su - mastodon -c "cd $backups_dir && pg_dump -Fc mastodon_production > dbbackup-$(date +"%Y_%m_%d_%I_%M_%p").dump"
+cd $backups_dir && pg_dump -Fc mastodon_production > dbbackup-$(date +"%Y_%m_%d_%I_%M_%p").dump
 
 # Move the db backup
 rclone move "$backups_dir/dbbackup-*" "$rclone_config_name:$s3_bucket_name/$backup_folder_name"
@@ -24,4 +24,4 @@ rclone move "$backups_dir/dbbackup-*" "$rclone_config_name:$s3_bucket_name/$back
 rclone copy /home/mastodon/live/.env.production "$rclone_config_name:$s3_bucket_name/$backup_folder_name"
     
 # Remove db dump
-rm "$backups_dir/dbbackup-*"
+rm -f "$backups_dir/dbbackup-*"
