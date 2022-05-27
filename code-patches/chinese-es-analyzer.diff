@@ -1,19 +1,21 @@
 diff --git a/app/chewy/accounts_index.rb b/app/chewy/accounts_index.rb
+index e38e14a10..1c35b2215 100644
 --- a/app/chewy/accounts_index.rb
 +++ b/app/chewy/accounts_index.rb
 @@ -4,7 +4,7 @@ class AccountsIndex < Chewy::Index
-   settings index: { refresh_interval: '5m' }, analysis: {
+   settings index: { refresh_interval: '30s' }, analysis: {
      analyzer: {
        content: {
 -        tokenizer: 'whitespace',
 +        tokenizer: 'ik_max_word',
          filter: %w(lowercase asciifolding cjk_width),
        },
-
+ 
 diff --git a/app/chewy/statuses_index.rb b/app/chewy/statuses_index.rb
+index 6dd4fb18b..1e3375fa8 100644
 --- a/app/chewy/statuses_index.rb
 +++ b/app/chewy/statuses_index.rb
-@@ -16,9 +16,17 @@ class StatusesIndex < Chewy::Index
+@@ -18,9 +18,17 @@ class StatusesIndex < Chewy::Index
          language: 'possessive_english',
        },
      },
@@ -32,7 +34,7 @@ diff --git a/app/chewy/statuses_index.rb b/app/chewy/statuses_index.rb
          filter: %w(
            english_possessive_stemmer
            lowercase
-@@ -27,6 +35,7 @@ class StatusesIndex < Chewy::Index
+@@ -29,6 +37,7 @@ class StatusesIndex < Chewy::Index
            english_stop
            english_stemmer
          ),
@@ -41,12 +43,13 @@ diff --git a/app/chewy/statuses_index.rb b/app/chewy/statuses_index.rb
      },
    }
 diff --git a/app/chewy/tags_index.rb b/app/chewy/tags_index.rb
+index df3d9e4cc..8ed4c2ed1 100644
 --- a/app/chewy/tags_index.rb
 +++ b/app/chewy/tags_index.rb
 @@ -2,10 +2,19 @@
-
+ 
  class TagsIndex < Chewy::Index
-   settings index: { refresh_interval: '15m' }, analysis: {
+   settings index: { refresh_interval: '30s' }, analysis: {
 +    char_filter: {
 +      tsconvert: {
 +        type: 'stconvert',
@@ -60,7 +63,7 @@ diff --git a/app/chewy/tags_index.rb b/app/chewy/tags_index.rb
 -        tokenizer: 'keyword',
 +        tokenizer: 'ik_max_word',
          filter: %w(lowercase asciifolding cjk_width),
-+        char_filter: %w(tsconvert),
++        char_filter: %w(tsconvert)
        },
-
+ 
        edge_ngram: {

@@ -1,8 +1,8 @@
 diff --git a/app/javascript/mastodon/features/compose/components/compose_form.js b/app/javascript/mastodon/features/compose/components/compose_form.js
-index d7635da40..14027a927 100644
+index 4620d1c43..bbc4b7edc 100644
 --- a/app/javascript/mastodon/features/compose/components/compose_form.js
 +++ b/app/javascript/mastodon/features/compose/components/compose_form.js
-@@ -89,7 +89,7 @@ class ComposeForm extends ImmutablePureComponent {
+@@ -90,7 +90,7 @@ class ComposeForm extends ImmutablePureComponent {
      const fulltext = this.getFulltextForCharacterCounting();
      const isOnlyWhitespace = fulltext.length !== 0 && fulltext.trim().length === 0;
  
@@ -11,15 +11,15 @@ index d7635da40..14027a927 100644
    }
  
    handleSubmit = () => {
-@@ -267,7 +267,7 @@ class ComposeForm extends ImmutablePureComponent {
-             <PrivacyDropdownContainer disabled={this.props.isEditing} />
-             <SpoilerButtonContainer />
+@@ -273,7 +273,7 @@ class ComposeForm extends ImmutablePureComponent {
            </div>
--          <div className='character-counter__wrapper'><CharacterCounter max={500} text={this.getFulltextForCharacterCounting()} /></div>
-+          <div className='character-counter__wrapper'><CharacterCounter max={5000} text={this.getFulltextForCharacterCounting()} /></div>
+ 
+           <div className='character-counter__wrapper'>
+-            <CharacterCounter max={500} text={this.getFulltextForCharacterCounting()} />
++            <CharacterCounter max={5000} text={this.getFulltextForCharacterCounting()} />
+           </div>
          </div>
  
-         <div className='compose-form__publish'>
 diff --git a/app/validators/status_length_validator.rb b/app/validators/status_length_validator.rb
 index e107912b7..a3cbe5123 100644
 --- a/app/validators/status_length_validator.rb
