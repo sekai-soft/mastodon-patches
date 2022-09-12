@@ -2,7 +2,7 @@
 Description=Mastodon backup timer
 
 [Timer]
-OnCalendar=Sun *-*-* 00:00:01
+OnCalendar=*-*-* 4:00:00
 Persistent=true
 
 [Install]

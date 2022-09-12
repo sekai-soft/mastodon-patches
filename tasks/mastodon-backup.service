@@ -5,6 +5,4 @@ Description=Mastodon backup
 Type=oneshot
 User=mastodon
 Group=mastodon
-EnvironmentFile=/home/mastodon/mastodon-backup.env
-Environment=PATH=/home/mastodon/.rbenv/shims:/home/mastodon/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ExecStart=/bin/bash -c 'eval "$(rbenv init -)"; /home/mastodon/mastodon-issues/backup.sh && curl -fsS -m 10 --retry 5 -o /dev/null $HC_URL'
+ExecStart=/home/mastodon/.local/bin/borgmatic -v 2 create
