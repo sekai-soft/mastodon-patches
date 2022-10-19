@@ -1,4 +1,6 @@
-Please file issues about [my Mastodon instance, mastodon.ktachibana.party](https://mastodon.ktachibana.party) here as GitHub issues
+# mastodon-patches
+
+Patches for [our Mastodon instance](mastodon.ktachibana.party)
 
 ## Run a development instance locally
 
