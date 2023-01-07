@@ -5051,6 +5051,27 @@ index 000000000..5a915e05e
 +$base-overlay-background: $color8;
 +
 +@import 'application';
+diff --git a/config/locales/en.yml b/config/locales/en.yml
+index 679e356b4..43db94a4f 100644
+--- a/config/locales/en.yml
++++ b/config/locales/en.yml
+@@ -1532,6 +1532,16 @@ en:
+     contrast: Mastodon (High contrast)
+     default: Mastodon (Dark)
+     mastodon-light: Mastodon (Light)
++    dark-green: Dark Green (by @stux@mstdn.social)
++    dark-red: Dark Red (by @stux@mstdn.social)
++    dark-yellow: Dark Yellow (by @stux@mstdn.social)
++    geodude: Geodude (by @stux@mstdn.social)
++    light-green: Light Green (by @stux@mstdn.social)
++    light-red: Light Red (by @stux@mstdn.social)
++    light-yellow: Light Yellow (by @stux@mstdn.social)
++    mstdn: mstdn (by @stux@mstdn.social)
++    photon-dark: Photon Dark (by @stux@mstdn.social)
++    photon-light: Photon Light (by @stux@mstdn.social)
+   time:
+     formats:
+       default: "%b %d, %Y, %H:%M"
 diff --git a/config/themes.yml b/config/themes.yml
 index 9c21c9459..20323a11c 100644
 --- a/config/themes.yml
