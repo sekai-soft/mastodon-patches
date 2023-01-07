@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-ES_VERSION=7.17.2
+ES_VERSION=7.17.7
 
 echo Installing analysis-ik
 sudo /usr/share/elasticsearch/bin/elasticsearch-plugin remove analysis-ik || echo analysis-ik not installed
