@@ -7,7 +7,7 @@ Patches for [our Mastodon instance](mastodon.ktachibana.party)
 Follow the **Vagrant** steps under [Mastodon's README](https://github.com/mastodon/mastodon#deployment)
 
 <details>
-  <summary>Notice if you use an ARM development machine</summary>
+  <summary>Notice if you use Apple Silicon</summary>
 
   Remember to apply the `vagrant-aarch64.diff` file to your local Mastodon repo before doing any Vagrant steps
 
