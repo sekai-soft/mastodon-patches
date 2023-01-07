@@ -1,11 +1,11 @@
 diff --git a/app/models/preview_card.rb b/app/models/preview_card.rb
-index 0d2c32c35..1905fbecd 100644
+index 56ca62d5e..e7276b372 100644
 --- a/app/models/preview_card.rb
 +++ b/app/models/preview_card.rb
 @@ -35,7 +35,7 @@ class PreviewCard < ApplicationRecord
    include Attachmentable
  
-   IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif'].freeze
+   IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].freeze
 -  LIMIT = 1.megabytes
 +  LIMIT = 10.megabytes
  

@@ -6,6 +6,8 @@ Patches for [our Mastodon instance](mastodon.ktachibana.party)
 
 Follow the **Vagrant** steps under [Mastodon's README](https://github.com/mastodon/mastodon#deployment)
 
+If running `vagrant ssh -c "cd /vagrant && foreman start"` doesn't seem to work, run `vagrant ssh -c "cd /vagrant && && bundle install && gem install foreman"` and retry
+
 <details>
   <summary>Notice if you use Apple Silicon</summary>
 
