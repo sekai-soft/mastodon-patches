@@ -1,0 +1,10 @@
+[Unit]
+Description=ElasticSearch healthcheck
+
+[Service]
+Type=oneshot
+User=mastodon
+Group=mastodon
+EnvironmentFile=/home/mastodon/mastodon-es-healthcheck.env
+Environment=PATH=/home/mastodon/.rbenv/shims:/home/mastodon/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/bin/bash -c 'curl -m 10 localhost:9200 && curl -fsS -m 10 --retry 5 -o /dev/null $UR_URL'
