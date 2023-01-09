@@ -26,4 +26,6 @@ git checkout -- .  # reset code state
 # Changde code and test
 git add -A
 git diff --staged > /path/to/mastodon/code-patches/xyz.diff
+# To revert the change
+git restore --staged . && git checkout -- . && git clean -f -d
 ```
