@@ -21,8 +21,6 @@ After opening [`http://mastodon.local`](http://mastodon.local), use username `ad
 
 ## Develop a new feature
 ```
-# In Mastodon path
-git checkout -- .  # reset code state
 # Changde code and test
 git add -A
 git diff --staged > /path/to/mastodon/code-patches/xyz.diff
