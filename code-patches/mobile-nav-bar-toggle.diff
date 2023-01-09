@@ -1,0 +1,208 @@
+diff --git a/app/javascript/mastodon/features/ui/components/columns_area.js b/app/javascript/mastodon/features/ui/components/columns_area.js
+index f4824f045..8075cb224 100644
+--- a/app/javascript/mastodon/features/ui/components/columns_area.js
++++ b/app/javascript/mastodon/features/ui/components/columns_area.js
+@@ -23,6 +23,7 @@ import ComposePanel from './compose_panel';
+ import NavigationPanel from './navigation_panel';
+ import { supportsPassiveEvents } from 'detect-passive-events';
+ import { scrollRight } from '../../../scroll';
++import { shouldShowNavPanel } from '../../../is_mobile';
+ 
+ const componentMap = {
+   'COMPOSE': Compose,
+@@ -50,6 +51,7 @@ export default class ColumnsArea extends ImmutablePureComponent {
+     isModalOpen: PropTypes.bool.isRequired,
+     singleColumn: PropTypes.bool,
+     children: PropTypes.node,
++    isNavPanelOpen: PropTypes.bool.isRequired,
+   };
+ 
+   // Corresponds to (max-width: $no-gap-breakpoint + 285px - 1px) in SCSS
+@@ -134,9 +136,17 @@ export default class ColumnsArea extends ImmutablePureComponent {
+   }
+ 
+   render () {
+-    const { columns, children, singleColumn, isModalOpen } = this.props;
++    const { columns, children, singleColumn, isModalOpen, isNavPanelOpen } = this.props;
+     const { renderComposePanel } = this.state;
+ 
++    let mainPanelsAdditionalStyle;
++    const showNavPanel = shouldShowNavPanel() || isNavPanelOpen;
++    if (showNavPanel) {
++      mainPanelsAdditionalStyle = {};
++    } else {
++      mainPanelsAdditionalStyle = { width: '100%' };
++    }
++
+     if (singleColumn) {
+       return (
+         <div className='columns-area__panels'>
+@@ -146,16 +156,18 @@ export default class ColumnsArea extends ImmutablePureComponent {
+             </div>
+           </div>
+ 
+-          <div className='columns-area__panels__main'>
++          <div className='columns-area__panels__main' style={mainPanelsAdditionalStyle}>
+             <div className='tabs-bar__wrapper'><div id='tabs-bar__portal' /></div>
+             <div className='columns-area columns-area--mobile'>{children}</div>
+           </div>
+ 
+-          <div className='columns-area__panels__pane columns-area__panels__pane--start columns-area__panels__pane--navigational'>
+-            <div className='columns-area__panels__pane__inner'>
+-              <NavigationPanel />
++          {showNavPanel &&
++            <div className='columns-area__panels__pane columns-area__panels__pane--start columns-area__panels__pane--navigational'>
++              <div className='columns-area__panels__pane__inner'>
++                <NavigationPanel />
++              </div>
+             </div>
+-          </div>
++          }
+         </div>
+       );
+     }
+diff --git a/app/javascript/mastodon/features/ui/components/header.js b/app/javascript/mastodon/features/ui/components/header.js
+index 4e109080e..9eb2d1ee8 100644
+--- a/app/javascript/mastodon/features/ui/components/header.js
++++ b/app/javascript/mastodon/features/ui/components/header.js
+@@ -6,6 +6,7 @@ import { registrationsOpen, me } from 'mastodon/initial_state';
+ import Avatar from 'mastodon/components/avatar';
+ import PropTypes from 'prop-types';
+ import { connect } from 'react-redux';
++import { shouldShowNavPanel } from '../../../is_mobile';
+ 
+ const Account = connect(state => ({
+   account: state.getIn(['accounts', me]),
+@@ -15,6 +16,19 @@ const Account = connect(state => ({
+   </Link>
+ ));
+ 
++const navPanelToggle = (isNavPanelOpen, toggleNavPanel) => {
++  if (shouldShowNavPanel()) {
++    return null;
++  }
++  return (
++    <div style={{ width: '32px' }} onClick={toggleNavPanel} onKeyPress={toggleNavPanel} role='button' tabIndex={0}>
++      <div style={{ width: '50%', margin: '0 auto' }}>
++        {isNavPanelOpen ? <i className='fa fa-times' /> : <i className='fa fa-bars' />}
++      </div>
++    </div>
++  );
++};
++
+ export default @withRouter
+ class Header extends React.PureComponent {
+ 
+@@ -24,11 +38,13 @@ class Header extends React.PureComponent {
+ 
+   static propTypes = {
+     location: PropTypes.object,
++    isNavPanelOpen: PropTypes.bool.isRequired,
++    toggleNavPanel: PropTypes.func.isRequired,
+   };
+ 
+   render () {
+     const { signedIn } = this.context.identity;
+-    const { location } = this.props;
++    const { location, isNavPanelOpen, toggleNavPanel } = this.props;
+ 
+     let content;
+ 
+@@ -37,6 +53,7 @@ class Header extends React.PureComponent {
+         <>
+           {location.pathname !== '/publish' && <Link to='/publish' className='button'><FormattedMessage id='compose_form.publish' defaultMessage='Publish' /></Link>}
+           <Account />
++          {navPanelToggle(isNavPanelOpen, toggleNavPanel)}
+         </>
+       );
+     } else {
+@@ -44,6 +61,7 @@ class Header extends React.PureComponent {
+         <>
+           <a href='/auth/sign_in' className='button'><FormattedMessage id='sign_in_banner.sign_in' defaultMessage='Sign in' /></a>
+           <a href={registrationsOpen ? '/auth/sign_up' : 'https://joinmastodon.org/servers'} className='button button-tertiary'><FormattedMessage id='sign_in_banner.create_account' defaultMessage='Create account' /></a>
++          {navPanelToggle(isNavPanelOpen, toggleNavPanel)}
+         </>
+       );
+     }
+diff --git a/app/javascript/mastodon/features/ui/index.js b/app/javascript/mastodon/features/ui/index.js
+index b05956606..cc9e1b472 100644
+--- a/app/javascript/mastodon/features/ui/index.js
++++ b/app/javascript/mastodon/features/ui/index.js
+@@ -120,6 +120,7 @@ class SwitchingColumnsArea extends React.PureComponent {
+     children: PropTypes.node,
+     location: PropTypes.object,
+     mobile: PropTypes.bool,
++    isNavPanelOpen: PropTypes.bool.isRequired,
+   };
+ 
+   componentWillMount () {
+@@ -150,7 +151,7 @@ class SwitchingColumnsArea extends React.PureComponent {
+   }
+ 
+   render () {
+-    const { children, mobile } = this.props;
++    const { children, mobile, isNavPanelOpen } = this.props;
+     const { signedIn } = this.context.identity;
+ 
+     let redirect;
+@@ -170,7 +171,7 @@ class SwitchingColumnsArea extends React.PureComponent {
+     }
+ 
+     return (
+-      <ColumnsAreaContainer ref={this.setRef} singleColumn={mobile}>
++      <ColumnsAreaContainer ref={this.setRef} singleColumn={mobile} isNavPanelOpen={isNavPanelOpen}>
+         <WrappedSwitch>
+           {redirect}
+ 
+@@ -254,6 +255,7 @@ class UI extends React.PureComponent {
+ 
+   state = {
+     draggingOver: false,
++    isNavPanelOpen: false,
+   };
+ 
+   handleBeforeUnload = e => {
+@@ -539,8 +541,12 @@ class UI extends React.PureComponent {
+     this.context.router.history.push('/follow_requests');
+   }
+ 
++  handleToggleNavPanel = () => {
++    this.setState({ isNavPanelOpen: !this.state.isNavPanelOpen });
++  }
++
+   render () {
+-    const { draggingOver } = this.state;
++    const { draggingOver, isNavPanelOpen } = this.state;
+     const { children, isComposing, location, dropdownMenuIsOpen, layout } = this.props;
+ 
+     const handlers = {
+@@ -563,14 +569,15 @@ class UI extends React.PureComponent {
+       goToBlocked: this.handleHotkeyGoToBlocked,
+       goToMuted: this.handleHotkeyGoToMuted,
+       goToRequests: this.handleHotkeyGoToRequests,
++      handleToggleNavPanel: this.handleToggleNavPanel,
+     };
+ 
+     return (
+       <HotKeys keyMap={keyMap} handlers={handlers} ref={this.setHotkeysRef} attach={window} focused>
+         <div className={classNames('ui', { 'is-composing': isComposing })} ref={this.setRef} style={{ pointerEvents: dropdownMenuIsOpen ? 'none' : null }}>
+-          <Header />
++          <Header isNavPanelOpen={isNavPanelOpen} toggleNavPanel={this.handleToggleNavPanel} />
+ 
+-          <SwitchingColumnsArea location={location} mobile={layout === 'mobile' || layout === 'single-column'}>
++          <SwitchingColumnsArea location={location} mobile={layout === 'mobile' || layout === 'single-column'} isNavPanelOpen={isNavPanelOpen}>
+             {children}
+           </SwitchingColumnsArea>
+ 
+diff --git a/app/javascript/mastodon/is_mobile.js b/app/javascript/mastodon/is_mobile.js
+index 3c8ec1545..9f5940e31 100644
+--- a/app/javascript/mastodon/is_mobile.js
++++ b/app/javascript/mastodon/is_mobile.js
+@@ -41,3 +41,7 @@ window.addEventListener('touchstart', touchListener, listenerOptions);
+ export const isUserTouching = () => userTouching;
+ 
+ export const isIOS = () => iOS;
++
++export const shouldShowNavPanel = () => {
++  return layoutFromWindow() !== 'mobile'
++}
