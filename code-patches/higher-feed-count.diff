@@ -1,12 +1,12 @@
 diff --git a/app/lib/feed_manager.rb b/app/lib/feed_manager.rb
-index 0876d107b..807935936 100644
+index 8d7540e0f..83c403188 100644
 --- a/app/lib/feed_manager.rb
 +++ b/app/lib/feed_manager.rb
 @@ -7,7 +7,7 @@ class FeedManager
    include Redisable
  
    # Maximum number of items stored in a single feed
--  MAX_ITEMS = 400
+-  MAX_ITEMS = 800
 +  MAX_ITEMS = 4000
  
    # Number of items in the feed since last reblog of status

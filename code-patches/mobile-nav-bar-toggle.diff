@@ -1,5 +1,5 @@
 diff --git a/app/javascript/mastodon/features/ui/components/columns_area.js b/app/javascript/mastodon/features/ui/components/columns_area.js
-index f4824f045..8075cb224 100644
+index 1dd6e34e8..1b1d69225 100644
 --- a/app/javascript/mastodon/features/ui/components/columns_area.js
 +++ b/app/javascript/mastodon/features/ui/components/columns_area.js
 @@ -23,6 +23,7 @@ import ComposePanel from './compose_panel';
@@ -19,7 +19,7 @@ index f4824f045..8075cb224 100644
  
    // Corresponds to (max-width: $no-gap-breakpoint + 285px - 1px) in SCSS
 @@ -134,9 +136,17 @@ export default class ColumnsArea extends ImmutablePureComponent {
-   }
+   };
  
    render () {
 -    const { columns, children, singleColumn, isModalOpen } = this.props;
@@ -62,20 +62,20 @@ index f4824f045..8075cb224 100644
        );
      }
 diff --git a/app/javascript/mastodon/features/ui/components/header.js b/app/javascript/mastodon/features/ui/components/header.js
-index 4e109080e..9eb2d1ee8 100644
+index 92adc47a9..9c049ede9 100644
 --- a/app/javascript/mastodon/features/ui/components/header.js
 +++ b/app/javascript/mastodon/features/ui/components/header.js
-@@ -6,6 +6,7 @@ import { registrationsOpen, me } from 'mastodon/initial_state';
- import Avatar from 'mastodon/components/avatar';
+@@ -7,6 +7,7 @@ import Avatar from 'mastodon/components/avatar';
  import PropTypes from 'prop-types';
  import { connect } from 'react-redux';
+ import { openModal } from 'mastodon/actions/modal';
 +import { shouldShowNavPanel } from '../../../is_mobile';
  
  const Account = connect(state => ({
    account: state.getIn(['accounts', me]),
-@@ -15,6 +16,19 @@ const Account = connect(state => ({
-   </Link>
- ));
+@@ -22,6 +23,19 @@ const mapDispatchToProps = (dispatch) => ({
+   },
+ });
  
 +const navPanelToggle = (isNavPanelOpen, toggleNavPanel) => {
 +  if (shouldShowNavPanel()) {
@@ -91,11 +91,11 @@ index 4e109080e..9eb2d1ee8 100644
 +};
 +
  export default @withRouter
+ @connect(null, mapDispatchToProps)
  class Header extends React.PureComponent {
- 
-@@ -24,11 +38,13 @@ class Header extends React.PureComponent {
- 
+@@ -33,11 +47,13 @@ class Header extends React.PureComponent {
    static propTypes = {
+     openClosedRegistrationsModal: PropTypes.func,
      location: PropTypes.object,
 +    isNavPanelOpen: PropTypes.bool.isRequired,
 +    toggleNavPanel: PropTypes.func.isRequired,
@@ -103,32 +103,24 @@ index 4e109080e..9eb2d1ee8 100644
  
    render () {
      const { signedIn } = this.context.identity;
--    const { location } = this.props;
-+    const { location, isNavPanelOpen, toggleNavPanel } = this.props;
+-    const { location, openClosedRegistrationsModal } = this.props;
++    const { location, openClosedRegistrationsModal, isNavPanelOpen, toggleNavPanel } = this.props;
  
      let content;
  
-@@ -37,6 +53,7 @@ class Header extends React.PureComponent {
+@@ -46,6 +62,7 @@ class Header extends React.PureComponent {
          <>
-           {location.pathname !== '/publish' && <Link to='/publish' className='button'><FormattedMessage id='compose_form.publish' defaultMessage='Publish' /></Link>}
+           {location.pathname !== '/publish' && <Link to='/publish' className='button'><FormattedMessage id='compose_form.publish_form' defaultMessage='Publish' /></Link>}
            <Account />
 +          {navPanelToggle(isNavPanelOpen, toggleNavPanel)}
          </>
        );
      } else {
-@@ -44,6 +61,7 @@ class Header extends React.PureComponent {
-         <>
-           <a href='/auth/sign_in' className='button'><FormattedMessage id='sign_in_banner.sign_in' defaultMessage='Sign in' /></a>
-           <a href={registrationsOpen ? '/auth/sign_up' : 'https://joinmastodon.org/servers'} className='button button-tertiary'><FormattedMessage id='sign_in_banner.create_account' defaultMessage='Create account' /></a>
-+          {navPanelToggle(isNavPanelOpen, toggleNavPanel)}
-         </>
-       );
-     }
 diff --git a/app/javascript/mastodon/features/ui/index.js b/app/javascript/mastodon/features/ui/index.js
-index b05956606..cc9e1b472 100644
+index 2dd59f95d..0ff3da2f7 100644
 --- a/app/javascript/mastodon/features/ui/index.js
 +++ b/app/javascript/mastodon/features/ui/index.js
-@@ -120,6 +120,7 @@ class SwitchingColumnsArea extends React.PureComponent {
+@@ -121,6 +121,7 @@ class SwitchingColumnsArea extends React.PureComponent {
      children: PropTypes.node,
      location: PropTypes.object,
      mobile: PropTypes.bool,
@@ -136,8 +128,8 @@ index b05956606..cc9e1b472 100644
    };
  
    componentWillMount () {
-@@ -150,7 +151,7 @@ class SwitchingColumnsArea extends React.PureComponent {
-   }
+@@ -151,7 +152,7 @@ class SwitchingColumnsArea extends React.PureComponent {
+   };
  
    render () {
 -    const { children, mobile } = this.props;
@@ -145,7 +137,7 @@ index b05956606..cc9e1b472 100644
      const { signedIn } = this.context.identity;
  
      let redirect;
-@@ -170,7 +171,7 @@ class SwitchingColumnsArea extends React.PureComponent {
+@@ -171,7 +172,7 @@ class SwitchingColumnsArea extends React.PureComponent {
      }
  
      return (
@@ -154,7 +146,7 @@ index b05956606..cc9e1b472 100644
          <WrappedSwitch>
            {redirect}
  
-@@ -254,6 +255,7 @@ class UI extends React.PureComponent {
+@@ -256,10 +257,12 @@ class UI extends React.PureComponent {
  
    state = {
      draggingOver: false,
@@ -162,9 +154,14 @@ index b05956606..cc9e1b472 100644
    };
  
    handleBeforeUnload = e => {
-@@ -539,8 +541,12 @@ class UI extends React.PureComponent {
+     const { intl, dispatch, isComposing, hasComposingText, hasMediaAttachments } = this.props;
++    const { intl, dispatch, isComposing, hasComposingText, hasMediaAttachments } = this.props;
+ 
+     dispatch(synchronouslySubmitMarkers());
+ 
+@@ -541,8 +544,12 @@ class UI extends React.PureComponent {
      this.context.router.history.push('/follow_requests');
-   }
+   };
  
 +  handleToggleNavPanel = () => {
 +    this.setState({ isNavPanelOpen: !this.state.isNavPanelOpen });
@@ -176,7 +173,7 @@ index b05956606..cc9e1b472 100644
      const { children, isComposing, location, dropdownMenuIsOpen, layout } = this.props;
  
      const handlers = {
-@@ -563,14 +569,15 @@ class UI extends React.PureComponent {
+@@ -565,14 +572,15 @@ class UI extends React.PureComponent {
        goToBlocked: this.handleHotkeyGoToBlocked,
        goToMuted: this.handleHotkeyGoToMuted,
        goToRequests: this.handleHotkeyGoToRequests,
@@ -195,7 +192,7 @@ index b05956606..cc9e1b472 100644
            </SwitchingColumnsArea>
  
 diff --git a/app/javascript/mastodon/is_mobile.js b/app/javascript/mastodon/is_mobile.js
-index 3c8ec1545..9f5940e31 100644
+index 3c8ec1545..d5922855f 100644
 --- a/app/javascript/mastodon/is_mobile.js
 +++ b/app/javascript/mastodon/is_mobile.js
 @@ -41,3 +41,7 @@ window.addEventListener('touchstart', touchListener, listenerOptions);
@@ -204,5 +201,5 @@ index 3c8ec1545..9f5940e31 100644
  export const isIOS = () => iOS;
 +
 +export const shouldShowNavPanel = () => {
-+  return layoutFromWindow() !== 'mobile'
-+}
++  return layoutFromWindow() !== 'mobile';
++};
