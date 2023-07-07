@@ -1,0 +1,9 @@
+[Unit]
+Description=Scheduled Reboot
+
+[Timer]
+OnCalendar=Sun *-*-* 00:00:01
+Unit=reboot.target
+
+[Install]
+WantedBy=timers.target
