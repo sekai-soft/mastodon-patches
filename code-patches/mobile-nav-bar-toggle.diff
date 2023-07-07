@@ -117,7 +117,7 @@ index 92adc47a9..9c049ede9 100644
        );
      } else {
 diff --git a/app/javascript/mastodon/features/ui/index.js b/app/javascript/mastodon/features/ui/index.js
-index 2dd59f95d..0ff3da2f7 100644
+index 2dd59f95d..0ecfb5de2 100644
 --- a/app/javascript/mastodon/features/ui/index.js
 +++ b/app/javascript/mastodon/features/ui/index.js
 @@ -121,6 +121,7 @@ class SwitchingColumnsArea extends React.PureComponent {
@@ -146,7 +146,7 @@ index 2dd59f95d..0ff3da2f7 100644
          <WrappedSwitch>
            {redirect}
  
-@@ -256,10 +257,12 @@ class UI extends React.PureComponent {
+@@ -256,6 +257,7 @@ class UI extends React.PureComponent {
  
    state = {
      draggingOver: false,
@@ -154,12 +154,7 @@ index 2dd59f95d..0ff3da2f7 100644
    };
  
    handleBeforeUnload = e => {
-     const { intl, dispatch, isComposing, hasComposingText, hasMediaAttachments } = this.props;
-+    const { intl, dispatch, isComposing, hasComposingText, hasMediaAttachments } = this.props;
- 
-     dispatch(synchronouslySubmitMarkers());
- 
-@@ -541,8 +544,12 @@ class UI extends React.PureComponent {
+@@ -541,8 +543,12 @@ class UI extends React.PureComponent {
      this.context.router.history.push('/follow_requests');
    };
  
@@ -173,7 +168,7 @@ index 2dd59f95d..0ff3da2f7 100644
      const { children, isComposing, location, dropdownMenuIsOpen, layout } = this.props;
  
      const handlers = {
-@@ -565,14 +572,15 @@ class UI extends React.PureComponent {
+@@ -565,14 +571,15 @@ class UI extends React.PureComponent {
        goToBlocked: this.handleHotkeyGoToBlocked,
        goToMuted: this.handleHotkeyGoToMuted,
        goToRequests: this.handleHotkeyGoToRequests,
