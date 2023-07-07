@@ -62,7 +62,7 @@ index 1dd6e34e8..1b1d69225 100644
        );
      }
 diff --git a/app/javascript/mastodon/features/ui/components/header.js b/app/javascript/mastodon/features/ui/components/header.js
-index 92adc47a9..9c049ede9 100644
+index 92adc47a9..ef0581e3d 100644
 --- a/app/javascript/mastodon/features/ui/components/header.js
 +++ b/app/javascript/mastodon/features/ui/components/header.js
 @@ -7,6 +7,7 @@ import Avatar from 'mastodon/components/avatar';
@@ -108,16 +108,16 @@ index 92adc47a9..9c049ede9 100644
  
      let content;
  
-@@ -46,6 +62,7 @@ class Header extends React.PureComponent {
-         <>
-           {location.pathname !== '/publish' && <Link to='/publish' className='button'><FormattedMessage id='compose_form.publish_form' defaultMessage='Publish' /></Link>}
-           <Account />
+@@ -79,6 +95,7 @@ class Header extends React.PureComponent {
+ 
+         <div className='ui__header__links'>
+           {content}
 +          {navPanelToggle(isNavPanelOpen, toggleNavPanel)}
-         </>
-       );
-     } else {
+         </div>
+       </div>
+     );
 diff --git a/app/javascript/mastodon/features/ui/index.js b/app/javascript/mastodon/features/ui/index.js
-index 2dd59f95d..0ecfb5de2 100644
+index 2dd59f95d..94a858bf4 100644
 --- a/app/javascript/mastodon/features/ui/index.js
 +++ b/app/javascript/mastodon/features/ui/index.js
 @@ -121,6 +121,7 @@ class SwitchingColumnsArea extends React.PureComponent {
@@ -160,7 +160,7 @@ index 2dd59f95d..0ecfb5de2 100644
  
 +  handleToggleNavPanel = () => {
 +    this.setState({ isNavPanelOpen: !this.state.isNavPanelOpen });
-+  }
++  };
 +
    render () {
 -    const { draggingOver } = this.state;
