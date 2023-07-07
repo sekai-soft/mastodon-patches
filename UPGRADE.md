@@ -17,7 +17,8 @@ sudo systemctl stop mastodon-web mastodon-streaming mastodon-sidekiq
     2. Undo code patches
 
     ```
-    git restore --staged . && git checkout -- . && git clean -f -d    ```
+    git restore --staged . && git checkout -- . && git clean -f -d
+    ```
 
     3. Switch to new version
 
