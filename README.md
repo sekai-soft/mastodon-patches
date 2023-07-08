@@ -1,6 +1,6 @@
 # mastodon-patches
 
-Patches for [our Mastodon instance](mastodon.ktachibana.party)
+Patches for [our Mastodon instance](https://mastodon.ktachibana.party)
 
 ## Run a development instance locally
 
