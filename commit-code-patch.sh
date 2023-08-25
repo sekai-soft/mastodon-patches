@@ -6,12 +6,11 @@ if [[ -z "${MASTODON_PATH}" ]]; then
   exit 1
 fi
 
+read -p "Patch name: " name
+
 CURRENT_PWD=$(pwd)
 
 pushd "${MASTODON_PATH}"
-for filename in "${CURRENT_PWD}"/code-patches/*.diff; do
-  echo Applying "${filename}" ...
-  git apply "${filename}"
-done
-git status
+git add -A
+git diff --staged > ./code-patches/$name.diff
 popd

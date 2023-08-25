@@ -1,74 +1,35 @@
 # mastodon-patches
 
-Patches for [our Mastodon instance](https://mastodon.ktachibana.party)
+Patches for [my Mastodon instance](https://mastodon.ktachibana.party)
 
-## Run a development instance locally
+## Develop for a new Mastodon version
 
-Open in VSCode as devcontainer
+1. Clone this repository and [my Mastodon fork](https://github.com/k-t-corp/mastodon)
 
-After opening [`http://mastodon.local`](http://mastodon.local), use username `admin@mastodon.local` and password `mastodonadmin`
+2. For the mastodon fork, checkout the tag for the version you want to publish, e.g. `git checkout v4.1.6`
 
-## Develop a new feature
-```
-# Change code and test
-git add -A
-git diff --staged > /path/to/mastodon/code-patches/xyz.diff
-# To revert the change
-git restore --staged . && git checkout -- . && git clean -f -d
-```
+3. For the mastodon fork, checkout and switch to a new branch for the version, e.g. `git switch -c kt-4.1.6`
 
-## Production upgrade guide
+4. Open the mastodon fork in VSCode as devcontainer
 
-1. In development environment, apply code patches and inspect the diff
-2. Stop all processes
+    1. Use `MASTODON_PATH=/path/to/mastodon-fork ./apply-code-patches.sh` in this repository to apply patches from previous version
 
-```
-sudo systemctl stop mastodon-web mastodon-streaming mastodon-sidekiq
-```
+    2. To update an existing feature or develop a new feature
 
-3. Backup postgres
+        * Change code in the mastodon fork
 
-```
-pg_dump -Fc mastodon_production -f backup.dump
-```
+        * The web UI is located at [`http://mastodon.local`](http://mastodon.local). Use username `admin@mastodon.local` and password `mastodonadmin`.
 
-4. Follow upgrade notes and apply code patches. Usually
-    1. Check upgrade notes if there are extra steps
-    2. Undo code patches
+        * To revert all code patches in the mastodon fork, use `MASTODON_PATH=/path/to/mastodon-fork ./revert-code-patches.sh`
 
-    ```
-    git restore --staged . && git checkout -- . && git clean -f -d
-    ```
+        * To commit the current state of the mastodon fork to a diff, use `MASTODON_PATH=/path/to/mastodon-fork ./commit-code-patch.sh`
 
-    3. Switch to new version
+    3. After all features have been done, commit and push all changes
 
-    ```
-    git pull
-    git checkout vx.x.x
-    ```
+## Publish the new Mastodon version
 
-    4. Apply code patches
+Create a new release [here](https://github.com/k-t-corp/mastodon/releases/new)
 
-    ```
-    MASTODON_PATH=../live ./apply-code-patches.sh
-    ```
+* Tag should be `vx.y.z+kt`, e.g. `v4.1.6+kt`
 
-    5. Install dependencies
-
-    ```
-    bundle install
-    yarn install
-    ```
-
-    6. (Optional) Run database migrations
-    7. Precompile the assets
-
-    ```
-    RAILS_ENV=production bundle exec rails assets:precompile
-    ```
-
-    8. Start all processes
-
-    ```
-    sudo systemctl restart mastodon-web mastodon-streaming mastodon-sidekiq
-    ```
+* Target should be the branch for the version, e.g. `kt-4.1.6`

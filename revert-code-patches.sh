@@ -6,6 +6,8 @@ if [[ -z "${MASTODON_PATH}" ]]; then
   exit 1
 fi
 
+CURRENT_PWD=$(pwd)
+
 pushd "${MASTODON_PATH}"
-RAILS_ENV=production bundle exec rails assets:precompile
+git restore --staged . && git checkout -- . && git clean -f -d
 popd
