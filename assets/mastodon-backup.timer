@@ -1,9 +1,0 @@
-[Unit]
-Description=Mastodon backup timer
-
-[Timer]
-OnCalendar=*-*-* 4:00:00
-Persistent=true
-
-[Install]
-WantedBy=timers.target

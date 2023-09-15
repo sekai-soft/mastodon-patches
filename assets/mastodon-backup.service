@@ -1,8 +1,0 @@
-[Unit]
-Description=Mastodon backup
-
-[Service]
-Type=oneshot
-User=mastodon
-Group=mastodon
-ExecStart=/home/mastodon/.local/bin/borgmatic -v 2 create
