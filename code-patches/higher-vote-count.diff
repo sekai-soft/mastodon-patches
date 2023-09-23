@@ -1,8 +1,8 @@
-diff --git a/app/javascript/mastodon/features/compose/components/poll_form.js b/app/javascript/mastodon/features/compose/components/poll_form.js
-index ede29b8a0..040cda444 100644
---- a/app/javascript/mastodon/features/compose/components/poll_form.js
-+++ b/app/javascript/mastodon/features/compose/components/poll_form.js
-@@ -157,7 +157,7 @@ class PollForm extends ImmutablePureComponent {
+diff --git a/app/javascript/mastodon/features/compose/components/poll_form.jsx b/app/javascript/mastodon/features/compose/components/poll_form.jsx
+index 1a4d30abe..2a95ef64d 100644
+--- a/app/javascript/mastodon/features/compose/components/poll_form.jsx
++++ b/app/javascript/mastodon/features/compose/components/poll_form.jsx
+@@ -164,7 +164,7 @@ class PollForm extends ImmutablePureComponent {
          </ul>
  
          <div className='poll__footer'>

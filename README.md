@@ -6,11 +6,19 @@ Patches for [my Mastodon instance](https://mastodon.ktachibana.party)
 
 1. Clone this repository and [my Mastodon fork](https://github.com/k-t-corp/mastodon)
 
-2. For the mastodon fork, checkout the tag for the version you want to publish, e.g. `git checkout v4.1.6`
+2. For the mastodon fork, sync tags from upstream to fork
 
-3. For the mastodon fork, checkout and switch to a new branch for the version, e.g. `git switch -c kt-4.1.6`
+```
+git remote add upstream https://github.com/mastodon/mastodon.git
+git fetch --tags upstream
+git push --tags
+```
 
-4. Open the mastodon fork in VSCode as devcontainer
+3. For the mastodon fork, checkout the tag for the version you want to publish, e.g. `git checkout v4.1.6`
+
+4. For the mastodon fork, checkout and switch to a new branch for the version, e.g. `git switch -c kt-4.1.6`
+
+5. Open the mastodon fork in VSCode as devcontainer
 
     1. Use `MASTODON_PATH=/path/to/mastodon-fork ./apply-code-patches.sh` in this repository to apply patches from previous version
 
@@ -18,7 +26,9 @@ Patches for [my Mastodon instance](https://mastodon.ktachibana.party)
 
         * Change code in the mastodon fork
 
-        * The web UI is located at [`http://mastodon.local`](http://mastodon.local). Use username `admin@mastodon.local` and password `mastodonadmin`.
+        * Use `foreman start -f Procfile.dev` to start
+
+        * The web UI is located at [`http://localhost:3000`](http://localhost:3000). Use username `admin@localhost` and password `mastodonadmin`.
 
         * To revert all code patches in the mastodon fork, use `MASTODON_PATH=/path/to/mastodon-fork ./revert-code-patches.sh`
 

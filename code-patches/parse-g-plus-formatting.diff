@@ -1,39 +1,52 @@
-diff --git a/app/javascript/mastodon/components/status_content.js b/app/javascript/mastodon/components/status_content.js
-index 6f3093d63..daa6e32ed 100644
---- a/app/javascript/mastodon/components/status_content.js
-+++ b/app/javascript/mastodon/components/status_content.js
-@@ -7,6 +7,7 @@ import classnames from 'classnames';
+diff --git a/app/javascript/mastodon/components/status_content.jsx b/app/javascript/mastodon/components/status_content.jsx
+index d3bbc1ba0..ef4d83c19 100644
+--- a/app/javascript/mastodon/components/status_content.jsx
++++ b/app/javascript/mastodon/components/status_content.jsx
+@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
+ import { Icon }  from 'mastodon/components/icon';
  import PollContainer from 'mastodon/containers/poll_container';
- import Icon from 'mastodon/components/icon';
- import { autoPlayGif, languages as preloadedLanguages, translationEnabled } from 'mastodon/initial_state';
+ import { autoPlayGif, languages as preloadedLanguages } from 'mastodon/initial_state';
 +import parseGPlusFormatting from 'mastodon/utils/parse_g_plus_formatting'
  
  const MAX_HEIGHT = 706; // 22px * 32 (+ 2px padding at the top)
  
-@@ -222,8 +223,8 @@ class StatusContent extends React.PureComponent {
-     const renderReadMore = this.props.onClick && status.get('collapsed');
-     const renderTranslate = translationEnabled && this.context.identity.signedIn && this.props.onTranslate && ['public', 'unlisted'].includes(status.get('visibility')) && status.get('contentHtml').length > 0 && status.get('language') !== null && intl.locale !== status.get('language');
+@@ -21,7 +22,7 @@ const MAX_HEIGHT = 706; // 22px * 32 (+ 2px padding at the top)
+  * @returns {string}
+  */
+ export function getStatusContent(status) {
+-  return status.getIn(['translation', 'contentHtml']) || status.get('contentHtml');
++  return parseGPlusFormatting(status.getIn(['translation', 'contentHtml'])) || parseGPlusFormatting(status.get('contentHtml'));
+ }
  
--    const content = { __html: status.get('translation') ? status.getIn(['translation', 'content']) : status.get('contentHtml') };
--    const spoilerContent = { __html: status.get('spoilerHtml') };
-+    const content = { __html: status.get('translation') ? parseGPlusFormatting(status.getIn(['translation', 'content'])) : parseGPlusFormatting(status.get('contentHtml')) };
-+    const spoilerContent = { __html: parseGPlusFormatting(status.get('spoilerHtml')) };
-     const lang = status.get('translation') ? intl.locale : status.get('language');
+ class TranslateButton extends PureComponent {
+@@ -244,7 +245,7 @@ class StatusContent extends PureComponent {
+     const renderTranslate = this.props.onTranslate && this.context.identity.signedIn && ['public', 'unlisted'].includes(status.get('visibility')) && status.get('search_index').trim().length > 0 && targetLanguages?.includes(contentLocale);
+ 
+     const content = { __html: statusContent ?? getStatusContent(status) };
+-    const spoilerContent = { __html: status.getIn(['translation', 'spoilerHtml']) || status.get('spoilerHtml') };
++    const spoilerContent = { __html: parseGPlusFormatting(status.getIn(['translation', 'spoilerHtml'])) || parseGPlusFormatting(status.get('spoilerHtml')) };
+     const language = status.getIn(['translation', 'language']) || status.get('language');
      const classNames = classnames('status__content', {
        'status__content--with-action': this.props.onClick && this.context.router,
-diff --git a/app/javascript/mastodon/features/compose/components/reply_indicator.js b/app/javascript/mastodon/features/compose/components/reply_indicator.js
-index fc236882a..4b5a4185f 100644
---- a/app/javascript/mastodon/features/compose/components/reply_indicator.js
-+++ b/app/javascript/mastodon/features/compose/components/reply_indicator.js
-@@ -7,6 +7,7 @@ import DisplayName from '../../../components/display_name';
- import { defineMessages, injectIntl } from 'react-intl';
+diff --git a/app/javascript/mastodon/features/compose/components/reply_indicator.jsx b/app/javascript/mastodon/features/compose/components/reply_indicator.jsx
+index 187a99c58..10ba5ccdd 100644
+--- a/app/javascript/mastodon/features/compose/components/reply_indicator.jsx
++++ b/app/javascript/mastodon/features/compose/components/reply_indicator.jsx
+@@ -6,11 +6,13 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
  import ImmutablePureComponent from 'react-immutable-pure-component';
+ 
  import AttachmentList from 'mastodon/components/attachment_list';
 +import parseGPlusFormatting from 'mastodon/utils/parse_g_plus_formatting'
  
+ import { Avatar } from '../../../components/avatar';
+ import { DisplayName } from '../../../components/display_name';
+ import { IconButton } from '../../../components/icon_button';
+ 
++
  const messages = defineMessages({
    cancel: { id: 'reply_indicator.cancel', defaultMessage: 'Cancel' },
-@@ -43,7 +44,7 @@ class ReplyIndicator extends ImmutablePureComponent {
+ });
+@@ -45,7 +47,7 @@ class ReplyIndicator extends ImmutablePureComponent {
        return null;
      }
  
@@ -42,33 +55,12 @@ index fc236882a..4b5a4185f 100644
  
      return (
        <div className='reply-indicator'>
-diff --git a/app/javascript/mastodon/features/getting_started/components/announcements.js b/app/javascript/mastodon/features/getting_started/components/announcements.js
-index 24db8cede..62e4baa80 100644
---- a/app/javascript/mastodon/features/getting_started/components/announcements.js
-+++ b/app/javascript/mastodon/features/getting_started/components/announcements.js
-@@ -16,6 +16,7 @@ import AnimatedNumber from 'mastodon/components/animated_number';
- import TransitionMotion from 'react-motion/lib/TransitionMotion';
- import spring from 'react-motion/lib/spring';
- import { assetHost } from 'mastodon/utils/config';
-+import parseGPlusFormatting from 'mastodon/utils/parse_g_plus_formatting'
- 
- const messages = defineMessages({
-   close: { id: 'lightbox.close', defaultMessage: 'Close' },
-@@ -140,7 +141,7 @@ class Content extends ImmutablePureComponent {
-       <div
-         className='announcements__item__content translate'
-         ref={this.setRef}
--        dangerouslySetInnerHTML={{ __html: announcement.get('contentHtml') }}
-+        dangerouslySetInnerHTML={{ __html: parseGPlusFormatting(announcement.get('contentHtml')) }}
-         onMouseEnter={this.handleMouseEnter}
-         onMouseLeave={this.handleMouseLeave}
-       />
 diff --git a/app/javascript/mastodon/utils/parse_g_plus_formatting.js b/app/javascript/mastodon/utils/parse_g_plus_formatting.js
 new file mode 100644
-index 000000000..529f0b44a
+index 000000000..7b3b0b08b
 --- /dev/null
 +++ b/app/javascript/mastodon/utils/parse_g_plus_formatting.js
-@@ -0,0 +1,19 @@
+@@ -0,0 +1,21 @@
 +// Adapted from https://github.com/pill-city/pill-city/blob/a68f58893a83709e77af128743b01e5de4a67e2e/web/src/utils/parseContent.js#L3
 +// <p> is the Mastodon text start, </p> is the Mastodon text end
 +const GPlusStrikeThrough = /(^|\s|<p>)-(.+?)-($|\s|<\/p>)/gm
@@ -77,7 +69,7 @@ index 000000000..529f0b44a
 +
 +const MastodonNewLine = '<br />'
 +
-+export default (contentHtml) => {
++const parseGPlusFormatting = (contentHtml) => {
 +  return contentHtml
 +    .split(MastodonNewLine)
 +    .map(line => {
@@ -88,3 +80,5 @@ index 000000000..529f0b44a
 +    })
 +    .join(MastodonNewLine)
 +}
++
++export default parseGPlusFormatting
