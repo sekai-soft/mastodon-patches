@@ -57,10 +57,10 @@ index 187a99c58..10ba5ccdd 100644
        <div className='reply-indicator'>
 diff --git a/app/javascript/mastodon/utils/parse_g_plus_formatting.js b/app/javascript/mastodon/utils/parse_g_plus_formatting.js
 new file mode 100644
-index 000000000..7b3b0b08b
+index 000000000..47bd6aa48
 --- /dev/null
 +++ b/app/javascript/mastodon/utils/parse_g_plus_formatting.js
-@@ -0,0 +1,21 @@
+@@ -0,0 +1,24 @@
 +// Adapted from https://github.com/pill-city/pill-city/blob/a68f58893a83709e77af128743b01e5de4a67e2e/web/src/utils/parseContent.js#L3
 +// <p> is the Mastodon text start, </p> is the Mastodon text end
 +const GPlusStrikeThrough = /(^|\s|<p>)-(.+?)-($|\s|<\/p>)/gm
@@ -70,6 +70,9 @@ index 000000000..7b3b0b08b
 +const MastodonNewLine = '<br />'
 +
 +const parseGPlusFormatting = (contentHtml) => {
++  if (!contentHtml) {
++    return contentHtml
++  }
 +  return contentHtml
 +    .split(MastodonNewLine)
 +    .map(line => {
