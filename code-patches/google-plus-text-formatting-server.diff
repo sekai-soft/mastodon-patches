@@ -1,0 +1,41 @@
+diff --git a/app/lib/google_plus_text_formatter.rb b/app/lib/google_plus_text_formatter.rb
+new file mode 100644
+index 000000000..b38e89a2e
+--- /dev/null
++++ b/app/lib/google_plus_text_formatter.rb
+@@ -0,0 +1,23 @@
++# frozen_string_literal: true
++
++# Adapted from https://github.com/pill-city/pill-city/blob/a68f58893a83709e77af128743b01e5de4a67e2e/web/src/utils/parseContent.js#L3
++class GooglePlusTextFormatter
++  # <p> is the Mastodon text start, </p> is the Mastodon text end
++  G_PLUS_STRIKE_THROUGH = /(^|\s|<p>)-(.+?)-($|\s|<\/p>)/
++  G_PLUS_ITALIC = /(^|\s|<p>)_(.+?)_($|\s|<\/p>)/
++  G_PLUS_BOLD = /(^|\s|<p>)\*(.+?)\*($|\s|<\/p>)/
++
++  MASTODON_NEW_LINE = '<br />'
++
++  def call(html)
++    html
++      .split(MASTODON_NEW_LINE)
++      .map do |line|
++        line
++          .gsub(G_PLUS_STRIKE_THROUGH, '\1<del>\2</del>\3')
++          .gsub(G_PLUS_ITALIC, '\1<i>\2</i>\3')
++          .gsub(G_PLUS_BOLD, '\1<b>\2</b>\3')
++      end
++      .join(MASTODON_NEW_LINE)
++  end
++end
+diff --git a/app/lib/text_formatter.rb b/app/lib/text_formatter.rb
+index 581ee835b..f26de6509 100644
+--- a/app/lib/text_formatter.rb
++++ b/app/lib/text_formatter.rb
+@@ -44,6 +44,7 @@ class TextFormatter
+     end
+ 
+     html = simple_format(html, {}, sanitize: false).delete("\n") if multiline?
++    html = GooglePlusTextFormatter.new.call(html)
+ 
+     html.html_safe # rubocop:disable Rails/OutputSafety
+   end

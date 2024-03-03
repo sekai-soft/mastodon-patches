@@ -36,6 +36,12 @@ git push --tags
 
     3. After all features have been done, commit and push all changes
 
+        ```
+        git add --all
+        git commit -m "kt 4.1.6" --no-verify
+        git push origin kt-4.2.7-2 --no-verify
+        ```
+
 ## Publish the new Mastodon version
 
 Create a new release [here](https://github.com/k-t-corp/mastodon/releases/new)
