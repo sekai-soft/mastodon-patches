@@ -121,7 +121,7 @@ index 68484b59a..894f3f9fc 100644
        </div>
      );
 diff --git a/app/javascript/mastodon/features/ui/index.jsx b/app/javascript/mastodon/features/ui/index.jsx
-index 55ccde72f..8348fd970 100644
+index 55ccde72f..f35734e7e 100644
 --- a/app/javascript/mastodon/features/ui/index.jsx
 +++ b/app/javascript/mastodon/features/ui/index.jsx
 @@ -127,6 +127,7 @@ class SwitchingColumnsArea extends PureComponent {
@@ -154,22 +154,24 @@ index 55ccde72f..8348fd970 100644
  
    state = {
      draggingOver: false,
-+    isNavPanelOpen: false,
++    isNavPanelOpen: localStorage.getItem('kt_is_nav_panel_open', '0') == '1',
    };
  
    handleBeforeUnload = e => {
-@@ -283,6 +285,10 @@ class UI extends PureComponent {
+@@ -283,6 +285,12 @@ class UI extends PureComponent {
      }
    };
  
 +  handleToggleNavPanel = () => {
-+    this.setState({ isNavPanelOpen: !this.state.isNavPanelOpen });
++    const newState = !this.state.isNavPanelOpen;
++    this.setState({ isNavPanelOpen: newState });
++    localStorage.setItem('kt_is_nav_panel_open', newState ? '1' : '0');
 +  };
 +
    handleWindowFocus = () => {
      this.props.dispatch(focusApp());
      this.props.dispatch(submitMarkers({ immediate: true }));
-@@ -550,7 +556,7 @@ class UI extends PureComponent {
+@@ -550,7 +558,7 @@ class UI extends PureComponent {
    };
  
    render () {
@@ -178,7 +180,7 @@ index 55ccde72f..8348fd970 100644
      const { children, isComposing, location, dropdownMenuIsOpen, layout } = this.props;
  
      const handlers = {
-@@ -573,14 +579,15 @@ class UI extends PureComponent {
+@@ -573,14 +581,15 @@ class UI extends PureComponent {
        goToBlocked: this.handleHotkeyGoToBlocked,
        goToMuted: this.handleHotkeyGoToMuted,
        goToRequests: this.handleHotkeyGoToRequests,
