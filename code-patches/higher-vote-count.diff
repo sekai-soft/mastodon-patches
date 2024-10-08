@@ -1,16 +1,3 @@
-diff --git a/app/javascript/mastodon/features/compose/components/poll_form.jsx b/app/javascript/mastodon/features/compose/components/poll_form.jsx
-index 1a4d30abe..2a95ef64d 100644
---- a/app/javascript/mastodon/features/compose/components/poll_form.jsx
-+++ b/app/javascript/mastodon/features/compose/components/poll_form.jsx
-@@ -164,7 +164,7 @@ class PollForm extends ImmutablePureComponent {
-         </ul>
- 
-         <div className='poll__footer'>
--          <button type='button' disabled={options.size >= 4} className='button button-secondary' onClick={this.handleAddOption}><Icon id='plus' /> <FormattedMessage {...messages.add_option} /></button>
-+          <button type='button' disabled={options.size >= 9} className='button button-secondary' onClick={this.handleAddOption}><Icon id='plus' /> <FormattedMessage {...messages.add_option} /></button>
- 
-           {/* eslint-disable-next-line jsx-a11y/no-onchange */}
-           <select value={expiresIn} onChange={this.handleSelectDuration}>
 diff --git a/app/validators/poll_validator.rb b/app/validators/poll_validator.rb
 index a32727796..8a71986f0 100644
 --- a/app/validators/poll_validator.rb
