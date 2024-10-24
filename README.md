@@ -4,7 +4,7 @@ Patches for [my Mastodon instance](https://mastodon.ktachibana.party)
 
 ## Develop for a new Mastodon version
 
-1. Clone this repository and [my Mastodon fork](https://github.com/k-t-corp/mastodon)
+1. Clone this repository and [my Mastodon fork](https://github.com/sekai-soft/mastodon)
 
 2. For the mastodon fork, sync tags from upstream to fork
 
@@ -44,7 +44,7 @@ git push --tags
 
 ## Publish the new Mastodon version
 
-Create a new release [here](https://github.com/k-t-corp/mastodon/releases/new)
+Create a new release [here](https://github.com/sekai-soft/mastodon/releases/new)
 
 * Tag should be `vx.y.z+kt`, e.g. `v4.1.6+kt`
 
