@@ -14,9 +14,9 @@ git fetch --tags upstream
 git push --tags
 ```
 
-3. For the mastodon fork, checkout the tag for the version you want to publish, e.g. `git checkout v4.1.6`
+3. For the mastodon fork, checkout the tag for the version you want to publish, e.g. `git checkout v4.3.4`
 
-4. For the mastodon fork, checkout and switch to a new branch for the version, e.g. `git switch -c kt-4.1.6`
+4. For the mastodon fork, checkout and switch to a new branch for the version, e.g. `git switch -c kt-4.3.4`
 
 5. Open the mastodon fork in VSCode as devcontainer
 
@@ -38,14 +38,14 @@ git push --tags
 
         ```
         git add --all
-        git commit -m "kt 4.1.6" --no-verify
-        git push origin kt-4.2.7-2 --no-verify
+        git commit -m "kt 4.3.4" --no-verify
+        git push origin kt-4.3.4 --no-verify
         ```
 
 ## Publish the new Mastodon version
 
 Create a new release [here](https://github.com/sekai-soft/mastodon/releases/new)
 
-* Tag should be `vx.y.z+kt`, e.g. `v4.1.6+kt`
+* Tag should be `vx.y.z+kt`, e.g. `v4.3.4+kt`
 
-* Target should be the branch for the version, e.g. `kt-4.1.6`
+* Target should be the branch for the version, e.g. `kt-4.3.4`
