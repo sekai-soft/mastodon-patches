@@ -1,0 +1,70 @@
+diff --git a/app/chewy/accounts_index.rb b/app/chewy/accounts_index.rb
+index 59f2f991f..c0b7c9ba0 100644
+--- a/app/chewy/accounts_index.rb
++++ b/app/chewy/accounts_index.rb
+@@ -23,7 +23,7 @@ class AccountsIndex < Chewy::Index
+ 
+     analyzer: {
+       natural: {
+-        tokenizer: 'standard',
++        tokenizer: 'ik_max_word',
+         filter: %w(
+           lowercase
+           asciifolding
+diff --git a/app/chewy/statuses_index.rb b/app/chewy/statuses_index.rb
+index e739ccecb..d539e1006 100644
+--- a/app/chewy/statuses_index.rb
++++ b/app/chewy/statuses_index.rb
+@@ -21,6 +21,15 @@ class StatusesIndex < Chewy::Index
+       },
+     },
+ 
++    char_filter: {
++      tsconvert: {
++        type: 'stconvert',
++        keep_both: false,
++        delimiter: '#',
++        convert_type: 't2s',
++      },
++    },
++
+     analyzer: {
+       verbatim: {
+         tokenizer: 'uax_url_email',
+@@ -28,7 +37,7 @@ class StatusesIndex < Chewy::Index
+       },
+ 
+       content: {
+-        tokenizer: 'standard',
++        tokenizer: 'ik_max_word',
+         filter: %w(
+           lowercase
+           asciifolding
+@@ -38,6 +47,7 @@ class StatusesIndex < Chewy::Index
+           english_stop
+           english_stemmer
+         ),
++        char_filter: %w(tsconvert),
+       },
+ 
+       hashtag: {
+diff --git a/app/chewy/tags_index.rb b/app/chewy/tags_index.rb
+index c99218a47..e1dce1c1b 100644
+--- a/app/chewy/tags_index.rb
++++ b/app/chewy/tags_index.rb
+@@ -6,13 +6,14 @@ class TagsIndex < Chewy::Index
+   settings index: index_preset(refresh_interval: '30s'), analysis: {
+     analyzer: {
+       content: {
+-        tokenizer: 'keyword',
++        tokenizer: 'ik_max_word',
+         filter: %w(
+           word_delimiter_graph
+           lowercase
+           asciifolding
+           cjk_width
+         ),
++        char_filter: %w(tsconvert),
+       },
+ 
+       edge_ngram: {
