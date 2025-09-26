@@ -1,0 +1,98 @@
+diff --git a/app/chewy/accounts_index.rb b/app/chewy/accounts_index.rb
+index 796584e9c..cf30ae3f3 100644
+--- a/app/chewy/accounts_index.rb
++++ b/app/chewy/accounts_index.rb
+@@ -44,7 +44,7 @@ class AccountsIndex < Chewy::Index
+ 
+       # "FOO bar" becomes "foo bar"
+       verbatim: {
+-        tokenizer: 'standard',
++        tokenizer: 'ik_max_word',
+         filter: %w(lowercase asciifolding cjk_width),
+       },
+ 
+diff --git a/app/chewy/public_statuses_index.rb b/app/chewy/public_statuses_index.rb
+index 09a4dfc09..aa682c909 100644
+--- a/app/chewy/public_statuses_index.rb
++++ b/app/chewy/public_statuses_index.rb
+@@ -21,6 +21,15 @@ class PublicStatusesIndex < Chewy::Index
+       },
+     },
+ 
++    char_filter: {
++      tsconvert: {
++        type: 'stconvert',
++        keep_both: false,
++        delimiter: '#',
++        convert_type: 't2s',
++      },
++    },
++
+     analyzer: {
+       verbatim: {
+         tokenizer: 'uax_url_email',
+@@ -28,7 +37,8 @@ class PublicStatusesIndex < Chewy::Index
+       },
+ 
+       content: {
+-        tokenizer: 'standard',
++        tokenizer: 'ik_max_word',
++        char_filter: %w(tsconvert),
+         filter: %w(
+           lowercase
+           asciifolding
+diff --git a/app/chewy/statuses_index.rb b/app/chewy/statuses_index.rb
+index e739ccecb..874877c75 100644
+--- a/app/chewy/statuses_index.rb
++++ b/app/chewy/statuses_index.rb
+@@ -21,6 +21,15 @@ class StatusesIndex < Chewy::Index
+       },
+     },
+ 
++    char_filter: {
++      tsconvert: {
++        type: 'stconvert',
++        keep_both: false,
++        delimiter: '#',
++        convert_type: 't2s',
++      },
++    },
++
+     analyzer: {
+       verbatim: {
+         tokenizer: 'uax_url_email',
+@@ -28,7 +37,8 @@ class StatusesIndex < Chewy::Index
+       },
+ 
+       content: {
+-        tokenizer: 'standard',
++        tokenizer: 'ik_max_word',
++        char_filter: %w(tsconvert),
+         filter: %w(
+           lowercase
+           asciifolding
+diff --git a/app/chewy/tags_index.rb b/app/chewy/tags_index.rb
+index c99218a47..8c3029503 100644
+--- a/app/chewy/tags_index.rb
++++ b/app/chewy/tags_index.rb
+@@ -4,9 +4,19 @@ class TagsIndex < Chewy::Index
+   include DatetimeClampingConcern
+ 
+   settings index: index_preset(refresh_interval: '30s'), analysis: {
++    char_filter: {
++      tsconvert: {
++        type: 'stconvert',
++        keep_both: false,
++        delimiter: '#',
++        convert_type: 't2s',
++      },
++    },
++
+     analyzer: {
+       content: {
+-        tokenizer: 'keyword',
++        tokenizer: 'ik_smart',
++        char_filter: %w(tsconvert),
+         filter: %w(
+           word_delimiter_graph
+           lowercase

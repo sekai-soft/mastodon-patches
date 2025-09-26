@@ -28,6 +28,8 @@ git push --tags
 
         * Use `bin/dev` to start
 
+        * Use `bundle exec rails assets:precompile` to test frontend assets
+
         * The web UI is located at [`http://localhost:3000`](http://localhost:3000). Use username `admin@localhost` and password `mastodonadmin`.
 
         * To revert all code patches in the mastodon fork, use `MASTODON_PATH=/path/to/mastodon-fork ./revert-code-patches.sh`
