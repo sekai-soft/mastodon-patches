@@ -26,9 +26,9 @@ git push --tags
 
         * Change code in the mastodon fork
 
-        * Use `bin/dev` to start
+        * Use `bundle exec rails assets:precompile` to test compiling frontend assets
 
-        * Use `bundle exec rails assets:precompile` to test frontend assets
+        * Use `bin/dev` to start
 
         * The web UI is located at [`http://localhost:3000`](http://localhost:3000). Use username `admin@localhost` and password `mastodonadmin`.
 
