@@ -28,7 +28,7 @@ index 000000000..b38e89a2e
 +  end
 +end
 diff --git a/app/lib/text_formatter.rb b/app/lib/text_formatter.rb
-index 581ee835b..f26de6509 100644
+index 963cc0d1c..7c0ad41da 100644
 --- a/app/lib/text_formatter.rb
 +++ b/app/lib/text_formatter.rb
 @@ -44,6 +44,7 @@ class TextFormatter
@@ -36,6 +36,6 @@ index 581ee835b..f26de6509 100644
  
      html = simple_format(html, {}, sanitize: false).delete("\n") if multiline?
 +    html = GooglePlusTextFormatter.new.call(html)
+     html = add_quote_fallback(html) if options[:quoted_status].present?
  
      html.html_safe # rubocop:disable Rails/OutputSafety
-   end

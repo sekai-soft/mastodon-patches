@@ -1,13 +1,13 @@
 diff --git a/app/models/status.rb b/app/models/status.rb
-index 0990d9d56..d5bc0f6b4 100644
+index 0bff4f282..a9fab097f 100644
 --- a/app/models/status.rb
 +++ b/app/models/status.rb
-@@ -44,7 +44,7 @@ class Status < ApplicationRecord
-   include Status::ThreadingConcern
+@@ -45,7 +45,7 @@ class Status < ApplicationRecord
    include Status::Visibility
+   include Status::InteractionPolicyConcern
  
 -  MEDIA_ATTACHMENTS_LIMIT = 4
 +  MEDIA_ATTACHMENTS_LIMIT = 16
  
-   QUOTE_APPROVAL_POLICY_FLAGS = {
-     unknown: (1 << 0),
+   rate_limit by: :account, family: :statuses
+ 
